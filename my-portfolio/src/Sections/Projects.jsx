@@ -7,10 +7,10 @@ import salonImg from "../assets/Salon.png";
 import lisenceImg from "../assets/lisence.jpg";
 import uamsImg from "../assets/umas.jpg";
 import crickdatabaseImg from "../assets/database.png";
-import nextjslogo from "../assets/next.png";
 
 function Projects() {
   const [isVisible, setIsVisible] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(4);
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -28,13 +28,14 @@ function Projects() {
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -155,7 +156,7 @@ function Projects() {
 
           {/* Project Cards */}
           <div className="space-y-6 md:space-y-8">
-            {projectsData.map((project, index) => (
+            {projectsData.slice(0, visibleCount).map((project, index) => (
               <div
                 key={index}
                 className={`rounded-lg overflow-hidden flex flex-col md:flex-row ${
@@ -171,6 +172,8 @@ function Projects() {
                     <img
                       src={project.image}
                       alt={project.title}
+                      loading="lazy"
+                      decoding="async"
                       className="max-w-full max-h-full object-contain"
                     />
                   ) : (
@@ -256,6 +259,18 @@ function Projects() {
               </div>
             ))}
           </div>
+
+          {/* See More Button */}
+          {visibleCount < projectsData.length && (
+            <div className="flex justify-center mt-12">
+              <button
+                onClick={() => setVisibleCount((prev) => prev + 4)}
+                className="bg-[#1F2937] text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-[#374151] transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:ring-offset-2 focus:ring-offset-[#030712]"
+              >
+                See More Projects
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>

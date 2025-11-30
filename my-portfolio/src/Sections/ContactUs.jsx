@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FaXTwitter, FaInstagram, FaLinkedin } from "react-icons/fa6";
+import emailjs from "@emailjs/browser";
 
 function ContactUs() {
+  const form = useRef();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,8 +22,36 @@ function ContactUs() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
+    setLoading(true);
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    emailjs
+      .sendForm(serviceId, templateId, form.current, {
+        publicKey: publicKey,
+      })
+      .then(
+        () => {
+          console.log("SUCCESS!");
+          alert("Message sent successfully!");
+          setFormData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            message: "",
+          });
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+          alert("Failed to send message. Please try again.");
+        }
+      )
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -57,7 +88,7 @@ function ContactUs() {
         </div>
 
         {/* Contact Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form ref={form} onSubmit={handleSubmit} className="space-y-6">
           {/* First Name and Last Name Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -75,6 +106,7 @@ function ContactUs() {
                 onChange={handleChange}
                 className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent transition-all"
                 placeholder="Jonathan"
+                required
               />
             </div>
             <div>
@@ -92,6 +124,7 @@ function ContactUs() {
                 onChange={handleChange}
                 className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent transition-all"
                 placeholder="James"
+                required
               />
             </div>
           </div>
@@ -113,6 +146,7 @@ function ContactUs() {
                 onChange={handleChange}
                 className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent transition-all"
                 placeholder="Jonathan2718@gmail.com"
+                required
               />
             </div>
             <div>
@@ -150,6 +184,7 @@ function ContactUs() {
               rows="6"
               className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent transition-all resize-none"
               placeholder="Type your message here..."
+              required
             ></textarea>
           </div>
 
@@ -157,9 +192,12 @@ function ContactUs() {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="px-8 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white font-medium hover:bg-gray-700 hover:border-gray-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-[#111827]"
+              disabled={loading}
+              className={`px-8 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white font-medium hover:bg-gray-700 hover:border-gray-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-[#111827] ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
-              Send message
+              {loading ? "Sending..." : "Send message"}
             </button>
           </div>
         </form>

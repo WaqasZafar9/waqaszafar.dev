@@ -165,7 +165,7 @@ const Certificates = () => {
     <section
       ref={sectionRef}
       id="certificates"
-      className="bg-[#111827] py-16 px-4 relative overflow-hidden"
+      className="bg-[#030712] py-16 px-4 relative overflow-hidden"
     >
       <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
         {/* Header */}

@@ -80,6 +80,13 @@ function Navbar() {
                 Projects
               </a>
               <a
+                href="#certificates"
+                onClick={(e) => handleNavClick(e, "certificates")}
+                className="text-white hover:text-gray-300 transition-colors font-medium cursor-pointer"
+              >
+                Certificates
+              </a>
+              <a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, "contact")}
                 className="text-white hover:text-gray-300 transition-colors font-medium cursor-pointer"
