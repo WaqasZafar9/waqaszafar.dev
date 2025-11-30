@@ -18,7 +18,7 @@ function Footer() {
       text: "You may also find me on these platforms!",
       links: [
         { name: "GitHub", url: "https://github.com/WaqasZafar9", icon: FaGithub },
-        { name: "Twitter", url: "https://twitter.com", icon: FaXTwitter },
+        { name: "Twitter", url: "https://x.com/m_waqaszafar", icon: FaXTwitter },
         { name: "LinkedIn", url: "https://www.linkedin.com/in/m-waqas-zafar", icon: FaLinkedin }
       ]
     },

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaXTwitter, FaInstagram, FaDiscord } from "react-icons/fa6";
+import { FaXTwitter, FaInstagram, FaLinkedin } from "react-icons/fa6";
 
 function ContactUs() {
   const [formData, setFormData] = useState({
@@ -167,7 +167,7 @@ function ContactUs() {
         {/* Social Media Icons */}
         <div className="flex justify-center items-center gap-6 mt-12">
           <a
-            href="https://twitter.com"
+            href="https://x.com/m_waqaszafar"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white text-2xl hover:text-gray-300 transition-colors duration-300"
@@ -176,7 +176,7 @@ function ContactUs() {
             <FaXTwitter />
           </a>
           <a
-            href="https://instagram.com"
+            href="https://instagram.com/m_waqaszafar"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white text-2xl hover:text-gray-300 transition-colors duration-300"
@@ -185,13 +185,13 @@ function ContactUs() {
             <FaInstagram />
           </a>
           <a
-            href="https://discord.com"
+            href="www.linkedin.com/in/m-waqas-zafar"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white text-2xl hover:text-gray-300 transition-colors duration-300"
-            aria-label="Discord"
+            aria-label="Linkedin"
           >
-            <FaDiscord />
+            <FaLinkedin />
           </a>
         </div>
       </div>
