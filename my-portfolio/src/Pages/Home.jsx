@@ -1,5 +1,4 @@
 import React, { Suspense, lazy } from "react";
-import { Helmet } from "react-helmet-async";
 
 // Priority imports (above-the-fold content)
 import Navbar from "../Components/navbar";
@@ -28,57 +27,56 @@ const SectionLoader = () => (
 function Home() {
   return (
     <>
-      <Helmet>
-        {/* Primary Meta Tags */}
-        <title>Waqas Zafar - Software Developer Portfolio</title>
-        <meta
-          name="title"
-          content="Waqas Zafar - Software Developer | Web & Mobile App Development"
-        />
-        <meta
-          name="description"
-          content="Explore the portfolio of Waqas Zafar, a skilled Software Developer specializing in modern web and mobile applications. Expert in React, Next.js, Node.js, JavaScript, AI Automation, and responsive design. View my projects, experience, and skills."
-        />
-        <meta
-          name="keywords"
-          content="Waqas Zafar Portfolio, Software Developer, Full Stack Developer, Web Developer, React Developer, Next.js Developer, Node.js, JavaScript, Frontend Developer, Backend Developer, Mobile App Developer, AI Automation, Gen AI, UI/UX Design, Responsive Web Design, waqaszafar, M Waqas Zafar, Muhammad Waqas Zafar, Lahore Pakistan Developer"
-        />
+      {/* React 19 Native Metadata Support - automatically hoisted to <head> */}
+      {/* Primary Meta Tags */}
+      <title>Waqas Zafar - Software Developer Portfolio</title>
+      <meta
+        name="title"
+        content="Waqas Zafar - Software Developer | Web & Mobile App Development"
+      />
+      <meta
+        name="description"
+        content="Explore the portfolio of Waqas Zafar, a skilled Software Developer specializing in modern web and mobile applications. Expert in React, Next.js, Node.js, JavaScript, AI Automation, and responsive design. View my projects, experience, and skills."
+      />
+      <meta
+        name="keywords"
+        content="Waqas Zafar Portfolio, Software Developer, Full Stack Developer, Web Developer, React Developer, Next.js Developer, Node.js, JavaScript, Frontend Developer, Backend Developer, Mobile App Developer, AI Automation, Gen AI, UI/UX Design, Responsive Web Design, waqaszafar, M Waqas Zafar, Muhammad Waqas Zafar, Lahore Pakistan Developer"
+      />
 
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://waqaszafar.tech/" />
-        <meta
-          property="og:title"
-          content="Waqas Zafar - Software Developer | Web & Mobile App Development"
-        />
-        <meta
-          property="og:description"
-          content="Explore the portfolio of Waqas Zafar, a Software Developer creating modern, responsive web and mobile applications. Specializing in React, Next.js, AI Automation, and other modern technologies."
-        />
-        <meta
-          property="og:image"
-          content="https://waqaszafar.tech/og-image.png"
-        />
+      {/* Open Graph / Facebook */}
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://waqaszafar.tech/" />
+      <meta
+        property="og:title"
+        content="Waqas Zafar - Software Developer | Web & Mobile App Development"
+      />
+      <meta
+        property="og:description"
+        content="Explore the portfolio of Waqas Zafar, a Software Developer creating modern, responsive web and mobile applications. Specializing in React, Next.js, AI Automation, and other modern technologies."
+      />
+      <meta
+        property="og:image"
+        content="https://waqaszafar.tech/og-image.png"
+      />
 
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content="https://waqaszafar.tech/" />
-        <meta
-          name="twitter:title"
-          content="Waqas Zafar - Software Developer | Web & Mobile App Development"
-        />
-        <meta
-          name="twitter:description"
-          content="Explore the portfolio of Waqas Zafar, a Software Developer creating modern, responsive web and mobile applications. Specializing in React, Next.js, AI Automation, and other modern technologies."
-        />
-        <meta
-          name="twitter:image"
-          content="https://waqaszafar.tech/twitter-image.png"
-        />
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content="https://waqaszafar.tech/" />
+      <meta
+        name="twitter:title"
+        content="Waqas Zafar - Software Developer | Web & Mobile App Development"
+      />
+      <meta
+        name="twitter:description"
+        content="Explore the portfolio of Waqas Zafar, a Software Developer creating modern, responsive web and mobile applications. Specializing in React, Next.js, AI Automation, and other modern technologies."
+      />
+      <meta
+        name="twitter:image"
+        content="https://waqaszafar.tech/twitter-image.png"
+      />
 
-        {/* Canonical URL */}
-        <link rel="canonical" href="https://waqaszafar.tech/" />
-      </Helmet>
+      {/* Canonical URL */}
+      <link rel="canonical" href="https://waqaszafar.tech/" />
 
       <div className="overflow-hidden">
         {/* Critical above-the-fold content - loaded immediately */}

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 
 function NotFound() {
@@ -41,14 +40,13 @@ function NotFound() {
 
   return (
     <>
-      <Helmet>
-        <title>404 - Page Not Found | Waqas Zafar</title>
-        <meta
-          name="description"
-          content="The page you're looking for doesn't exist."
-        />
-        <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
+      {/* React 19 Native Metadata Support */}
+      <title>404 - Page Not Found | Waqas Zafar</title>
+      <meta
+        name="description"
+        content="The page you're looking for doesn't exist."
+      />
+      <meta name="robots" content="noindex, nofollow" />
 
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 flex items-center justify-center overflow-hidden relative">
         {/* Animated background elements */}
