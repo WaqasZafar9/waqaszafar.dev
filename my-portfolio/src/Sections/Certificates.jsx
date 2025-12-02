@@ -1,11 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import { FaExternalLinkAlt, FaAward, FaCertificate } from "react-icons/fa";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const Certificates = () => {
@@ -45,28 +44,28 @@ const Certificates = () => {
       title: "AWS Academy Cloud Architecting",
       issuer: "Amazon Web Services Training and Certification",
       date: "Jan 2025",
-      link: "#",
+      link: "https://www.credly.com/badges/1129539a-204f-423a-97df-9493644549a6/public_url",
     },
     {
       id: 2,
       title: "Internship in Flutter Development",
       issuer: "Social Swirl",
       date: "Oct 2024",
-      link: "#",
+      link: "https://www.linkedin.com/in/m-waqas-zafar/details/certifications/",
     },
     {
       id: 3,
       title: "Building a Dynamic Web App Using PHP & MySQL",
       issuer: "Coursera",
       date: "2023",
-      link: "#",
+      link: "https://coursera.org/verify/R73CQWNR6WZ2",
     },
     {
       id: 4,
       title: "Object Oriented Programming in Java",
       issuer: "Coursera",
       date: "2023",
-      link: "#",
+      link: "https://coursera.org/verify/KQG4G7F954N3",
     },
     {
       id: 5,
@@ -80,28 +79,28 @@ const Certificates = () => {
       title: "Introduction to Artificial Intelligence (AI)",
       issuer: "IBM, Coursera",
       date: "2024",
-      link: "#",
+      link: "https://coursera.org/verify/BCZJ499ME9BG",
     },
     {
       id: 7,
       title: "Generative AI",
-      issuer: "Google / Coursera",
+      issuer: "Google",
       date: "2024",
-      link: "#",
+      link: "https://shorturl.at/ZqryQ",
     },
     {
       id: 8,
       title: "Oracle Database Foundations",
       issuer: "Coursera",
       date: "2023",
-      link: "#",
+      link: "https://coursera.org/verify/KQG4G7F954N3",
     },
     {
       id: 9,
       title: "Ordered Data Structures",
       issuer: "Coursera",
       date: "2023",
-      link: "#",
+      link: "https://coursera.org/verify/H9DEPPFDZT3B",
     },
     {
       id: 10,
@@ -115,7 +114,7 @@ const Certificates = () => {
       title: "Site Reliability Engineering: Measuring and Managing Reliability",
       issuer: "Google",
       date: "2024",
-      link: "#",
+      link: "https://coursera.org/verify/YL8SDS856JQN",
     },
     {
       id: 12,
@@ -165,7 +164,7 @@ const Certificates = () => {
     <section
       ref={sectionRef}
       id="certificates"
-      className="bg-[#030712] py-16 px-4 relative overflow-hidden"
+      className="bg-[#030712] py-16 relative overflow-hidden"
     >
       <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
         {/* Header */}
@@ -185,28 +184,30 @@ const Certificates = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Professional <span className="text-[#10B981]">Certificates</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Validating my skills and expertise through recognized certifications
-            from industry leaders.
-          </p>
+          <p className="text-gray-400 max-w-2xl mx-auto">Swipe to see more</p>
         </div>
 
         {/* Slider */}
         <div
-          className={`transition-all duration-1000 delay-300 ${
+          className={`transition-all duration-1000 delay-300 relative ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
           }`}
         >
           <Swiper
-            modules={[Navigation, Pagination, Autoplay]}
+            modules={[Pagination, Autoplay]}
             spaceBetween={24}
             slidesPerView={1}
             autoplay={{
               delay: 4000,
               disableOnInteraction: false,
+              pauseOnMouseEnter: true,
             }}
-            pagination={{ clickable: true }}
-            navigation={true}
+            pagination={{
+              clickable: true,
+              dynamicBullets: true,
+            }}
+            navigation={false}
+            loop={true}
             breakpoints={{
               640: {
                 slidesPerView: 2,
@@ -217,11 +218,11 @@ const Certificates = () => {
                 spaceBetween: 30,
               },
             }}
-            className="certificate-swiper pb-16"
+            className="certificate-swiper pb-24"
           >
             {certificatesData.map((cert) => (
               <SwiperSlide key={cert.id} className="h-auto">
-                <div className="bg-[#1F2937] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-800 group h-full flex flex-col max-w-sm mx-auto">
+                <div className="bg-[#1F2937] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-800 group h-full flex flex-col max-w-full mx-auto">
                   {/* Image Container */}
                   <div className="relative h-40 shrink-0 overflow-hidden">
                     <img
@@ -261,7 +262,7 @@ const Certificates = () => {
                         href={cert.link}
                         className="inline-flex items-center gap-2 text-xs text-gray-400 hover:text-[#10B981] transition-colors mt-1"
                       >
-                        View Credential{" "}
+                        Verify Credential{" "}
                         <FaExternalLinkAlt className="text-[10px]" />
                       </a>
                     </div>
@@ -274,26 +275,68 @@ const Certificates = () => {
       </div>
 
       <style>{`
+        /* Container Styling - No side padding needed without navigation */
+        .certificate-swiper {
+          padding-bottom: 24px;
+        }
+        
+        /* Pagination Styling - Positioned Outside Cards */
         .certificate-swiper .swiper-pagination {
           bottom: 0 !important;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 8px;
+          padding-top: 32px;
         }
+        
         .certificate-swiper .swiper-pagination-bullet {
-          background: #4b5563;
-          opacity: 0.5;
-        }
-        .certificate-swiper .swiper-pagination-bullet-active {
-          background: #10b981;
+          width: 12px;
+          height: 12px;
+          background: #374151;
           opacity: 1;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          border-radius: 50%;
+          margin: 0 6px !important;
         }
-        .certificate-swiper .swiper-button-next,
-        .certificate-swiper .swiper-button-prev {
-          color: #10b981;
-          width: 30px;
-          height: 30px;
+        
+        .certificate-swiper .swiper-pagination-bullet:hover {
+          background: #4B5563;
+          transform: scale(1.2);
+          cursor: pointer;
         }
-        .certificate-swiper .swiper-button-next::after,
-        .certificate-swiper .swiper-button-prev::after {
-          font-size: 14px;
+        
+        .certificate-swiper .swiper-pagination-bullet-active {
+          background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+          width: 40px;
+          border-radius: 8px;
+          box-shadow: 0 0 28px rgba(16, 185, 129, 0.6);
+        }
+        
+        /* Mobile adjustments */
+        @media (max-width: 640px) {
+          .certificate-swiper .swiper-pagination {
+            padding-top: 24px;
+          }
+          
+          .certificate-swiper .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            margin: 0 4px !important;
+          }
+          
+          .certificate-swiper .swiper-pagination-bullet-active {
+            width: 32px;
+          }
+        }
+        
+        /* Smooth slide transitions */
+        .certificate-swiper .swiper-slide {
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .certificate-swiper .swiper-slide-active {
+          z-index: 2;
         }
       `}</style>
     </section>

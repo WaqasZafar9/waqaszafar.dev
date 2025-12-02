@@ -155,19 +155,19 @@ function Projects() {
           </h2>
 
           {/* Project Cards */}
-          <div className="space-y-6 md:space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {projectsData.slice(0, visibleCount).map((project, index) => (
               <div
                 key={index}
-                className={`rounded-lg overflow-hidden flex flex-col md:flex-row ${
+                className={`rounded-lg overflow-hidden flex flex-col ${
                   isVisible ? "animate-fade-in-up" : "opacity-0"
                 }`}
                 style={{
                   animationDelay: `${index * 0.2}s`,
                 }}
               >
-                {/* Left Side - Project Image */}
-                <div className="bg-[#4B5563] w-full md:w-1/2 h-64 md:h-[400px] flex items-center justify-center overflow-hidden">
+                {/* Project Image */}
+                <div className="bg-[#4B5563] w-full h-64 flex items-center justify-center overflow-hidden">
                   {project.image ? (
                     <img
                       src={project.image}
@@ -186,10 +186,10 @@ function Projects() {
                   )}
                 </div>
 
-                {/* Right Side - Project Details */}
-                <div className="bg-[#1F2937] w-full md:w-1/2 md:h-[400px] p-6 md:p-8 flex flex-col justify-start">
+                {/* Project Details */}
+                <div className="bg-[#1F2937] w-full p-6 md:p-8 flex flex-col justify-start flex-grow">
                   {/* Project Title */}
-                  <h3 className="text-white text-2xl md:text-3xl font-bold mb-4">
+                  <h3 className="text-white text-xl md:text-2xl font-bold mb-4">
                     {project.title}
                   </h3>
 

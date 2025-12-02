@@ -82,8 +82,9 @@ function Skills() {
       title: "Databases",
       items: [
         { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-
+        { name: "MySQL", icon: SiMysql, color: "#4479A1" },
         { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
+        { name: "Oracle", icon: SiOracle, color: "#F80000" },
       ],
     },
     {
@@ -102,11 +103,97 @@ function Skills() {
     },
   ];
 
+  const SkillCard = ({ item }) => {
+    const IconComponent = item.icon;
+    const isImageIcon = typeof IconComponent === "string";
+
+    return (
+      <div className="flex-shrink-0 w-[140px] md:w-[160px] lg:w-[180px] mx-4">
+        <div className="bg-[#1F2937]/50 backdrop-blur-sm rounded-2xl p-6 border border-[#374151] hover:border-blue-500/50 hover:bg-[#1F2937]/80 transition-all duration-300 group cursor-pointer h-full flex flex-col items-center justify-center">
+          <div className="mb-4 transition-transform duration-300 group-hover:scale-110 flex items-center justify-center">
+            {isImageIcon ? (
+              <img
+                src={IconComponent}
+                alt={item.name}
+                className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
+              />
+            ) : (
+              <IconComponent
+                className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16"
+                style={item.color ? { color: item.color } : {}}
+              />
+            )}
+          </div>
+          <span className="text-white text-sm md:text-base text-center font-medium">
+            {item.name}
+          </span>
+        </div>
+      </div>
+    );
+  };
+
+  const SkillSlider = ({ items, direction = "left" }) => {
+    // Duplicate items multiple times for seamless infinite scroll
+    const duplicatedItems = [...items, ...items, ...items];
+
+    return (
+      <div className="relative w-full overflow-hidden">
+        {/* Gradient overlays */}
+        <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-[#030712] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-[#030712] to-transparent z-10 pointer-events-none" />
+
+        <div className="flex w-full">
+          <style>
+            {`
+              @keyframes scroll-left {
+                0% {
+                  transform: translateX(0);
+                }
+                100% {
+                  transform: translateX(-33.333%);
+                }
+              }
+              @keyframes scroll-right {
+                0% {
+                  transform: translateX(-33.333%);
+                }
+                100% {
+                  transform: translateX(0);
+                }
+              }
+              .animate-scroll-left {
+                animation: scroll-left 30s linear infinite;
+              }
+              .animate-scroll-right {
+                animation: scroll-right 30s linear infinite;
+              }
+              .animate-scroll-left:hover,
+              .animate-scroll-right:hover {
+                animation-play-state: paused;
+              }
+            `}
+          </style>
+          <div
+            className={`flex ${
+              direction === "left"
+                ? "animate-scroll-left"
+                : "animate-scroll-right"
+            }`}
+          >
+            {duplicatedItems.map((item, idx) => (
+              <SkillCard key={`${item.name}-${idx}`} item={item} />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section
       ref={sectionRef}
       id="skills"
-      className="bg-[#030712] h-auto flex items-center justify-center py-[50px] px-4"
+      className="bg-[#030712] h-auto flex items-center justify-center py-[50px] px-4 overflow-hidden"
     >
       <div className="container max-w-7xl px-4 md:px-6 lg:px-8">
         <div
@@ -116,75 +203,29 @@ function Skills() {
               : "opacity-0 translate-x-[-50px]"
           }`}
         >
-          {/* Skills Button */}
+          {/* Skills Button
           <div className="flex justify-center mb-6">
             <button className="bg-[#1F2937] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#374151] transition-colors">
               Skills
             </button>
-          </div>
+          </div> */}
 
           <h2 className="text-xl md:text-3xl font-regular text-[#D1D5DB] mb-8 md:mb-12 text-center">
             The skills, tools, technologies and concepts I work with:
           </h2>
 
-          <div className="space-y-12">
+          <div className="space-y-20">
             {skillSections.map((section, sectionIdx) => (
               <div key={sectionIdx}>
-                <div className="mb-4 mt-8 flex items-center">
-                  <span className="text-lg md:text-2xl text-[#D1D5DB] font-semibold tracking-wide">
+                <div className="mb-10 flex items-center justify-center">
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl text-white font-bold tracking-tight">
                     {section.title}
-                  </span>
+                  </h3>
                 </div>
-                <div
-                  className={
-                    section.title === "👥 Soft Skills"
-                      ? "flex flex-wrap gap-2 md:gap-4"
-                      : "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-6 md:gap-8"
-                  }
-                >
-                  {section.items.map((item, idx) => {
-                    const IconComponent = item.icon;
-                    const isImageIcon = typeof IconComponent === "string";
-                    return (
-                      <div
-                        key={item.name + idx}
-                        className={`flex flex-col items-center justify-center group ${
-                          IconComponent ? "cursor-pointer" : "cursor-default"
-                        }`}
-                      >
-                        {IconComponent ? (
-                          <div className="mb-2 md:mb-3 transition-transform duration-300 group-hover:scale-110 flex items-center justify-center">
-                            {isImageIcon ? (
-                              <img
-                                src={IconComponent}
-                                alt={item.name}
-                                className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
-                              />
-                            ) : (
-                              <IconComponent
-                                className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16"
-                                style={item.color ? { color: item.color } : {}}
-                              />
-                            )}
-                          </div>
-                        ) : (
-                          <div className="mb-2 md:mb-3 w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center bg-[#1F2937] rounded-lg border border-[#374151] transition-all duration-300 group-hover:bg-[#374151] group-hover:border-[#4B5563]">
-                            <span className="text-[#FFDE68] text-lg md:text-2xl lg:text-3xl font-bold">
-                              {item.name.charAt(0).toUpperCase()}
-                            </span>
-                          </div>
-                        )}
-                        <span
-                          className={`text-white text-xs md:text-sm text-center font-medium ${
-                            !IconComponent ? "mt-1" : ""
-                          }`}
-                        >
-                          {item.name}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
+                <SkillSlider
+                  items={section.items}
+                  direction={sectionIdx % 2 === 0 ? "left" : "right"}
+                />
               </div>
             ))}
           </div>
