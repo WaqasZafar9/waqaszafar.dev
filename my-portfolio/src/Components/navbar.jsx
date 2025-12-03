@@ -54,42 +54,42 @@ function Navbar() {
               <a
                 href="#home"
                 onClick={(e) => handleNavClick(e, "home")}
-                className="text-white hover:text-gray-300 transition-colors font-medium cursor-pointer"
+                className="text-white hover:text-gray-300 font-medium cursor-pointer transition-all bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat hover:bg-[length:100%_2px] pb-1"
               >
                 Home
               </a>
               <a
                 href="#about"
                 onClick={(e) => handleNavClick(e, "about")}
-                className="text-white hover:text-gray-300 transition-colors font-medium cursor-pointer"
+                className="text-white hover:text-gray-300 font-medium cursor-pointer transition-all bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat hover:bg-[length:100%_2px] pb-1"
               >
                 About
               </a>
               <a
                 href="#skills"
                 onClick={(e) => handleNavClick(e, "skills")}
-                className="text-white hover:text-gray-300 transition-colors font-medium cursor-pointer"
+                className="text-white hover:text-gray-300 font-medium cursor-pointer transition-all bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat hover:bg-[length:100%_2px] pb-1"
               >
                 Skills
               </a>
               <a
                 href="#projects"
                 onClick={(e) => handleNavClick(e, "projects")}
-                className="text-white hover:text-gray-300 transition-colors font-medium cursor-pointer"
+                className="text-white hover:text-gray-300 font-medium cursor-pointer transition-all bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat hover:bg-[length:100%_2px] pb-1"
               >
                 Projects
               </a>
               <a
                 href="#certificates"
                 onClick={(e) => handleNavClick(e, "certificates")}
-                className="text-white hover:text-gray-300 transition-colors font-medium cursor-pointer"
+                className="text-white hover:text-gray-300 font-medium cursor-pointer transition-all bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat hover:bg-[length:100%_2px] pb-1"
               >
                 Certificates
               </a>
               <a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, "contact")}
-                className="text-white hover:text-gray-300 transition-colors font-medium cursor-pointer"
+                className="text-white hover:text-gray-300 font-medium cursor-pointer transition-all bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat hover:bg-[length:100%_2px] pb-1"
               >
                 Contact
               </a>
@@ -146,28 +146,28 @@ function Navbar() {
             <a
               href="#home"
               onClick={(e) => handleNavClick(e, "home")}
-              className="text-white hover:text-gray-300 transition-colors font-medium text-lg cursor-pointer"
+              className="text-white hover:text-gray-300 font-medium text-lg cursor-pointer inline-block transition-all bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat hover:bg-[length:100%_2px] pb-1"
             >
               Home
             </a>
             <a
               href="#about"
               onClick={(e) => handleNavClick(e, "about")}
-              className="text-white hover:text-gray-300 transition-colors font-medium text-lg cursor-pointer"
+              className="text-white hover:text-gray-300 font-medium text-lg cursor-pointer inline-block transition-all bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat hover:bg-[length:100%_2px] pb-1"
             >
               About
             </a>
             <a
               href="#skills"
               onClick={(e) => handleNavClick(e, "skills")}
-              className="text-white hover:text-gray-300 transition-colors font-medium text-lg cursor-pointer"
+              className="text-white hover:text-gray-300 font-medium text-lg cursor-pointer inline-block transition-all bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat hover:bg-[length:100%_2px] pb-1"
             >
               Skills
             </a>
             <a
               href="#projects"
               onClick={(e) => handleNavClick(e, "projects")}
-              className="text-white hover:text-gray-300 transition-colors font-medium text-lg cursor-pointer"
+              className="text-white hover:text-gray-300 font-medium text-lg cursor-pointer inline-block transition-all bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat hover:bg-[length:100%_2px] pb-1"
             >
               Projects
             </a>

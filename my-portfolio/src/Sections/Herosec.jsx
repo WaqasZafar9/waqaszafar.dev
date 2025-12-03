@@ -107,7 +107,7 @@ function Herosec() {
               . I build responsive, dynamic applications and have experience
               across the full stack—from{" "}
               <span className="text-white font-medium">
-                Flutter mobile apps
+                 mobile apps
               </span>{" "}
               to backend with{" "}
               <span className="text-white font-medium">

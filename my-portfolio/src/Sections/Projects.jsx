@@ -86,7 +86,7 @@ function Projects() {
         "VS Code",
       ],
       image: galaxyCricketImg,
-      liveUrl: "#",
+      liveUrl: "https://waqaszafar9.github.io/Galaxy-Cricket-Website/",
       githubUrl: "https://github.com/WaqasZafar9/Galaxy-Cricket-Website.git",
     },
     {
@@ -165,16 +165,16 @@ function Projects() {
                 style={{
                   animationDelay: `${index * 0.2}s`,
                 }}
-              >
+              > 
                 {/* Project Image */}
-                <div className="bg-[#4B5563] w-full h-64 flex items-center justify-center overflow-hidden">
+                <div className="w-full h-64 overflow-hidden">
                   {project.image ? (
                     <img
                       src={project.image}
                       alt={project.title}
                       loading="lazy"
                       decoding="async"
-                      className="max-w-full max-h-full object-contain"
+                      className="w-full h-full object-cover"
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-gray-400 to-gray-600 flex flex-col items-center justify-center text-white p-6">
