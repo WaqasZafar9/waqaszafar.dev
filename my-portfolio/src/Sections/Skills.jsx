@@ -64,12 +64,12 @@ function Skills() {
   // All skills organized by category as per prompt
   const skillSections = [
     {
-      title: "Programming & Technologies",
+      title: "Stacks",
       icon: null,
       items: [
         { name: "Javascript", icon: SiJavascript, color: "#F7DF1E" },
         { name: "WEBFLOW", icon: SiWebflow, color: "#4353FF" },
-        { name: "PHP", icon: SiPhp, color: "#777BB4" },
+        // { name: "PHP", icon: SiPhp, color: "#777BB4" },
         { name: "React.js", icon: SiReact, color: "#61DAFB" },
         { name: "Next.js", icon: nextjslogo, color: "#000" },
         { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
@@ -82,9 +82,9 @@ function Skills() {
       title: "Databases",
       items: [
         { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-        { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+        // { name: "MySQL", icon: SiMysql, color: "#4479A1" },
         { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
-        { name: "Oracle", icon: SiOracle, color: "#F80000" },
+        // { name: "Oracle", icon: SiOracle, color: "#F80000" },
       ],
     },
     {
@@ -108,18 +108,18 @@ function Skills() {
     const isImageIcon = typeof IconComponent === "string";
 
     return (
-      <div className="flex-shrink-0 w-[140px] md:w-[160px] lg:w-[180px] mx-4">
-        <div className="bg-[#1F2937]/50 backdrop-blur-sm rounded-2xl p-6 border border-[#374151] hover:border-blue-500/50 hover:bg-[#1F2937]/80 transition-all duration-300 group cursor-pointer h-full flex flex-col items-center justify-center">
+      <div className="flex-shrink-0 w-[100px] md:w-[120px] lg:w-[140px] mx-3">
+        <div className="bg-[#1F2937]/50 backdrop-blur-sm rounded-2xl p-4 border border-[#374151] hover:border-blue-500/50 hover:bg-[#1F2937]/80 transition-all duration-300 group cursor-pointer h-full flex flex-col items-center justify-center">
           <div className="mb-4 transition-transform duration-300 group-hover:scale-110 flex items-center justify-center">
             {isImageIcon ? (
               <img
                 src={IconComponent}
                 alt={item.name}
-                className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
+                className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
               />
             ) : (
               <IconComponent
-                className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16"
+                className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14"
                 style={item.color ? { color: item.color } : {}}
               />
             )}
@@ -132,9 +132,19 @@ function Skills() {
     );
   };
 
-  const SkillSlider = ({ items, direction = "left" }) => {
+  const SkillSlider = ({ items, direction = "left", isStatic = false }) => {
     // Duplicate items multiple times for seamless infinite scroll
-    const duplicatedItems = [...items, ...items, ...items];
+    const duplicatedItems = isStatic ? items : [...items, ...items, ...items];
+
+    if (isStatic) {
+      return (
+        <div className="flex flex-wrap justify-center w-full">
+          {items.map((item, idx) => (
+            <SkillCard key={`${item.name}-${idx}`} item={item} />
+          ))}
+        </div>
+      );
+    }
 
     return (
       <div className="relative w-full overflow-hidden">
@@ -174,11 +184,10 @@ function Skills() {
             `}
           </style>
           <div
-            className={`flex ${
-              direction === "left"
-                ? "animate-scroll-left"
-                : "animate-scroll-right"
-            }`}
+            className={`flex ${direction === "left"
+              ? "animate-scroll-left"
+              : "animate-scroll-right"
+              }`}
           >
             {duplicatedItems.map((item, idx) => (
               <SkillCard key={`${item.name}-${idx}`} item={item} />
@@ -195,13 +204,12 @@ function Skills() {
       id="skills"
       className="bg-[#030712] h-auto flex items-center justify-center py-[50px] px-4 overflow-hidden"
     >
-      <div className="container max-w-7xl px-4 md:px-6 lg:px-8">
+      <div className="container max-w-[1600px] px-4 md:px-6 lg:px-8">
         <div
-          className={`transition-all duration-1000 ${
-            isVisible
-              ? "animate-slide-in-left opacity-100"
-              : "opacity-0 translate-x-[-50px]"
-          }`}
+          className={`transition-all duration-1000 ${isVisible
+            ? "animate-slide-in-left opacity-100"
+            : "opacity-0 translate-x-[-50px]"
+            }`}
         >
           {/* Skills Button
           <div className="flex justify-center mb-6">
@@ -224,7 +232,8 @@ function Skills() {
                 </div>
                 <SkillSlider
                   items={section.items}
-                  direction={sectionIdx % 2 === 0 ? "left" : "right"}
+                  direction={section.title === "Tools & Platforms" ? "right" : "left"}
+                  isStatic={section.title === "Databases"}
                 />
               </div>
             ))}

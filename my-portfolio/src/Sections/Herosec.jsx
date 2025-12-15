@@ -3,6 +3,8 @@ import { FaGithub, FaDribbble, FaLinkedin } from "react-icons/fa";
 import { HiLocationMarker } from "react-icons/hi";
 import myImage from "../assets/my.jpg";
 
+import { TypeAnimation } from "react-type-animation";
+
 function Herosec() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
@@ -46,11 +48,10 @@ function Herosec() {
           {/* Right Section - Image (appears first on mobile) */}
           <div
             ref={imageRef}
-            className={`flex-1 flex items-center justify-center lg:justify-end transition-all duration-1000 delay-300 w-full lg:w-auto order-1 lg:order-2 ${
-              isVisible
+            className={`flex-1 flex items-center justify-center lg:justify-end transition-all duration-1000 delay-300 w-full lg:w-auto order-1 lg:order-2 ${isVisible
                 ? "animate-slide-in-right opacity-100"
                 : "opacity-0 translate-x-[50px]"
-            }`}
+              }`}
           >
             <div
               className="relative image-hover-container w-full max-w-[280px] md:max-w-[320px] lg:w-[400px] lg:max-w-none"
@@ -82,14 +83,23 @@ function Herosec() {
           {/* Left Section - Text Content */}
           <div
             ref={textRef}
-            className={`flex-[1.4] max-w-[950px] xl:w-[600px] space-y-4 md:space-y-6 transition-all duration-1000 w-full lg:w-auto text-center lg:text-left order-2 lg:order-1 ${
-              isVisible
+            className={`flex-[1.4] max-w-[950px] xl:w-[600px] space-y-4 md:space-y-6 transition-all duration-1000 w-full lg:w-auto text-center lg:text-left order-2 lg:order-1 ${isVisible
                 ? "animate-slide-in-left opacity-100"
                 : "opacity-0 translate-x-[-50px]"
-            }`}
+              }`}
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-[50px] font-bold text-white">
-              Hi, I'm Waqas Zafar 👋
+              Hi, I'm <TypeAnimation
+                sequence={[
+                  "Waqas Zafar 👋",
+                  5000,
+                  "Software Developer",
+                  2000,
+                ]}
+                wrapper="span"
+                speed={50}
+                repeat={Infinity}
+              /> 
             </h1>
 
             {/* Role Badge */}
@@ -107,7 +117,7 @@ function Herosec() {
               . I build responsive, dynamic applications and have experience
               across the full stack—from{" "}
               <span className="text-white font-medium">
-                 mobile apps
+                mobile apps
               </span>{" "}
               to backend with{" "}
               <span className="text-white font-medium">
