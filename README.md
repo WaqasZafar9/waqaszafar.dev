@@ -3,7 +3,7 @@
 Personal portfolio for Software Engineer Waqas Zafar. The site lives in `my-portfolio/` and is a single-page React app that walks visitors through Waqas’ story, skills, work history, highlighted projects, education timeline, and contact form.
 
 # Live Preview
-https://waqaszafar.netlify.app/
+https://www.waqaszafar.tech/
 
 ## Project Highlights
 - Animated hero section with social links, availability indicator, and smooth entrance animations powered by the Intersection Observer API.
