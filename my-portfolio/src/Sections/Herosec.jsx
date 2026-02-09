@@ -1,15 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FaGithub, FaDribbble, FaLinkedin } from "react-icons/fa";
-import { HiLocationMarker } from "react-icons/hi";
-import myImage from "../assets/my.jpg";
-
-import { TypeAnimation } from "react-type-animation";
+import { FaGithub, FaDribbble, FaLinkedin, FaArrowRight, FaDownload, FaPaintBrush, FaLayerGroup } from "react-icons/fa";
+import myImage from "../assets/my.png";
+import resume from "../assets/Resume.pdf";
 
 function Herosec() {
+
   const [isVisible, setIsVisible] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef(null);
   const textRef = useRef(null);
   const imageRef = useRef(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -41,146 +53,151 @@ function Herosec() {
     <section
       ref={sectionRef}
       id="home"
-      className="bg-[#030712] h-auto flex items-center justify-center py-8 md:py-16 px-4"
+      className="bg-black min-h-screen flex items-start justify-center pt-30 md:pt-40 md:pb-20 pb-35 px-4 overflow-hidden relative font-sans"
     >
-      <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-6 items-center">
-          {/* Right Section - Image (appears first on mobile) */}
-          <div
-            ref={imageRef}
-            className={`flex-1 flex items-center justify-center lg:justify-end transition-all duration-1000 delay-300 w-full lg:w-auto order-1 lg:order-2 ${isVisible
-                ? "animate-slide-in-right opacity-100"
-                : "opacity-0 translate-x-[50px]"
-              }`}
-          >
-            <div
-              className="relative image-hover-container w-full max-w-[280px] md:max-w-[320px] lg:w-[400px] lg:max-w-none"
-              style={{ height: "auto" }}
-            >
-              {/* Neon Glow Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg blur-2xl -z-10 animate-pulse"></div>
+        {/* Adjusted Background Lights - Direction Changed, Text Area Clear */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+            {/* Top Right - Purple/Pink Glow (Behind Image side) */}
+            <div className="absolute top-[-20%] right-[-10%] w-[700px] h-[700px] bg-purple-900/40 rounded-full blur-[120px] mix-blend-screen opacity-50 animate-pulse"></div>
+            
+            {/* Bottom Left - Blue/Cyan Glow (Subtle, away from main text focus) */}
+            <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-blue-900/30 rounded-full blur-[120px] mix-blend-screen opacity-40 animate-pulse" style={{ animationDelay: '2s' }}></div>
 
-              {/* Glassmorphism Background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-lg backdrop-blur-sm"></div>
+             {/* Top Center Glow - Just below Navbar */}
+             <div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-indigo-500/20 rounded-full blur-[100px] -z-10 mix-blend-screen opacity-30"></div>
+        </div>
 
-              {/* Shadow Effect */}
-              <div className="absolute -right-2 -bottom-2 w-full h-full bg-gray-700/50 rounded-lg -z-20 transition-transform duration-300 image-hover-shadow"></div>
+        {/* Dynamic Mouse Follower Glow */}
+        <div 
+            className="pointer-events-none fixed top-0 left-0 z-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px] transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 ease-out"
+            style={{ 
+                left: `${mousePosition.x}px`, 
+                top: `${mousePosition.y}px` 
+            }}
+        ></div>
 
-              <div className="relative z-10 image-hover-wrapper w-full p-2">
-                <img
-                  src={myImage}
-                  alt="Waqas Zafar"
-                  className="rounded-lg object-cover w-full h-auto image-hover"
-                  style={{ aspectRatio: "400/364" }}
-                  onError={(e) => {
-                    e.target.src = "";
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-
+      <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-4 items-center justify-between">
+          
           {/* Left Section - Text Content */}
           <div
             ref={textRef}
-            className={`flex-[1.4] max-w-[950px] xl:w-[600px] space-y-4 md:space-y-6 transition-all duration-1000 w-full lg:w-auto text-center lg:text-left order-2 lg:order-1 ${isVisible
+            className={`flex-1 flex flex-col items-center lg:items-start space-y-8 transition-all duration-1000 w-full lg:w-auto text-center lg:text-left ${isVisible
                 ? "animate-slide-in-left opacity-100"
                 : "opacity-0 translate-x-[-50px]"
               }`}
           >
-            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-[50px] font-bold text-white">
-              Hi, I'm <TypeAnimation
-                sequence={[
-                  "Waqas Zafar 👋",
-                  5000,
-                  "Software Developer",
-                  2000,
-                ]}
-                wrapper="span"
-                speed={50}
-                repeat={Infinity}
-              /> 
-            </h1>
-
-            {/* Role Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full backdrop-blur-sm mx-auto lg:mx-0">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-semibold text-sm md:text-base">
-                Software Developer
-              </span>
+            {/* Welcome Badge - Glassmorphism */}
+            <div className="inline-block">
+                <div className="px-5 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl shadow-lg">
+                    <span className="text-pink-400 font-medium text-sm tracking-wide">Welcome to my world</span>
+                </div>
             </div>
-            {/* Condensed Bio */}
-            <p className="text-[#D1D5DB] text-sm md:text-base lg:text-base leading-relaxed xl:w-[550px] mx-auto lg:mx-0">
-              Specializing in modern web development with{" "}
-              <span className="text-white font-medium">
-                React.js, Next.js, and Tailwind CSS
-              </span>
-              . I build responsive, dynamic applications and have experience
-              across the full stack—from{" "}
-              <span className="text-white font-medium">
-                mobile apps
-              </span>{" "}
-              to backend with{" "}
-              <span className="text-white font-medium">
-                Node.js and MongoDB
-              </span>
-              . Currently working as a Software Engineer while expanding my
-              expertise through freelance projects.
+
+            {/* Main Heading and Roles */}
+            <div className="space-y-4">
+                <h2 className="text-5xl md:text-6xl lg:text-[70px] font-bold text-white tracking-tight leading-tight">
+                    Hi, I am <br />
+                    <span className="text-transparent bg-clip-text bg-linear-to-r from-neonPink to-blue-400">
+                        Waqas Zafar
+                    </span>
+                </h2>
+                
+                {/* Role/Subtitle */}
+                <h3 className="text-2xl md:text-3xl text-gray-300 font-normal tracking-wide leading-snug">
+                    Software Engineer <br />
+                    {/* <span className="text-gray-400">Mobile App Developer</span> */}
+                </h3>
+            </div>
+
+            {/* Description */}
+            <p className="text-gray-400 text-base md:text-lg leading-relaxed max-w-lg mx-auto lg:mx-0 font-light">
+              Building high-performance web and mobile applications with React, Next.js, and React Native. I turn ideas into scalable, production-ready digital products.
             </p>
 
-            {/* Tech Stack Pills
-            <div className="flex flex-wrap gap-2 justify-center lg:justify-start pt-2">
-              {[
-                "React",
-                "Next.js",
-                "Tailwind",
-                "Node.js",
-                "Flutter",
-                "MongoDB",
-              ].map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1.5 bg-gray-800/50 border border-gray-700 rounded-md text-gray-300 text-xs md:text-sm font-medium hover:border-gray-600 hover:bg-gray-800 transition-all duration-300"
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-center gap-5 pt-2 w-full sm:w-auto">
+                <a 
+                    href="#contact" 
+                    className="group relative px-8 py-4 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 text-white font-medium transition-all duration-300 hover:shadow-[0_0_30px_rgba(124,58,237,0.6)] hover:scale-105 active:scale-95 w-full sm:w-auto flex items-center justify-center gap-2 min-w-[160px]"
                 >
-                  {tech}
-                </span>
-              ))}
-            </div> */}
-            <div className="flex items-center justify-center lg:justify-start gap-2 text-white">
-              <HiLocationMarker className="text-lg md:text-xl" />
-              <span className="text-sm md:text-base">Lahore, Pakistan</span>
+                    Hire Me
+                    <FaArrowRight className="group-hover:translate-x-1 transition-transform text-sm" />
+                </a>
+                
+                <a 
+                    href={resume} 
+                    download="Waqas_Zafar_CV.pdf"
+                    className="group px-8 py-4 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-white font-medium transition-all duration-300 hover:bg-white/10 hover:border-white/20 w-full sm:w-auto flex items-center justify-center gap-2 min-w-[160px]"
+                >
+                    Get CV
+                    <FaDownload className="text-sm group-hover:translate-y-0.5 transition-transform" />
+                </a>
             </div>
-            <div className="flex items-center justify-center lg:justify-start gap-2 text-white">
-              <span className="w-2.5 h-2.5 md:w-3 md:h-3 bg-green-500 rounded-full animate-blink"></span>
-              <span className="text-sm md:text-base">
-                Available for new projects
-              </span>
-            </div>
-            <div className="flex items-center justify-center lg:justify-start gap-6 pt-2 md:pt-4">
-              <a
-                href="https://github.com/WaqasZafar9"
-                className="text-white text-xl md:text-2xl hover:text-gray-300 transition-colors"
-                aria-label="GitHub"
-              >
-                <FaGithub />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/m-waqas-zafar"
-                className="text-white text-xl md:text-2xl hover:text-gray-300 transition-colors"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedin />
-              </a>
-              <a
-                href="https://dribbble.com/mwaqaszafar"
-                className="text-white text-xl md:text-2xl hover:text-gray-300 transition-colors"
-                aria-label="Dribbble"
-              >
-                <FaDribbble />
-              </a>
+          </div>
+
+          {/* Right Section - Image with Floating Cards */}
+          <div
+            ref={imageRef}
+            className={`flex-1 flex items-center justify-center lg:justify-end transition-all duration-1000 delay-300 w-full lg:w-auto ${isVisible
+                ? "animate-slide-in-right opacity-100"
+                : "opacity-0 translate-x-[50px]"
+              }`}
+          >
+            <div className="relative w-full max-w-[400px] lg:max-w-[500px] aspect-square flex items-center justify-center">
+              
+              {/* Backlight Glow for Subject */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] bg-purple-600/20 rounded-full blur-[100px] -z-10 animate-pulse"></div>
+              
+              {/* Main Image Container (Invisible Frame) */}
+              <div className="relative z-10 w-full h-full rounded-full">
+                  <img
+                    src={myImage}
+                    alt="Waqas Zafar"
+                    className="w-full h-full object-cover rounded-full drop-shadow-2xl hover:scale-[1.02] transition-all duration-500"
+                    onError={(e) => {
+                      e.target.src = "https://placehold.co/500x500/1a1a1a/ffffff?text=Waqas+Zafar";
+                    }}
+                  />
+              </div>
+
+              {/* Float Card 1: Experience (Left) */}
+              <div className="absolute top-[15%] -left-[5%] md:-left-[20px] z-20 animate-bounce" style={{ animationDuration: '3s' }}>
+                  <div className="flex items-center gap-3 bg-[#0f111a]/80 backdrop-blur-xl p-4 rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] pr-6 hover:bg-[#0f111a] transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-linear-to-tr from-blue-500/20 to-purple-500/20 flex items-center justify-center text-blue-400 border border-white/5">
+                        <FaPaintBrush size={20} />
+                      </div>
+                      <div>
+                          <p className="text-xs text-gray-400 font-medium tracking-wide">Experience</p>
+                          <p className="text-white font-bold text-lg">1.5+ Years</p>
+                      </div>
+                  </div>
+              </div>
+
+              {/* Float Card 2: Projects (Right) */}
+              <div className="absolute bottom-[15%] -right-[5%] md:-right-[20px] z-20 animate-bounce" style={{ animationDuration: '4s' }}>
+                  <div className="flex items-center gap-3 bg-[#0f111a]/80 backdrop-blur-xl p-4 rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] pr-6 hover:bg-[#0f111a] transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-linear-to-tr from-pink-500/20 to-purple-500/20 flex items-center justify-center text-pink-400 border border-white/5">
+                        <FaLayerGroup size={20} />
+                      </div>
+                      <div>
+                          <p className="text-xs text-gray-400 font-medium tracking-wide">Projects</p>
+                          <p className="text-white font-bold text-lg">20+ Done</p>
+                      </div>
+                  </div>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
+
+       {/* Mouse Scroll Indicator */}
+       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
+            <div className="w-[30px] h-[50px] rounded-full border-2 border-white/20 flex justify-center p-2 backdrop-blur-sm">
+                <div className="w-1.5 h-1.5 bg-white rounded-full animate-scroll-down"></div>
+            </div>
+       </div>
     </section>
   );
 }

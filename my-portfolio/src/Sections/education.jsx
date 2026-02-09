@@ -60,8 +60,10 @@ function Education() {
     <section
       ref={sectionRef}
       id="education"
-      className="bg-[#111827] min-h-screen flex items-center justify-center py-16 px-4"
+      className="bg-[#111827] min-h-screen flex items-center justify-center py-16 px-4 relative overflow-hidden"
     >
+      {/* Top Separator Glow */}
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-purple-500/50 to-transparent"></div>
       <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
         <div
           className={`transition-all duration-1000 ${

@@ -6,10 +6,10 @@ import Herosec from "../Sections/Herosec";
 
 // Lazy load below-the-fold sections for better performance
 const Aboutme = lazy(() => import("../Sections/Aboutme"));
-const Skills = lazy(() => import("../Sections/Skills"));
 const Experience = lazy(() => import("../Sections/Experience"));
+const Skills = lazy(() => import("../Sections/Skills"));
 const Projects = lazy(() => import("../Sections/Projects"));
-const Education = lazy(() => import("../Sections/education"));
+// const Education = lazy(() => import("../Sections/education"));
 const Certificates = lazy(() => import("../Sections/Certificates"));
 const ContactUs = lazy(() => import("../Sections/ContactUs"));
 const Footer = lazy(() => import("../Components/Footer"));
@@ -91,12 +91,6 @@ function Home() {
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
-          <section id="skills" aria-label="Skills Section">
-            <Skills />
-          </section>
-        </Suspense>
-
-        <Suspense fallback={<SectionLoader />}>
           <section id="experience" aria-label="Experience Section">
             <Experience />
           </section>
@@ -109,10 +103,16 @@ function Home() {
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
+          <section id="skills" aria-label="Skills Section">
+            <Skills />
+          </section>
+        </Suspense>
+
+        {/* <Suspense fallback={<SectionLoader />}>
           <section id="education" aria-label="Education Section">
             <Education />
           </section>
-        </Suspense>
+        </Suspense> */}
 
         <Suspense fallback={<SectionLoader />}>
           <section id="certificates" aria-label="Certificates Section">

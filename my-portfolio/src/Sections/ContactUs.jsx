@@ -1,15 +1,14 @@
 import React, { useState, useRef } from "react";
-import { FaXTwitter, FaInstagram, FaLinkedin } from "react-icons/fa6";
+import { FaPaperPlane, FaUser, FaEnvelope } from "react-icons/fa"; // Importing basic icons
+import { FaPhone, FaLocationDot, FaLinkedin, FaGithub, FaXTwitter } from "react-icons/fa6"; // Importing other icons
 import emailjs from "@emailjs/browser";
 
 function ContactUs() {
   const form = useRef();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
-    phone: "",
     message: "",
   });
 
@@ -25,9 +24,11 @@ function ContactUs() {
     setLoading(true);
 
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID; // Ensure you have a suitable template or update this
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
+    // Note: The previous form hadfirstName/lastName. If your email template expects those, you might need to combine name or update template.
+    // Sending 'name' as 'from_name' usually works in default templates.
     emailjs
       .sendForm(serviceId, templateId, form.current, {
         publicKey: publicKey,
@@ -37,10 +38,8 @@ function ContactUs() {
           console.log("SUCCESS!");
           alert("Message sent successfully!");
           setFormData({
-            firstName: "",
-            lastName: "",
+            name: "",
             email: "",
-            phone: "",
             message: "",
           });
         },
@@ -54,183 +53,146 @@ function ContactUs() {
       });
   };
 
+  const contactInfo = [
+    {
+      icon: FaEnvelope,
+      title: "Email Me",
+      content: "waqaszafar771@gmail.com",
+      link: "mailto:waqaszafar771@gmail.com",
+    },
+    {
+      icon: FaPhone,
+      title: "Call Me",
+      content: "+92 370 4072105",
+      link: "tel:+923704072105",
+    },
+    {
+      icon: FaLocationDot,
+      title: "Location",
+      content: "Lahore, Pakistan",
+      link: "#",
+    },
+  ];
+
   return (
     <section
       id="contact"
-      className="bg-[#111827] min-h-screen flex items-center justify-center py-16 px-4 relative overflow-hidden border-t-2 border-[#374151]"
+      className="bg-black min-h-screen py-20 px-4 relative overflow-hidden flex items-center"
     >
-      {/* Subtle starry background effect */}
-      <div className="absolute inset-0 opacity-20">
-        <div
-          className="absolute w-full h-full"
-          style={{
-            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-                            radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-                            radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-                            radial-gradient(circle at 60% 60%, rgba(255, 255, 255, 0.1) 1px, transparent 1px)`,
-            backgroundSize:
-              "200px 200px, 300px 300px, 250px 250px, 180px 180px",
-            backgroundPosition: "0 0, 100px 100px, 50px 50px, 150px 150px",
-          }}
-        ></div>
-      </div>
+      {/* Top Separator Glow */}
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-purple-500/50 to-transparent"></div>
+      
+      {/* Glamour Glow Effects Removed */}
 
-      <div className="container mx-auto max-w-2xl relative z-10">
-        {/* Title Section */}
-        <div className="text-center mb-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-            Lets Have a Chat <span className="text-4xl">👋</span>
-          </h2>
-          <p className="text-gray-300 text-sm md:text-base max-w-xl mx-auto">
-            Have a question, want to start a project, or just want to connect?
-            Reach out and I'll get back to you as soon as possible!
-          </p>
-        </div>
-
-        {/* Contact Form */}
-        <form ref={form} onSubmit={handleSubmit} className="space-y-6">
-          {/* First Name and Last Name Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          
+          {/* Left Column: Content & Info */}
+          <div className="space-y-10">
             <div>
-              <label
-                htmlFor="firstName"
-                className="block text-white text-sm font-medium mb-2"
-              >
-                First name
-              </label>
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent transition-all"
-                placeholder="Jonathan"
-                required
-              />
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                Let's Work <br />
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-500 to-indigo-400">
+                  Together
+                </span>
+              </h2>
+              <p className="text-gray-400 text-lg leading-relaxed max-w-lg">
+                Have a project in mind? I'm available for freelance work and full-time opportunities. Let's create something amazing.
+              </p>
             </div>
-            <div>
-              <label
-                htmlFor="lastName"
-                className="block text-white text-sm font-medium mb-2"
-              >
-                Last name
-              </label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent transition-all"
-                placeholder="James"
-                required
-              />
+
+            <div className="space-y-6">
+              {contactInfo.map((item, index) => (
+                <div key={index} className="flex items-center gap-5 group">
+                  <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-purple-500 text-xl group-hover:bg-purple-500 group-hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(168,85,247,0.15)] group-hover:shadow-[0_0_25px_rgba(168,85,247,0.4)]">
+                    <item.icon />
+                  </div>
+                  <div>
+                    <h4 className="text-gray-400 text-sm font-medium mb-1">{item.title}</h4>
+                    <a href={item.link} className="text-white text-lg font-semibold hover:text-purple-400 transition-colors">
+                      {item.content}
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-4 pt-4">
+              <a href="https://www.linkedin.com/in/m-waqas-zafar" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300">
+                <FaLinkedin className="text-xl" />
+              </a>
+              <a href="https://github.com/WaqasZafar9" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300">
+                <FaGithub className="text-xl" />
+              </a>
+              <a href="https://x.com/m_waqaszafar" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300">
+                <FaXTwitter className="text-xl" />
+              </a>
             </div>
           </div>
 
-          {/* Email and Phone Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-white text-sm font-medium mb-2"
+          {/* Right Column: Form */}
+          <div className="bg-[#050505] rounded-3xl p-8 md:p-10 border border-white/10 shadow-2xl relative overflow-hidden group">
+            {/* Form Glow Helper Removed */}
+
+            <form ref={form} onSubmit={handleSubmit} className="space-y-6 relative z-10">
+              <div className="space-y-2">
+                <label className="text-gray-400 text-sm font-medium ml-1">Your Name</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="John Doe"
+                    required
+                    className="w-full bg-[#111827] border border-gray-800 rounded-xl px-4 py-4 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all font-medium"
+                  />
+                  <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-gray-400 text-sm font-medium ml-1">Email Address</label>
+                <div className="relative">
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="john@example.com"
+                    required
+                    className="w-full bg-[#111827] border border-gray-800 rounded-xl px-4 py-4 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all font-medium"
+                  />
+                  <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-gray-400 text-sm font-medium ml-1">Message</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Tell me about your project..."
+                  required
+                  rows="4"
+                  className="w-full bg-[#111827] border border-gray-800 rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all font-medium resize-none"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className={`w-full bg-gradient-to-r from-neonPink to-deepBlue text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-purple-500/25 transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 ${
+                  loading ? "opacity-70 cursor-not-allowed" : ""
+                }`}
               >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent transition-all"
-                placeholder="Jonathan2718@gmail.com"
-                required
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="phone"
-                className="block text-white text-sm font-medium mb-2"
-              >
-                Phone number
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent transition-all"
-                placeholder="+1 (555) 000-0000"
-              />
-            </div>
+                {loading ? "Sending..." : "Send Message"}
+                {!loading && <FaPaperPlane />}
+              </button>
+            </form>
           </div>
 
-          {/* Message Field */}
-          <div>
-            <label
-              htmlFor="message"
-              className="block text-white text-sm font-medium mb-2"
-            >
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              rows="6"
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent transition-all resize-none"
-              placeholder="Type your message here..."
-              required
-            ></textarea>
-          </div>
-
-          {/* Send Message Button */}
-          <div className="flex justify-center">
-            <button
-              type="submit"
-              disabled={loading}
-              className={`px-8 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white font-medium hover:bg-gray-700 hover:border-gray-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-[#111827] ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-            >
-              {loading ? "Sending..." : "Send message"}
-            </button>
-          </div>
-        </form>
-
-        {/* Social Media Icons */}
-        <div className="flex justify-center items-center gap-6 mt-12">
-          <a
-            href="https://x.com/m_waqaszafar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white text-2xl hover:text-gray-300 transition-colors duration-300"
-            aria-label="Twitter/X"
-          >
-            <FaXTwitter />
-          </a>
-          <a
-            href="https://instagram.com/m_waqaszafar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white text-2xl hover:text-gray-300 transition-colors duration-300"
-            aria-label="Instagram"
-          >
-            <FaInstagram />
-          </a>
-          <a
-            href="www.linkedin.com/in/m-waqas-zafar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white text-2xl hover:text-gray-300 transition-colors duration-300"
-            aria-label="Linkedin"
-          >
-            <FaLinkedin />
-          </a>
         </div>
       </div>
     </section>

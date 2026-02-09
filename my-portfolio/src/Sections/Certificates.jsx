@@ -164,9 +164,16 @@ const Certificates = () => {
     <section
       ref={sectionRef}
       id="certificates"
-      className="bg-[#030712] py-16 relative overflow-hidden"
+      className="bg-black py-16 relative overflow-hidden"
     >
-      <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
+      {/* Top Separator Glow */}
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-purple-500/50 to-transparent"></div>
+      
+      {/* Glamour Glow Effects */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-violet-600/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
+
+      <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div
           className={`text-center mb-12 transition-all duration-1000 ${
@@ -176,13 +183,13 @@ const Certificates = () => {
           }`}
         >
           <div className="flex justify-center mb-6">
-            <button className="bg-[#1F2937] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#374151] transition-colors flex items-center gap-2">
-              <FaAward className="text-[#10B981]" />
+            <button className="bg-white/5 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/10 transition-colors flex items-center gap-2 border border-white/10 backdrop-blur-sm">
+              <FaAward className="text-purple-500" />
               Certifications
             </button>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Professional <span className="text-[#10B981]">Certificates</span>
+            Professional <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-500 to-indigo-400">Certificates</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">Swipe to see more</p>
         </div>
@@ -222,22 +229,25 @@ const Certificates = () => {
           >
             {certificatesData.map((cert) => (
               <SwiperSlide key={cert.id} className="h-auto">
-                <div className="bg-[#1F2937] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-800 group h-full flex flex-col max-w-full mx-auto">
+                <div className="bg-[#050505] rounded-xl overflow-hidden shadow-lg hover:shadow-purple-500/20 transition-all duration-300 border border-white/10 group h-full flex flex-col max-w-full mx-auto relative">
+                   {/* Card Glow Helper */}
+                   <div className="absolute inset-0 bg-linear-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+
                   {/* Image Container */}
                   <div className="relative h-40 shrink-0 overflow-hidden">
                     <img
-                      src={`https://placehold.co/600x400/1F2937/10B981?text=${encodeURIComponent(
+                      src={`https://placehold.co/600x400/1F2937/A855F7?text=${encodeURIComponent(
                         cert.title
                       )}`}
                       alt={cert.title}
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
                       <a
                         href={cert.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-[#10B981] text-white px-5 py-2 rounded-full font-medium text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center gap-2 hover:bg-[#059669]"
+                        className="bg-purple-600 text-white px-5 py-2 rounded-full font-medium text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center gap-2 hover:bg-purple-700 shadow-[0_0_15px_rgba(168,85,247,0.4)]"
                       >
                         Verify <FaExternalLinkAlt className="text-xs" />
                       </a>
@@ -245,22 +255,22 @@ const Certificates = () => {
                   </div>
 
                   {/* Content */}
-                  <div className="p-5 flex flex-col flex-grow">
+                  <div className="p-5 flex flex-col flex-grow relative z-10">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[#10B981] text-[10px] font-semibold px-2 py-0.5 rounded bg-[#10B981]/10">
+                      <span className="text-purple-400 text-[10px] font-semibold px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20">
                         {cert.issuer}
                       </span>
                       <span className="text-gray-400 text-[10px] flex items-center gap-1">
                         <FaCertificate className="text-gray-500" /> {cert.date}
                       </span>
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 min-h-[3.5rem]">
+                    <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 min-h-[3.5rem] group-hover:text-purple-100 transition-colors">
                       {cert.title}
                     </h3>
                     <div className="mt-auto">
                       <a
                         href={cert.link}
-                        className="inline-flex items-center gap-2 text-xs text-gray-400 hover:text-[#10B981] transition-colors mt-1"
+                        className="inline-flex items-center gap-2 text-xs text-gray-400 hover:text-purple-400 transition-colors mt-1"
                       >
                         Verify Credential{" "}
                         <FaExternalLinkAlt className="text-[10px]" />
@@ -307,10 +317,10 @@ const Certificates = () => {
         }
         
         .certificate-swiper .swiper-pagination-bullet-active {
-          background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+          background: linear-gradient(135deg, #A855F7 0%, #7C3AED 100%);
           width: 40px;
           border-radius: 8px;
-          box-shadow: 0 0 28px rgba(16, 185, 129, 0.6);
+          box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
         }
         
         /* Mobile adjustments */

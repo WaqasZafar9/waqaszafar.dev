@@ -108,23 +108,23 @@ function Skills() {
     const isImageIcon = typeof IconComponent === "string";
 
     return (
-      <div className="flex-shrink-0 w-[100px] md:w-[120px] lg:w-[140px] mx-3">
-        <div className="bg-[#1F2937]/50 backdrop-blur-sm rounded-2xl p-4 border border-[#374151] hover:border-blue-500/50 hover:bg-[#1F2937]/80 transition-all duration-300 group cursor-pointer h-full flex flex-col items-center justify-center">
-          <div className="mb-4 transition-transform duration-300 group-hover:scale-110 flex items-center justify-center">
+      <div className="flex-shrink-0 w-[80px] md:w-[100px] lg:w-[110px] mx-2">
+        <div className="bg-[#1F2937]/30 backdrop-blur-sm rounded-xl p-3 border border-[#374151]/50 hover:border-blue-500/50 hover:bg-[#1F2937]/60 transition-all duration-300 group cursor-pointer h-full flex flex-col items-center justify-center">
+          <div className="mb-3 transition-transform duration-300 group-hover:scale-110 flex items-center justify-center">
             {isImageIcon ? (
               <img
                 src={IconComponent}
                 alt={item.name}
-                className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
+                className="w-8 h-8 md:w-10 md:h-10 lg:w-10 lg:h-10 object-contain"
               />
             ) : (
               <IconComponent
-                className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14"
+                className="w-8 h-8 md:w-10 md:h-10 lg:w-10 lg:h-10"
                 style={item.color ? { color: item.color } : {}}
               />
             )}
           </div>
-          <span className="text-white text-sm md:text-base text-center font-medium">
+          <span className="text-gray-300 text-xs md:text-sm text-center font-medium leading-tight">
             {item.name}
           </span>
         </div>
@@ -138,7 +138,7 @@ function Skills() {
 
     if (isStatic) {
       return (
-        <div className="flex flex-wrap justify-center w-full">
+        <div className="flex flex-wrap justify-center w-full gap-4">
           {items.map((item, idx) => (
             <SkillCard key={`${item.name}-${idx}`} item={item} />
           ))}
@@ -148,9 +148,9 @@ function Skills() {
 
     return (
       <div className="relative w-full overflow-hidden">
-        {/* Gradient overlays */}
-        <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-[#030712] to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-[#030712] to-transparent z-10 pointer-events-none" />
+        {/* Gradient overlays matching container bg */}
+        <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
 
         <div className="flex w-full">
           <style>
@@ -172,10 +172,10 @@ function Skills() {
                 }
               }
               .animate-scroll-left {
-                animation: scroll-left 30s linear infinite;
+                animation: scroll-left 40s linear infinite;
               }
               .animate-scroll-right {
-                animation: scroll-right 30s linear infinite;
+                animation: scroll-right 40s linear infinite;
               }
               .animate-scroll-left:hover,
               .animate-scroll-right:hover {
@@ -202,31 +202,41 @@ function Skills() {
     <section
       ref={sectionRef}
       id="skills"
-      className="bg-[#030712] h-auto flex items-center justify-center py-[50px] px-4 overflow-hidden"
+      className="bg-black min-h-screen flex items-center justify-center py-[50px] px-4 overflow-hidden relative"
     >
-      <div className="container max-w-[1600px] px-4 md:px-6 lg:px-8">
+      {/* Top Separator Glow */}
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-purple-500/50 to-transparent"></div>
+      
+      {/* Glamour Glow Effects */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
+
+      <div className="container max-w-[1600px] px-4 md:px-6 lg:px-8 relative z-10">
+        
+        {/* Beating Title Section */}
         <div
-          className={`transition-all duration-1000 ${isVisible
-            ? "animate-slide-in-left opacity-100"
-            : "opacity-0 translate-x-[-50px]"
-            }`}
+          className={`flex flex-col items-center mb-16 gap-6 transition-all duration-1000 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
         >
-          {/* Skills Button
-          <div className="flex justify-center mb-6">
-            <button className="bg-[#1F2937] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#374151] transition-colors">
-              Skills
-            </button>
-          </div> */}
-
-          <h2 className="text-xl md:text-3xl font-regular text-[#D1D5DB] mb-8 md:mb-12 text-center">
-            The skills, tools, technologies and concepts I work with:
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 text-center">
+            Professional <span className="text-transparent bg-clip-text bg-linear-to-r from-neonPink to-purple-400">Skills</span>
           </h2>
+          <p className="text-gray-400 text-lg text-center">
+            The skills, tools, technologies and concepts I work with
+          </p>
+        </div>
 
-          <div className="space-y-20">
+        {/* Main Content - Container Removed for Clean Look */}
+        <div
+          className={`transition-all duration-1000 delay-200 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
+          <div className="space-y-16">
             {skillSections.map((section, sectionIdx) => (
               <div key={sectionIdx}>
-                <div className="mb-10 flex items-center justify-center">
-                  <h3 className="text-2xl md:text-3xl lg:text-4xl text-white font-bold tracking-tight">
+                <div className="mb-8 flex items-center justify-center">
+                  <h3 className="text-xl md:text-2xl text-gray-200 font-semibold tracking-wide uppercase opacity-80">
                     {section.title}
                   </h3>
                 </div>

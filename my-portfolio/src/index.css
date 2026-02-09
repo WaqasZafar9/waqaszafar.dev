@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
 @theme {
+  --font-sans: "Outfit", sans-serif;
   --breakpoint-xxl: 1440px;
+  --color-neonPink: #FF10F0;
+  --color-deepBlue: #1E40AF;
 }
 
 /* Smooth scrolling for the entire page */
@@ -10,7 +13,8 @@ html {
 }
 
 @keyframes blink {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -80,7 +84,9 @@ html {
 }
 
 .image-hover-shadow {
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
 }
 
 .image-hover-container:hover .image-hover-shadow {
@@ -112,3 +118,21 @@ html {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
+@keyframes scrollDown {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.animate-scroll-down {
+  animation: scrollDown 1.5s infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
