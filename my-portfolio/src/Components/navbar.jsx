@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
 import resume from '../assets/Resume.pdf';
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -54,8 +68,16 @@ function Navbar() {
   ];
 
   return (
-    <div className="absolute top-0 left-0 w-full z-50 font-sans">
-      <nav className="w-full bg-transparent px-6 py-6 relative z-50">
+    <div
+      className="fixed top-0 left-0 w-full z-50 font-sans transition-all duration-300"
+    >
+      <nav
+        className={`w-full px-6 py-6 relative z-50 transition-all duration-300 ${
+          isScrolled
+            ? "bg-slate-900/40 backdrop-blur-md border-b border-white/10 shadow-lg shadow-black/20"
+            : "bg-transparent"
+        }`}
+      >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo/Brand */}
           <div className="text-white font-bold text-2xl tracking-wide">

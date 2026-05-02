@@ -1,16 +1,55 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaPaperPlane, FaUser, FaEnvelope } from "react-icons/fa"; // Importing basic icons
-import { FaPhone, FaLocationDot, FaLinkedin, FaGithub, FaXTwitter } from "react-icons/fa6"; // Importing other icons
-import emailjs from "@emailjs/browser";
+import { FaPhone, FaLocationDot, FaLinkedin, FaGithub, FaXTwitter, FaCircleCheck, FaCircleExclamation } from "react-icons/fa6"; // Importing other icons
 
 function ContactUs() {
-  const form = useRef();
+  const contactApiUrl = import.meta.env.VITE_CONTACT_API_URL || "/api/contact";
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState({
+    type: "",
+    message: "",
+  });
+  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
+  const [isStatusAnimatingIn, setIsStatusAnimatingIn] = useState(false);
+  const closeTimeoutRef = useRef(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
+
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const showStatusMessage = (type, message) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    setStatus({ type, message });
+    setIsStatusModalOpen(true);
+    requestAnimationFrame(() => {
+      setIsStatusAnimatingIn(true);
+    });
+
+    closeTimeoutRef.current = setTimeout(() => {
+      closeStatusModal();
+    }, 4500);
+  };
+
+  const closeStatusModal = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    setIsStatusAnimatingIn(false);
+    setTimeout(() => {
+      setIsStatusModalOpen(false);
+    }, 250);
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -19,38 +58,39 @@ function ContactUs() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID; // Ensure you have a suitable template or update this
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-    // Note: The previous form hadfirstName/lastName. If your email template expects those, you might need to combine name or update template.
-    // Sending 'name' as 'from_name' usually works in default templates.
-    emailjs
-      .sendForm(serviceId, templateId, form.current, {
-        publicKey: publicKey,
-      })
-      .then(
-        () => {
-          console.log("SUCCESS!");
-          alert("Message sent successfully!");
-          setFormData({
-            name: "",
-            email: "",
-            message: "",
-          });
+    setStatus({ type: "", message: "" });
+    setIsStatusModalOpen(false);
+    setIsStatusAnimatingIn(false);
+    try {
+      const response = await fetch(contactApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        (error) => {
-          console.log("FAILED...", error.text);
-          alert("Failed to send message. Please try again.");
-        }
-      )
-      .finally(() => {
-        setLoading(false);
+        body: JSON.stringify(formData),
       });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result?.message || "Failed to send message");
+      }
+
+      showStatusMessage("success", "Message sent successfully! I will get back to you soon.");
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("FAILED...", error);
+      showStatusMessage("error", error.message || "Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const contactInfo = [
@@ -134,7 +174,7 @@ function ContactUs() {
           <div className="bg-[#050505] rounded-3xl p-8 md:p-10 border border-white/10 shadow-2xl relative overflow-hidden group">
             {/* Form Glow Helper Removed */}
 
-            <form ref={form} onSubmit={handleSubmit} className="space-y-6 relative z-10">
+            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div className="space-y-2">
                 <label className="text-gray-400 text-sm font-medium ml-1">Your Name</label>
                 <div className="relative">
@@ -190,11 +230,60 @@ function ContactUs() {
                 {loading ? "Sending..." : "Send Message"}
                 {!loading && <FaPaperPlane />}
               </button>
+
             </form>
           </div>
 
         </div>
       </div>
+
+      {isStatusModalOpen && status.message && (
+        <div
+          className={`fixed inset-0 z-[100] flex items-center justify-center px-4 transition-opacity duration-250 ${
+            isStatusAnimatingIn ? "bg-black/60 opacity-100" : "bg-black/0 opacity-0"
+          }`}
+        >
+          <div
+            className={`w-full max-w-md rounded-2xl border p-6 shadow-2xl backdrop-blur-sm transition-all duration-250 ${
+              isStatusAnimatingIn ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-3 scale-95"
+            } ${
+              status.type === "success"
+                ? "bg-emerald-950/80 border-emerald-400/30"
+                : "bg-rose-950/80 border-rose-400/30"
+            }`}
+          >
+            <div className="flex items-start gap-3">
+              <div
+                className={`mt-0.5 text-2xl ${
+                  status.type === "success" ? "text-emerald-300" : "text-rose-300"
+                }`}
+              >
+                {status.type === "success" ? <FaCircleCheck /> : <FaCircleExclamation />}
+              </div>
+              <div className="flex-1">
+                <h4 className="text-white font-semibold text-lg">
+                  {status.type === "success" ? "Message Sent" : "Message Failed"}
+                </h4>
+                <p
+                  className={`mt-1 text-sm ${
+                    status.type === "success" ? "text-emerald-200" : "text-rose-200"
+                  }`}
+                >
+                  {status.message}
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={closeStatusModal}
+              className="mt-6 w-full rounded-xl bg-white/10 py-2.5 text-white font-medium hover:bg-white/20 transition-colors"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
