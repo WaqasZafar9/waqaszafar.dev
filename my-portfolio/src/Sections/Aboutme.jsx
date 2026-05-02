@@ -32,11 +32,11 @@ function Aboutme() {
   }, []);
 
   // Content Data
-  const introduction = "I’m M. Waqas Zafar, a Software Engineer who builds clean, fast, and user-friendly apps. My main tools are React.js, Next.js, Tailwind CSS, and React Native. Currently, I’m working at Lab 23 Technology, where I build cross-platform mobile and web solutions that look great and work perfectly with APIs. My goal is simple: I take your ideas and turn them into smooth, reliable digital products that actually solve problems.";
+  const introduction = "I am M. Waqas Zafar, a Software Engineer dedicated to architecting high-performance web and mobile ecosystems that drive business growth. My expertise lies in building scalable, production-ready applications using in-demand web and mobile app stacks, ensuring every product is fast, secure, and visually polished.";
   
-  const journey = "I started my development journey a little over a year ago and have grown through real projects, internships, and continuous learning. I’ve built several Webflow websites, developed mobile apps, and worked with backend tools like Node.js, Express, and MongoDB. I’m currently working as a Software Engineer while also doing side projects to improve my skills and explore new ideas.";
+  const journey = "I started my development journey a little over a year ago and have grown through real projects, internships, and continuous learning. I have built multiple projects and worked with backend tools like Node.js, Express, and MongoDB, which helped me understand end-to-end product development. I am currently working as a Software Engineer while also building side projects to sharpen my skills, test ideas quickly, and keep improving with each release. My approach is simple: build practical, maintainable software that solves real business problems and delivers a smooth, reliable user experience.";
 
-  const goals = "If you need an engineer who can take full ownership of a project from mobile apps to web platforms and deliver a polished, launch-ready product, I am ready to step in. I focus on efficiency and ensuring your tech stack is a reliable asset for your users.";
+  const aiJourney = "Integrating AI automation into your workflow is about shifting from manual oversight to an architecture where systems handle the repetitive heavy lifting. Rather than just adding 'chatbots,' real business upgrades come from using AI-driven development tools to accelerate software delivery and intelligent automation to manage complex data flows between your frontend and backend systems. By leveraging tools for code generation and automated debugging, you can reduce the time spent on routine maintenance and focus on building scalable, high-impact features. Furthermore, implementing AI-native interfaces ensures that your platform can adapt to user behavior in real-time, turning a static web application into a dynamic business asset that prioritizes efficiency and rapid growth.";
 
   // const offering = "if you're comfortable working with me, I’d be happy to build something together. I’m available for freelance work, collaborations, and custom project development.";
   
@@ -59,8 +59,8 @@ function Aboutme() {
     },
     {
       icon: FaPalette,
-      title: "UI/UX Implementation",
-      desc: "Translating design mockups into pixel-perfect, interactive, and accessible user interfaces.",
+      title: "AI Automation & Integrations",
+      desc: "Designing AI-powered workflows and integrating APIs/tools to automate operations, improve delivery speed, and streamline business processes.",
       color: "text-pink-400",
       bg: "bg-pink-500/10"
     }
@@ -99,10 +99,10 @@ function Aboutme() {
                 Curious about me? Here you have it:
             </h3>
             
-            <div className="space-y-6 text-gray-400 text-base leading-relaxed mb-8 mx-auto">
-                <p>{introduction}</p>
-                <p>{journey}</p>
-                <p>{goals}</p>
+            <div className="space-y-6 text-gray-300 text-base leading-relaxed mb-8 mx-auto max-w-5xl">
+                <p className={`${isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"}`}>{introduction}</p>
+                <p className={`${isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"}`} style={{ animationDelay: "120ms" }}>{journey}</p>
+                <p className={`${isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"}`} style={{ animationDelay: "240ms" }}>{aiJourney}</p>
                 {/* <p>{offering}</p> */}
                 
                 {/* External Links */}
@@ -112,8 +112,6 @@ function Aboutme() {
                         <span>GitHub</span>
                     </a>
                 </div>
-
-                <p className="pt-4 text-gray-300 font-medium">{cta}</p>
             </div>
 
             {/* Features Footer */}

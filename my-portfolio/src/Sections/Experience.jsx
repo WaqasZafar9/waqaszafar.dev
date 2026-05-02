@@ -118,11 +118,12 @@ function Experience() {
                         <h3 className="text-2xl font-bold text-pink-400">Experience</h3>
                     </div>
 
-                    <div className="space-y-12">
+                    <div className="relative space-y-12 pl-8">
+                        <div className="absolute left-[4px] top-0 bottom-0 w-px bg-white/10 z-0"></div>
                         {experienceData.map((item, index) => (
-                            <div key={index} className="relative pl-8 border-l border-white/10 last:border-0 group">
+                            <div key={index} className="relative group">
                                 {/* Timeline Dot */}
-                                <div className="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-[#1F2937] group-hover:bg-neonPink transition-colors duration-300"></div>
+                                <div className="absolute left-[-32px] top-1.5 w-2.5 h-2.5 rounded-full bg-[#1F2937] group-hover:bg-neonPink transition-colors duration-300 z-10"></div>
                                 
                                 <div className="flex flex-col space-y-1">
                                     <h4 className="text-white text-xl font-bold">{item.title}</h4>
@@ -146,11 +147,12 @@ function Experience() {
                         <h3 className="text-2xl font-bold text-blue-400">Education</h3>
                     </div>
 
-                    <div className="space-y-12">
+                    <div className="relative space-y-12 pl-8">
+                        <div className="absolute left-[4px] top-0 bottom-0 w-px bg-white/10 z-0"></div>
                         {educationData.map((item, index) => (
-                            <div key={index} className="relative pl-8 border-l border-white/10 last:border-0 group">
+                            <div key={index} className="relative group">
                                 {/* Timeline Dot */}
-                                <div className="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-[#1F2937] group-hover:bg-blue-400 transition-colors duration-300"></div>
+                                <div className="absolute left-[-27px] top-1.5 w-2.5 h-2.5 rounded-full bg-[#1F2937] group-hover:bg-blue-400 transition-colors duration-300 z-10"></div>
                                 
                                 <div className="flex flex-col space-y-1">
                                     <h4 className="text-white text-xl font-bold">{item.degree}</h4>
