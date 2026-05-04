@@ -140,3 +140,18 @@ body {
 .animate-spin-slow {
   animation: spin 8s linear infinite;
 }
+
+/* Thin scrollbar inside project card overlays (Firefox + Chromium) */
+.project-overlay-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+}
+
+.project-overlay-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.project-overlay-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 9999px;
+}
