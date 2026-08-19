@@ -113,7 +113,7 @@ function HeroContent() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={social.label}
-            className={`flex h-12 w-12 items-center justify-center rounded-full border border-line text-ink-soft transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:text-white hover:bg-white/[0.06] hover:shadow-[0_0_20px_rgba(139,147,255,0.4)] ${FOCUS_RING}`}
+            className={`flex h-12 w-12 items-center justify-center rounded-full border border-line text-ink-soft transition-all duration-300 hover:-translate-y-1 hover:border-white hover:text-white hover:bg-white/[0.06] hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] ${FOCUS_RING}`}
           >
             <social.Icon className="text-base" />
           </a>

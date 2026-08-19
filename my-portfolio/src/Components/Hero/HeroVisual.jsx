@@ -49,10 +49,26 @@ function HeroVisual() {
   const [isPointerVisible, setIsPointerVisible] = useState(false);
   const [isNear, setIsNear] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isHeroVisible, setIsHeroVisible] = useState(true);
+
+  // Only run the rAF float loop (and its 60/sec re-renders) while the hero
+  // is actually on screen — otherwise it keeps re-rendering forever, fighting
+  // the browser for main-thread time on every scroll frame on every page.
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsHeroVisible(entry.isIntersecting),
+      { rootMargin: "200px 0px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   // Smooth continuous idle floating animation loop
   useEffect(() => {
-    if (reducedMotion) return undefined;
+    if (reducedMotion || !isHeroVisible) return undefined;
     let animationId;
     let time = 0;
 
@@ -64,27 +80,34 @@ function HeroVisual() {
 
     animationId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationId);
-  }, [reducedMotion]);
+  }, [reducedMotion, isHeroVisible]);
 
-  // Track global mouse position for the white glowing dot pointer (Screenshot 3)
+  // Track mouse position for the white glowing dot pointer (Screenshot 3) —
+  // scoped to the Hero section itself, not the whole document. It's a
+  // fixed-position overlay, so a window-level listener made it follow the
+  // cursor everywhere on the site (sitting on top of button text in other
+  // sections); this keeps it a Hero-only accent, active only while the
+  // pointer is actually over Hero.
   useEffect(() => {
     if (reducedMotion) return undefined;
+    const heroSection = containerRef.current?.closest("section");
+    if (!heroSection) return undefined;
 
-    const handleGlobalMouseMove = (e) => {
+    const handleMove = (e) => {
       setPointerPos({ x: e.clientX, y: e.clientY });
       setIsPointerVisible(true);
     };
 
-    const handleGlobalMouseLeave = () => {
+    const handleLeave = () => {
       setIsPointerVisible(false);
     };
 
-    window.addEventListener("mousemove", handleGlobalMouseMove);
-    document.addEventListener("mouseleave", handleGlobalMouseLeave);
+    heroSection.addEventListener("mousemove", handleMove);
+    heroSection.addEventListener("mouseleave", handleLeave);
 
     return () => {
-      window.removeEventListener("mousemove", handleGlobalMouseMove);
-      document.removeEventListener("mouseleave", handleGlobalMouseLeave);
+      heroSection.removeEventListener("mousemove", handleMove);
+      heroSection.removeEventListener("mouseleave", handleLeave);
     };
   }, [reducedMotion]);
 
@@ -156,7 +179,7 @@ function HeroVisual() {
       >
         {/* Background Floating Particles */}
         {!reducedMotion && (
-          <ParticleField mousePos={mousePos} compact={compact} />
+          <ParticleField mousePos={mousePos} compact={compact} active={isHeroVisible} />
         )}
 
         {/* Ambient Room Glow Behind Mascot */}
@@ -183,6 +206,7 @@ function HeroVisual() {
             onHoverChange={setHovered}
             onPoke={handlePoke}
             floatY={floatY}
+            active={isHeroVisible}
           />
         </div>
 

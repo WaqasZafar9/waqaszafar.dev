@@ -11,8 +11,9 @@ const Aboutme = lazy(() => import("../Sections/Aboutme"));
 const Experience = lazy(() => import("../Sections/Experience"));
 const Skills = lazy(() => import("../Sections/Skills"));
 const Projects = lazy(() => import("../Sections/Projects"));
+const HowIWork = lazy(() => import("../Sections/HowIWork"));
 // const Education = lazy(() => import("../Sections/education"));
-const Certificates = lazy(() => import("../Sections/Certificates"));
+// const Certificates = lazy(() => import("../Sections/Certificates"));
 const ContactUs = lazy(() => import("../Sections/ContactUs"));
 const Footer = lazy(() => import("../Components/Footer"));
 
@@ -103,6 +104,12 @@ function Home() {
         </Suspense>
 
         <Suspense fallback={<SectionShimmerSkeleton />}>
+          <Reveal id="how-i-work" aria-label="How I Work Section" variant="swing-left">
+            <HowIWork />
+          </Reveal>
+        </Suspense>
+
+        <Suspense fallback={<SectionShimmerSkeleton />}>
           <Reveal id="skills" aria-label="Skills Section" variant="swing-right">
             <Skills />
           </Reveal>
@@ -114,7 +121,7 @@ function Home() {
           </section>
         </Suspense> */}
 
-        <Suspense fallback={<SectionShimmerSkeleton />}>
+        {/* <Suspense fallback={<SectionShimmerSkeleton />}>
           <Reveal
             id="certificates"
             aria-label="Certificates Section"
@@ -122,7 +129,7 @@ function Home() {
           >
             <Certificates />
           </Reveal>
-        </Suspense>
+        </Suspense> */}
 
         <Suspense fallback={<SectionShimmerSkeleton />}>
           <Reveal id="contact" aria-label="Contact Section" variant="spiral">

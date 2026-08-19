@@ -5,12 +5,12 @@ import { useEffect, useRef } from "react";
  * Sparse floating background particles creating depth behind the 2.5D/3D mascot.
  * Uses cool blue/violet tones, slow drift, and subtle mouse parallax offset.
  */
-function ParticleField({ mousePos = { x: 0, y: 0 }, compact = false }) {
+function ParticleField({ mousePos = { x: 0, y: 0 }, compact = false, active = true }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !active) return undefined;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -94,7 +94,7 @@ function ParticleField({ mousePos = { x: 0, y: 0 }, compact = false }) {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [compact, mousePos.x, mousePos.y]);
+  }, [compact, mousePos.x, mousePos.y, active]);
 
   return (
     <canvas

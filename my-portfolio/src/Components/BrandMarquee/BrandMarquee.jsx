@@ -4,25 +4,21 @@ import { BRANDS_DATA } from "./brandsData";
 const BrandLogoItem = ({ brand }) => {
   return (
     <div
-      className="group/item flex items-center justify-center px-6 md:px-10 py-2.5 rounded-full transition-all duration-300 hover:scale-105 cursor-default select-none shrink-0"
+      className="group/item flex h-14 md:h-[3rem] shrink-0 items-center justify-center transition-all duration-300 hover:scale-105 cursor-default select-none"
       title={brand.name}
       aria-label={brand.name}
     >
       {brand.logo ? (
-        <div className="flex items-center justify-center h-10 px-2 transition-all duration-300">
-          <img
-            src={brand.logo}
-            alt={`${brand.name} logo`}
-            className="h-8 md:h-10 max-w-[150px] md:max-w-[190px] w-auto object-contain select-none filter brightness-95 contrast-125 opacity-80 group-hover/item:opacity-100 group-hover/item:brightness-125 group-hover/item:scale-105 transition-all duration-300"
-            loading="lazy"
-          />
-        </div>
+        <img
+          src={brand.logo}
+          alt={`${brand.name} logo`}
+          className="h-10 sm:h-12 max-w-[150px] w-auto object-contain select-none opacity-95 group-hover/item:opacity-100 group-hover/item:scale-105 transition-all duration-300"
+          loading="lazy"
+        />
       ) : (
-        <div className="flex items-center justify-center leading-none">
-          <span className="text-sm md:text-base font-semibold tracking-[0.2em] text-white/80 uppercase group-hover/item:text-white transition-colors">
-            {brand.name}
-          </span>
-        </div>
+        <span className="text-sm md:text-base font-semibold tracking-[0.2em] text-white/80 uppercase group-hover/item:text-white transition-colors">
+          {brand.name}
+        </span>
       )}
     </div>
   );
@@ -48,16 +44,16 @@ function BrandMarquee() {
 
       {/* Marquee Track Container */}
       <div className="group relative w-full overflow-hidden flex items-center">
-        <div className="animate-marquee-track flex items-center gap-4 sm:gap-6 md:gap-10 shrink-0">
+        <div className="animate-marquee-track flex items-center gap-6 sm:gap-8 md:gap-12 shrink-0">
           {/* Main accessible list */}
-          <div className="flex items-center gap-4 sm:gap-6 md:gap-10 shrink-0">
+          <div className="flex items-center gap-6 sm:gap-8 md:gap-12 shrink-0">
             {set1.map((brand, idx) => (
               <BrandLogoItem key={`set1-${brand.id}-${idx}`} brand={brand} />
             ))}
           </div>
 
           <div
-            className="flex items-center gap-4 sm:gap-6 md:gap-10 shrink-0"
+            className="flex items-center gap-6 sm:gap-8 md:gap-12 shrink-0"
             aria-hidden="true"
           >
             {set2.map((brand, idx) => (
@@ -66,7 +62,7 @@ function BrandMarquee() {
           </div>
 
           <div
-            className="flex items-center gap-4 sm:gap-6 md:gap-10 shrink-0"
+            className="flex items-center gap-6 sm:gap-8 md:gap-12 shrink-0"
             aria-hidden="true"
           >
             {set3.map((brand, idx) => (
@@ -75,7 +71,7 @@ function BrandMarquee() {
           </div>
 
           <div
-            className="flex items-center gap-4 sm:gap-6 md:gap-10 shrink-0"
+            className="flex items-center gap-6 sm:gap-8 md:gap-12 shrink-0"
             aria-hidden="true"
           >
             {set4.map((brand, idx) => (

@@ -61,46 +61,34 @@ function Skills() {
     };
   }, []);
 
-  // All skills organized by category as per prompt
-  const skillSections = [
-    {
-      title: "Stacks",
-      icon: null,
-      items: [
-        { name: "Javascript", icon: SiJavascript, color: "#F7DF1E" },
-        { name: "WEBFLOW", icon: SiWebflow, color: "#4353FF" },
-        // { name: "PHP", icon: SiPhp, color: "#777BB4" },
-        { name: "React.js", icon: SiReact, color: "#61DAFB" },
-        { name: "Next.js", icon: nextjslogo, color: "#000" },
-        { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
-        { name: "Flutter", icon: SiFlutter, color: "#02569B" },
-        { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
-        { name: "React Native", icon: SiReact, color: "#61DAFB" },
-      ],
-    },
-    {
-      title: "Databases",
-      items: [
-        { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-        // { name: "MySQL", icon: SiMysql, color: "#4479A1" },
-        { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
-        // { name: "Oracle", icon: SiOracle, color: "#F80000" },
-      ],
-    },
-    {
-      title: "Tools & Platforms",
-      items: [
-        { name: "Git & GitHub", icon: githubImg, color: "#181717" },
-        { name: "VS Code", icon: vscodeImg, color: "#000000" },
-        { name: "IntelliJ", icon: intelliJImg, color: "#000000" },
-        { name: "Android Studio", icon: SiAndroidstudio, color: "#3DDC84" },
-        { name: "Figma", icon: SiFigma, color: "#F24E1E" },
-        { name: "Canva", icon: SiCanva, color: "#00C4CC" },
-        { name: "Bitbucket", icon: SiBitbucket, color: "#0052CC" },
-        { name: "Clickup", icon: clickupImg, color: "#000000" },
-        { name: "Postman", icon: SiPostman, color: "#FF6C37" },
-      ],
-    },
+  // Flat pool of every skill/tool — no category labels, just a general skills cloud.
+  const ALL_SKILLS = [
+    { name: "Javascript", icon: SiJavascript, color: "#F7DF1E" },
+    { name: "WEBFLOW", icon: SiWebflow, color: "#4353FF" },
+    { name: "React.js", icon: SiReact, color: "#61DAFB" },
+    { name: "Next.js", icon: nextjslogo, color: "#000" },
+    { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+    { name: "Flutter", icon: SiFlutter, color: "#02569B" },
+    { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
+    { name: "React Native", icon: SiReact, color: "#61DAFB" },
+    { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+    { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
+    { name: "Git & GitHub", icon: githubImg, color: "#181717" },
+    { name: "VS Code", icon: vscodeImg, color: "#000000" },
+    { name: "IntelliJ", icon: intelliJImg, color: "#000000" },
+    { name: "Android Studio", icon: SiAndroidstudio, color: "#3DDC84" },
+    { name: "Figma", icon: SiFigma, color: "#F24E1E" },
+    { name: "Canva", icon: SiCanva, color: "#00C4CC" },
+    { name: "Bitbucket", icon: SiBitbucket, color: "#0052CC" },
+    { name: "Clickup", icon: clickupImg, color: "#000000" },
+    { name: "Postman", icon: SiPostman, color: "#FF6C37" },
+  ];
+
+  // Interleave into two evenly-mixed rows so each row has a varied spread
+  // of stacks/tools rather than one row per old category.
+  const skillRows = [
+    ALL_SKILLS.filter((_, i) => i % 2 === 0),
+    ALL_SKILLS.filter((_, i) => i % 2 === 1),
   ];
 
   const SkillCard = ({ item }) => {
@@ -109,7 +97,7 @@ function Skills() {
 
     return (
       <div className="flex-shrink-0 w-[80px] md:w-[100px] lg:w-[110px] mx-2">
-        <div className="bg-elevated/30 backdrop-blur-sm rounded-xl p-3 border border-[#374151]/50 hover:border-blue-500/50 hover:bg-elevated/60 transition-all duration-300 group cursor-pointer h-full flex flex-col items-center justify-center">
+        <div className="bg-elevated/30 backdrop-blur-sm rounded-xl p-3 border border-white/10 hover:border-accent/50 hover:bg-elevated/60 transition-all duration-300 group cursor-pointer h-full flex flex-col items-center justify-center">
           <div className="mb-3 transition-transform duration-300 group-hover:scale-110 flex items-center justify-center">
             {isImageIcon ? (
               <img
@@ -132,25 +120,15 @@ function Skills() {
     );
   };
 
-  const SkillSlider = ({ items, direction = "left", isStatic = false }) => {
+  const SkillSlider = ({ items, direction = "left" }) => {
     // Duplicate items multiple times for seamless infinite scroll
-    const duplicatedItems = isStatic ? items : [...items, ...items, ...items];
-
-    if (isStatic) {
-      return (
-        <div className="flex flex-wrap justify-center w-full gap-4">
-          {items.map((item, idx) => (
-            <SkillCard key={`${item.name}-${idx}`} item={item} />
-          ))}
-        </div>
-      );
-    }
+    const duplicatedItems = [...items, ...items, ...items];
 
     return (
       <div className="relative w-full overflow-hidden">
         {/* Gradient overlays matching container bg */}
-        <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-night to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-night to-transparent z-10 pointer-events-none" />
 
         <div className="flex w-full">
           <style>
@@ -202,15 +180,17 @@ function Skills() {
     <section
       ref={sectionRef}
       id="skills"
-      className="bg-night min-h-screen flex items-center justify-center py-[50px] px-4 overflow-hidden relative"
+      className="bg-night flex items-center justify-center py-20 overflow-hidden relative"
     >
       {/* Top Separator Glow */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-accent/50 to-transparent"></div>
       
-      {/* Glamour Glow Effects */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-deep/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
+      {/* Ambient glow — same restrained treatment as Hero/Experience, not a
+          saturated wash */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/[0.06] rounded-full blur-[140px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent-deep/[0.08] rounded-full blur-[140px] pointer-events-none"></div>
 
-      <div className="container max-w-[1600px] px-4 md:px-6 lg:px-8 relative z-10">
+      <div className="container max-w-[1600px] relative z-10">
         
         {/* Beating Title Section */}
         <div
@@ -219,7 +199,7 @@ function Skills() {
           }`}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 text-center">
-            Professional <span className="text-transparent bg-clip-text bg-linear-to-r from-neonPink to-accent">Skills</span>
+            Professional <span className="text-accent-soft">Skills</span>
           </h2>
           <p className="text-ink-soft text-lg text-center">
             The skills, tools, technologies and concepts I work with
@@ -232,20 +212,13 @@ function Skills() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <div className="space-y-16">
-            {skillSections.map((section, sectionIdx) => (
-              <div key={sectionIdx}>
-                <div className="mb-8 flex items-center justify-center">
-                  <h3 className="text-xl md:text-2xl text-gray-200 font-semibold tracking-wide uppercase opacity-80">
-                    {section.title}
-                  </h3>
-                </div>
-                <SkillSlider
-                  items={section.items}
-                  direction={section.title === "Tools & Platforms" ? "right" : "left"}
-                  isStatic={section.title === "Databases"}
-                />
-              </div>
+          <div className="space-y-15">
+            {skillRows.map((rowItems, rowIdx) => (
+              <SkillSlider
+                key={rowIdx}
+                items={rowItems}
+                direction={rowIdx === 0 ? "left" : "right"}
+              />
             ))}
           </div>
         </div>

@@ -133,7 +133,7 @@ function Footer() {
       <div className="bg-night pt-8 pb-8 mt-8 border-t border-white/5">
         <div className="container mx-auto max-w-4xl px-4">
           <p className="text-center text-white text-sm">
-            © {footerData.copyright.year} Designed and coded with <span className="text-accent font-medium"> React & Tailwind CSS </span> by M Waqas Zafar
+            © {footerData.copyright.year} Designed and coded <span className="text-accent font-medium">  by M Waqas Zafar </span>
           </p>
         </div>
       </div>

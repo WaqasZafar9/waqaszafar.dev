@@ -32,7 +32,7 @@ export const BRANDS_DATA = [
   {
     id: "guestpass",
     name: "Guest Pass",
-    logo: "/Icons/guest-pass.svg",
+    logo: "/Icons/guest-pass2.svg",
     category: "Product",
   },
   {

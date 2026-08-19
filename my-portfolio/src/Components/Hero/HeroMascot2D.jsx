@@ -15,19 +15,24 @@ function HeroMascot2D({
   onHoverChange = () => {},
   onPoke = () => {},
   floatY = 0,
+  active = true,
 }) {
   const [waveTime, setWaveTime] = useState(0);
 
-  // Waving skirt hem animation loop
+  // Waving skirt hem animation loop — only while the mascot is on screen.
   useEffect(() => {
+    if (!active) return undefined;
     let animationId;
     const animateWave = () => {
       setWaveTime((t) => t + 0.04);
       animationId = requestAnimationFrame(animateWave);
     };
     animationId = requestAnimationFrame(animateWave);
-    return () => cancelAnimationFrame(animateWave);
-  }, []);
+    // Bug fix: cancelAnimationFrame needs the numeric request id, not the
+    // callback reference — the old code (`cancelAnimationFrame(animateWave)`)
+    // silently never canceled anything.
+    return () => cancelAnimationFrame(animationId);
+  }, [active]);
 
   // Calculate 3D perspective tilt and shift from cursor coordinates
   const tiltX = -mousePos.y * 12;

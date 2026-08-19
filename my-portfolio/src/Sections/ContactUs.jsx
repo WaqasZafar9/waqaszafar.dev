@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { FaPaperPlane, FaUser, FaEnvelope } from "react-icons/fa"; // Importing basic icons
 import { FaPhone, FaLocationDot, FaLinkedin, FaGithub, FaXTwitter, FaCircleCheck, FaCircleExclamation } from "react-icons/fa6"; // Importing other icons
+import ShinyButton from "../Components/ShinyButton/ShinyButton";
 
 function ContactUs() {
   const contactApiUrl = import.meta.env.VITE_CONTACT_API_URL || "/api/contact";
@@ -133,9 +134,7 @@ function ContactUs() {
             <div>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                 Let's Work <br />
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-accent to-accent">
-                  Together
-                </span>
+                <span className="text-accent-soft">Together</span>
               </h2>
               <p className="text-ink-soft text-lg leading-relaxed max-w-lg">
                 Have a project in mind? I'm available for freelance work and full-time opportunities. Let's create something amazing.
@@ -145,7 +144,7 @@ function ContactUs() {
             <div className="space-y-6">
               {contactInfo.map((item, index) => (
                 <div key={index} className="flex items-center gap-5 group">
-                  <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-accent text-xl group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(168,85,247,0.15)] group-hover:shadow-[0_0_25px_rgba(168,85,247,0.4)]">
+                  <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-accent text-xl group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(139,147,255,0.15)] group-hover:shadow-[0_0_25px_rgba(139,147,255,0.4)]">
                     <item.icon />
                   </div>
                   <div>
@@ -172,7 +171,7 @@ function ContactUs() {
           </div>
 
           {/* Right Column: Form */}
-          <div className="bg-night rounded-3xl p-8 md:p-10 border border-white/10 shadow-2xl relative overflow-hidden group">
+          <div className="bg-card/90 backdrop-blur-xl rounded-3xl p-8 md:p-10 border border-white/10 shadow-2xl relative overflow-hidden group">
             {/* Form Glow Helper Removed */}
 
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
@@ -221,16 +220,14 @@ function ContactUs() {
                 ></textarea>
               </div>
 
-              <button
+              <ShinyButton
                 type="submit"
                 disabled={loading}
-                className={`w-full bg-gradient-to-r from-neonPink to-deepBlue text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-accent/25 transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 ${
-                  loading ? "opacity-70 cursor-not-allowed" : ""
-                }`}
+                className={`w-full !py-4 font-bold ${loading ? "opacity-70 cursor-not-allowed" : ""}`}
               >
                 {loading ? "Sending..." : "Send Message"}
                 {!loading && <FaPaperPlane />}
-              </button>
+              </ShinyButton>
 
             </form>
           </div>

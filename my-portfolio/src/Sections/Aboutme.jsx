@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FaBriefcase, FaGlobe, FaLaptopCode, FaLayerGroup } from "react-icons/fa";
-import portrait from "../assets/my.png";
+import portrait from "../assets/my.webp";
+import ShinyButton from "../Components/ShinyButton/ShinyButton";
 
 const STATS = [
   { icon: FaLayerGroup, value: "15+", label: "Projects Completed" },
@@ -235,20 +236,20 @@ function Aboutme() {
 
             {/* 2 Sleek CTA Buttons matching Reference Screenshot */}
             <div className="flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:justify-center">
-              <a
+              <ShinyButton
                 href="#projects"
-                className={`group inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/20 bg-[#0a0b10]/95 px-7 py-3 text-sm font-medium tracking-wide text-white backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-[#131520] hover:shadow-[0_12px_32px_rgba(139,147,255,0.25)] sm:w-auto ${FOCUS_RING}`}
+                className={`w-full sm:w-auto ${FOCUS_RING}`}
               >
                 View Impact &amp; Work
-              </a>
-              <a
+              </ShinyButton>
+              <ShinyButton
                 href="https://calendly.com/mwaqaszafar76/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/20 bg-[#0a0b10]/95 px-7 py-3 text-sm font-medium tracking-wide text-white backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-[#131520] hover:shadow-[0_12px_32px_rgba(139,147,255,0.25)] sm:w-auto ${FOCUS_RING}`}
+                className={`w-full sm:w-auto ${FOCUS_RING}`}
               >
                 Book a 30 min call
-              </a>
+              </ShinyButton>
             </div>
           </div>
         </div>

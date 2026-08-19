@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaDownload } from "react-icons/fa";
 import resume from "../assets/Resume.pdf";
+import ShinyButton from "../Components/ShinyButton/ShinyButton";
 
 // Cumulative offsetTop up to (but not including) `stop`. Unlike
 // getBoundingClientRect, offsetTop is a pure layout value — it ignores any
@@ -239,14 +240,14 @@ function Experience() {
           </div>
 
           {/* Download CV CTA */}
-          <a
+          <ShinyButton
             href={resume}
             download="Waqas_Zafar_CV.pdf"
-            className={`group inline-flex items-center justify-center gap-2.5 rounded-full border border-white/20 bg-white/[0.04] px-6 py-3 text-xs font-semibold text-white backdrop-blur-md transition-all duration-300 hover:bg-white/[0.09] hover:border-white/40 hover:shadow-[0_0_25px_rgba(255,255,255,0.15)] ${FOCUS_RING}`}
+            className={`group !px-6 !py-3 text-xs font-medium ${FOCUS_RING}`}
           >
             Download CV
             <FaDownload className="text-[0.7rem] transition-transform duration-300 group-hover:translate-y-0.5" />
-          </a>
+          </ShinyButton>
         </div>
 
         {/* Interactive Experience Timeline Container */}
@@ -258,8 +259,12 @@ function Experience() {
                   ends level with the last card's bottom edge (the same points
                   the dots below sit on). z-0 + the dots' z-10 below guarantees
                   the line always paints behind the dots, never over them. */}
+              {/* left-[32px] = 8px design offset + the 24px (pl-6) the dots'
+                  own positioned wrapper picks up from this container's
+                  padding — keeps the track centred under the dots, which
+                  sit inside that separate positioning context. */}
               <div
-                className="absolute left-[8px] z-0 w-1 rounded-full bg-white/20 border border-white/10"
+                className="absolute left-[32px] z-0 w-1 rounded-full bg-white/20 border border-white/10"
                 style={{
                   top: nodeTops[0] ?? 0,
                   height: Math.max(0, trackEnd - (nodeTops[0] ?? 0)),
@@ -268,7 +273,7 @@ function Experience() {
 
               {/* Animated glowing progress line, filling the same span */}
               <div
-                className="absolute left-[8px] z-0 w-1 rounded-full bg-gradient-to-b from-white via-accent-soft to-accent transition-all duration-200 ease-out shadow-[0_0_16px_rgba(139,147,255,0.95),0_0_30px_rgba(255,255,255,0.7)]"
+                className="absolute left-[32px] z-0 w-1 rounded-full bg-gradient-to-b from-white via-accent-soft to-accent transition-all duration-200 ease-out shadow-[0_0_16px_rgba(139,147,255,0.95),0_0_30px_rgba(255,255,255,0.7)]"
                 style={{
                   top: nodeTops[0] ?? 0,
                   height:

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Scroll choreography wrapper. Renders a <section> that animates in when it
- * enters the viewport and back out when it leaves, so scrolling either
- * direction re-plays the motion.
+ * Scroll choreography wrapper. Renders a <section> that animates in once,
+ * the first time it enters the viewport, and then stays put — scrolling
+ * back up past it doesn't fade/blur it back out.
  *
  * The hidden state lives in CSS (`.sr-<variant>:not(.is-in)`), so this only
  * has to toggle a class — no per-frame JS and no layout reads while scrolling.
@@ -26,7 +26,12 @@ function Reveal({ variant = "rise", className = "", children, ...rest }) {
     }
 
     const observer = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect(); // one-shot — never reverses back out
+        }
+      },
       { threshold: 0.12, rootMargin: "-6% 0px -6% 0px" }
     );
 
