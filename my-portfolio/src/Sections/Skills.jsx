@@ -109,7 +109,7 @@ function Skills() {
 
     return (
       <div className="flex-shrink-0 w-[80px] md:w-[100px] lg:w-[110px] mx-2">
-        <div className="bg-[#1F2937]/30 backdrop-blur-sm rounded-xl p-3 border border-[#374151]/50 hover:border-blue-500/50 hover:bg-[#1F2937]/60 transition-all duration-300 group cursor-pointer h-full flex flex-col items-center justify-center">
+        <div className="bg-elevated/30 backdrop-blur-sm rounded-xl p-3 border border-[#374151]/50 hover:border-blue-500/50 hover:bg-elevated/60 transition-all duration-300 group cursor-pointer h-full flex flex-col items-center justify-center">
           <div className="mb-3 transition-transform duration-300 group-hover:scale-110 flex items-center justify-center">
             {isImageIcon ? (
               <img
@@ -124,7 +124,7 @@ function Skills() {
               />
             )}
           </div>
-          <span className="text-gray-300 text-xs md:text-sm text-center font-medium leading-tight">
+          <span className="text-ink-soft text-xs md:text-sm text-center font-medium leading-tight">
             {item.name}
           </span>
         </div>
@@ -202,13 +202,13 @@ function Skills() {
     <section
       ref={sectionRef}
       id="skills"
-      className="bg-black min-h-screen flex items-center justify-center py-[50px] px-4 overflow-hidden relative"
+      className="bg-night min-h-screen flex items-center justify-center py-[50px] px-4 overflow-hidden relative"
     >
       {/* Top Separator Glow */}
-      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-purple-500/50 to-transparent"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-accent/50 to-transparent"></div>
       
       {/* Glamour Glow Effects */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-deep/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
 
       <div className="container max-w-[1600px] px-4 md:px-6 lg:px-8 relative z-10">
         
@@ -219,9 +219,9 @@ function Skills() {
           }`}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 text-center">
-            Professional <span className="text-transparent bg-clip-text bg-linear-to-r from-neonPink to-purple-400">Skills</span>
+            Professional <span className="text-transparent bg-clip-text bg-linear-to-r from-neonPink to-accent">Skills</span>
           </h2>
-          <p className="text-gray-400 text-lg text-center">
+          <p className="text-ink-soft text-lg text-center">
             The skills, tools, technologies and concepts I work with
           </p>
         </div>

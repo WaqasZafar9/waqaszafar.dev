@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import { sendContactEmail } from "../../shared/contactMailer.js";
 
 export const handler = async (event) => {
   if (event.httpMethod === "OPTIONS") {
@@ -21,52 +21,11 @@ export const handler = async (event) => {
   }
 
   try {
-    const { name, email, message } = JSON.parse(event.body || "{}");
-
-    if (!name || !email || !message) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ message: "All fields are required." }),
-      };
-    }
-
-    const hasPlaceholderPass =
-      typeof process.env.SMTP_PASS === "string" &&
-      process.env.SMTP_PASS.toLowerCase().includes("app-password");
-
-    if (!process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.CONTACT_RECEIVER_EMAIL || hasPlaceholderPass) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ message: "Email server is not configured yet." }),
-      };
-    }
-
-    const transporter = nodemailer.createTransport({
-      service: process.env.SMTP_SERVICE || "gmail",
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"Portfolio Contact Form" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_RECEIVER_EMAIL,
-      replyTo: email,
-      subject: `New portfolio message from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-      html: `
-        <h3>New Contact Form Submission</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, "<br/>")}</p>
-      `,
-    });
-
+    const payload = JSON.parse(event.body || "{}");
+    const { statusCode, message } = await sendContactEmail(payload);
     return {
-      statusCode: 200,
-      body: JSON.stringify({ message: "Message sent successfully." }),
+      statusCode,
+      body: JSON.stringify({ message }),
     };
   } catch (error) {
     console.error("Netlify contact function error:", error);

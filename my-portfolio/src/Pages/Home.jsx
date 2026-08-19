@@ -3,6 +3,8 @@ import React, { Suspense, lazy } from "react";
 // Priority imports (above-the-fold content)
 import Navbar from "../Components/navbar";
 import Herosec from "../Sections/Herosec";
+import BrandMarquee from "../Components/BrandMarquee/BrandMarquee";
+import Reveal from "../Components/Motion/Reveal";
 
 // Lazy load below-the-fold sections for better performance
 const Aboutme = lazy(() => import("../Sections/Aboutme"));
@@ -14,20 +16,12 @@ const Certificates = lazy(() => import("../Sections/Certificates"));
 const ContactUs = lazy(() => import("../Sections/ContactUs"));
 const Footer = lazy(() => import("../Components/Footer"));
 
-// Loading fallback component
-const SectionLoader = () => (
-  <div className="flex items-center justify-center min-h-[200px] w-full">
-    <div className="animate-pulse flex flex-col items-center gap-4">
-      <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
-      <p className="text-gray-500 text-sm">Loading...</p>
-    </div>
-  </div>
-);
+import SectionShimmerSkeleton from "../Components/SectionShimmerSkeleton";
 
 function Home() {
   return (
     <>
-      {/* React 19 Native Metadata Support - automatically hoisted to <head> */}
+   
       {/* Primary Meta Tags */}
       <title>Waqas Zafar - Software Developer Portfolio</title>
       <meta
@@ -82,52 +76,64 @@ function Home() {
         {/* Critical above-the-fold content - loaded immediately */}
         <Navbar />
         <Herosec />
+        <BrandMarquee />
 
-        {/* Below-the-fold sections - lazy loaded with Suspense */}
-        <Suspense fallback={<SectionLoader />}>
-          <section id="about" aria-label="About Me Section">
+        {/* Below-the-fold sections - lazy loaded with Suspense.
+            Each gets its own entrance choreography via Reveal's variant. */}
+        <Suspense fallback={<SectionShimmerSkeleton />}>
+          <Reveal id="about" aria-label="About Me Section" variant="unfold">
             <Aboutme />
-          </section>
+          </Reveal>
         </Suspense>
 
-        <Suspense fallback={<SectionLoader />}>
-          <section id="experience" aria-label="Experience Section">
+        <Suspense fallback={<SectionShimmerSkeleton />}>
+          <Reveal
+            id="experience"
+            aria-label="Experience Section"
+            variant="ascend"
+          >
             <Experience />
-          </section>
+          </Reveal>
         </Suspense>
 
-        <Suspense fallback={<SectionLoader />}>
-          <section id="projects" aria-label="Projects Section">
+        <Suspense fallback={<SectionShimmerSkeleton />}>
+          <Reveal id="projects" aria-label="Projects Section" variant="zoom-depth">
             <Projects />
-          </section>
+          </Reveal>
         </Suspense>
 
-        <Suspense fallback={<SectionLoader />}>
-          <section id="skills" aria-label="Skills Section">
+        <Suspense fallback={<SectionShimmerSkeleton />}>
+          <Reveal id="skills" aria-label="Skills Section" variant="swing-right">
             <Skills />
-          </section>
+          </Reveal>
         </Suspense>
 
-        {/* <Suspense fallback={<SectionLoader />}>
+        {/* <Suspense fallback={<SectionShimmerSkeleton />}>
           <section id="education" aria-label="Education Section">
             <Education />
           </section>
         </Suspense> */}
 
-        <Suspense fallback={<SectionLoader />}>
-          <section id="certificates" aria-label="Certificates Section">
+        <Suspense fallback={<SectionShimmerSkeleton />}>
+          <Reveal
+            id="certificates"
+            aria-label="Certificates Section"
+            variant="flip-up"
+          >
             <Certificates />
-          </section>
+          </Reveal>
         </Suspense>
 
-        <Suspense fallback={<SectionLoader />}>
-          <section id="contact" aria-label="Contact Section">
+        <Suspense fallback={<SectionShimmerSkeleton />}>
+          <Reveal id="contact" aria-label="Contact Section" variant="spiral">
             <ContactUs />
-          </section>
+          </Reveal>
         </Suspense>
 
-        <Suspense fallback={<SectionLoader />}>
-          <Footer />
+        <Suspense fallback={<SectionShimmerSkeleton />}>
+          <Reveal aria-label="Footer" variant="rise">
+            <Footer />
+          </Reveal>
         </Suspense>
       </div>
     </>

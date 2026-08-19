@@ -164,14 +164,14 @@ const Certificates = () => {
     <section
       ref={sectionRef}
       id="certificates"
-      className="bg-black py-16 relative overflow-hidden"
+      className="bg-night py-16 relative overflow-hidden"
     >
       {/* Top Separator Glow */}
-      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-purple-500/50 to-transparent"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-accent/50 to-transparent"></div>
       
       {/* Glamour Glow Effects */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-violet-600/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-deep/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent-violet/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
 
       <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -184,14 +184,14 @@ const Certificates = () => {
         >
           <div className="flex justify-center mb-6">
             <button className="bg-white/5 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/10 transition-colors flex items-center gap-2 border border-white/10 backdrop-blur-sm">
-              <FaAward className="text-purple-500" />
+              <FaAward className="text-accent" />
               Certifications
             </button>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Professional <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-500 to-indigo-400">Certificates</span>
+            Professional <span className="text-transparent bg-clip-text bg-linear-to-r from-accent to-accent">Certificates</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">Swipe to see more</p>
+          <p className="text-ink-soft max-w-2xl mx-auto">Swipe to see more</p>
         </div>
 
         {/* Slider */}
@@ -229,7 +229,7 @@ const Certificates = () => {
           >
             {certificatesData.map((cert) => (
               <SwiperSlide key={cert.id} className="h-auto">
-                <div className="bg-[#050505] rounded-xl overflow-hidden shadow-lg hover:shadow-purple-500/20 transition-all duration-300 border border-white/10 group h-full flex flex-col max-w-full mx-auto relative">
+                <div className="bg-night rounded-xl overflow-hidden shadow-lg hover:shadow-accent/20 transition-all duration-300 border border-white/10 group h-full flex flex-col max-w-full mx-auto relative">
                    {/* Card Glow Helper */}
                    <div className="absolute inset-0 bg-linear-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
 
@@ -242,12 +242,12 @@ const Certificates = () => {
                       alt={cert.title}
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                    <div className="absolute inset-0 bg-night/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
                       <a
                         href={cert.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-purple-600 text-white px-5 py-2 rounded-full font-medium text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center gap-2 hover:bg-purple-700 shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+                        className="bg-accent-deep text-white px-5 py-2 rounded-full font-medium text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center gap-2 hover:bg-accent-deep shadow-[0_0_15px_rgba(168,85,247,0.4)]"
                       >
                         Verify <FaExternalLinkAlt className="text-xs" />
                       </a>
@@ -257,20 +257,20 @@ const Certificates = () => {
                   {/* Content */}
                   <div className="p-5 flex flex-col flex-grow relative z-10">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-purple-400 text-[10px] font-semibold px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20">
+                      <span className="text-accent text-[10px] font-semibold px-2 py-0.5 rounded bg-accent/10 border border-accent/20">
                         {cert.issuer}
                       </span>
-                      <span className="text-gray-400 text-[10px] flex items-center gap-1">
-                        <FaCertificate className="text-gray-500" /> {cert.date}
+                      <span className="text-ink-soft text-[10px] flex items-center gap-1">
+                        <FaCertificate className="text-ink-muted" /> {cert.date}
                       </span>
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 min-h-[3.5rem] group-hover:text-purple-100 transition-colors">
+                    <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 min-h-[3.5rem] group-hover:text-accent-soft transition-colors">
                       {cert.title}
                     </h3>
                     <div className="mt-auto">
                       <a
                         href={cert.link}
-                        className="inline-flex items-center gap-2 text-xs text-gray-400 hover:text-purple-400 transition-colors mt-1"
+                        className="inline-flex items-center gap-2 text-xs text-ink-soft hover:text-accent transition-colors mt-1"
                       >
                         Verify Credential{" "}
                         <FaExternalLinkAlt className="text-[10px]" />

@@ -60,10 +60,10 @@ function Education() {
     <section
       ref={sectionRef}
       id="education"
-      className="bg-[#111827] min-h-screen flex items-center justify-center py-16 px-4 relative overflow-hidden"
+      className="bg-card min-h-screen flex items-center justify-center py-16 px-4 relative overflow-hidden"
     >
       {/* Top Separator Glow */}
-      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-purple-500/50 to-transparent"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-accent/50 to-transparent"></div>
       <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
         <div
           className={`transition-all duration-1000 ${
@@ -74,7 +74,7 @@ function Education() {
         >
           {/* Education Button */}
           <div className="flex justify-center mb-6">
-            <button className="bg-[#1F2937] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#374151] transition-colors">
+            <button className="bg-elevated text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-elevated transition-colors">
               Education
             </button>
           </div>
@@ -87,8 +87,8 @@ function Education() {
           {/* Education Timeline */}
           <div className="relative max-w-4xl mx-auto">
             {/* Timeline Line */}
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-[#374151] transform -translate-x-1/2"></div>
-            <div className="md:hidden absolute left-4 top-0 bottom-0 w-0.5 bg-[#374151]"></div>
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-elevated transform -translate-x-1/2"></div>
+            <div className="md:hidden absolute left-4 top-0 bottom-0 w-0.5 bg-elevated"></div>
 
             {/* Education Cards */}
             <div className="space-y-8 md:space-y-12">
@@ -101,7 +101,7 @@ function Education() {
                 >
                   {/* Timeline Dot */}
                   <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 z-10">
-                    <div className="w-8 h-8 bg-[#111827] border-4 border-[#10B981] rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-card border-4 border-[#10B981] rounded-full flex items-center justify-center">
                       <FaGraduationCap className="text-[#10B981] text-xs" />
                     </div>
                   </div>
@@ -117,7 +117,7 @@ function Education() {
                       animationDelay: `${index * 0.2}s`,
                     }}
                   >
-                    <div className="bg-[#1F2937] rounded-lg p-4 sm:p-6 md:p-8 hover:bg-[#374151] transition-all duration-300 experience-card">
+                    <div className="bg-elevated rounded-lg p-4 sm:p-6 md:p-8 hover:bg-elevated transition-all duration-300 experience-card">
                       {/* Degree */}
                       <div className="flex items-start gap-3 mb-4">
                         <FaGraduationCap className="text-[#10B981] text-lg sm:text-xl mt-1 shrink-0" />

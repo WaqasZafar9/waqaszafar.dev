@@ -60,7 +60,7 @@ function NotFound() {
             }}
           />
           <div
-            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse"
             style={{
               transform: `translate(${-mousePosition.x}px, ${-mousePosition.y}px)`,
               transition: "transform 0.3s ease-out",
@@ -86,7 +86,7 @@ function NotFound() {
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
           {/* Glitch effect 404 */}
           <div className="relative inline-block mb-8">
-            <h1 className="text-[12rem] sm:text-[16rem] md:text-[20rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 leading-none animate-pulse select-none">
+            <h1 className="text-[12rem] sm:text-[16rem] md:text-[20rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-accent to-cyan-400 leading-none animate-pulse select-none">
               404
             </h1>
             {/* Glitch layers */}
@@ -102,7 +102,7 @@ function NotFound() {
               404
             </h1>
             <h1
-              className="absolute inset-0 text-[12rem] sm:text-[16rem] md:text-[20rem] font-black text-purple-500/30 leading-none select-none pointer-events-none"
+              className="absolute inset-0 text-[12rem] sm:text-[16rem] md:text-[20rem] font-black text-accent/30 leading-none select-none pointer-events-none"
               style={{
                 transform: `translate(${-mousePosition.x * 0.1}px, ${
                   -mousePosition.y * 0.1
@@ -120,7 +120,7 @@ function NotFound() {
               Page Not Found
             </h2>
             <p
-              className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto animate-fade-in-up"
+              className="text-lg sm:text-xl text-ink-soft max-w-2xl mx-auto animate-fade-in-up"
               style={{ animationDelay: "0.2s" }}
             >
               Oops! The page you're looking for seems to have wandered off into
@@ -135,7 +135,7 @@ function NotFound() {
           >
             <button
               onClick={handleGoHome}
-              className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/50 hover:scale-105"
+              className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-accent-deep text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/50 hover:scale-105"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <svg
@@ -153,7 +153,7 @@ function NotFound() {
                 </svg>
                 Back to Home
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-accent-deep to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
 
             <button
@@ -215,7 +215,7 @@ function NotFound() {
                 </defs>
               </svg>
             </div>
-            <span className="text-gray-300 text-sm">
+            <span className="text-ink-soft text-sm">
               Redirecting to homepage...
             </span>
           </div>
@@ -225,7 +225,7 @@ function NotFound() {
             {[...Array(3)].map((_, i) => (
               <div
                 key={i}
-                className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 animate-bounce"
+                className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-accent animate-bounce"
                 style={{ animationDelay: `${i * 0.2}s` }}
               />
             ))}

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { FaPaperPlane, FaUser, FaEnvelope } from "react-icons/fa"; // Importing basic icons
 import { FaPhone, FaLocationDot, FaLinkedin, FaGithub, FaXTwitter, FaCircleCheck, FaCircleExclamation } from "react-icons/fa6"; // Importing other icons
 
@@ -117,10 +118,10 @@ function ContactUs() {
   return (
     <section
       id="contact"
-      className="bg-black min-h-screen py-20 px-4 relative overflow-hidden flex items-center"
+      className="bg-night min-h-screen py-20 px-4 relative overflow-hidden flex items-center"
     >
       {/* Top Separator Glow */}
-      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-purple-500/50 to-transparent"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-accent/50 to-transparent"></div>
       
       {/* Glamour Glow Effects Removed */}
 
@@ -132,11 +133,11 @@ function ContactUs() {
             <div>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                 Let's Work <br />
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-500 to-indigo-400">
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-accent to-accent">
                   Together
                 </span>
               </h2>
-              <p className="text-gray-400 text-lg leading-relaxed max-w-lg">
+              <p className="text-ink-soft text-lg leading-relaxed max-w-lg">
                 Have a project in mind? I'm available for freelance work and full-time opportunities. Let's create something amazing.
               </p>
             </div>
@@ -144,12 +145,12 @@ function ContactUs() {
             <div className="space-y-6">
               {contactInfo.map((item, index) => (
                 <div key={index} className="flex items-center gap-5 group">
-                  <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-purple-500 text-xl group-hover:bg-purple-500 group-hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(168,85,247,0.15)] group-hover:shadow-[0_0_25px_rgba(168,85,247,0.4)]">
+                  <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-accent text-xl group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(168,85,247,0.15)] group-hover:shadow-[0_0_25px_rgba(168,85,247,0.4)]">
                     <item.icon />
                   </div>
                   <div>
-                    <h4 className="text-gray-400 text-sm font-medium mb-1">{item.title}</h4>
-                    <a href={item.link} className="text-white text-lg font-semibold hover:text-purple-400 transition-colors">
+                    <h4 className="text-ink-soft text-sm font-medium mb-1">{item.title}</h4>
+                    <a href={item.link} className="text-white text-lg font-semibold hover:text-accent transition-colors">
                       {item.content}
                     </a>
                   </div>
@@ -171,12 +172,12 @@ function ContactUs() {
           </div>
 
           {/* Right Column: Form */}
-          <div className="bg-[#050505] rounded-3xl p-8 md:p-10 border border-white/10 shadow-2xl relative overflow-hidden group">
+          <div className="bg-night rounded-3xl p-8 md:p-10 border border-white/10 shadow-2xl relative overflow-hidden group">
             {/* Form Glow Helper Removed */}
 
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div className="space-y-2">
-                <label className="text-gray-400 text-sm font-medium ml-1">Your Name</label>
+                <label className="text-ink-soft text-sm font-medium ml-1">Your Name</label>
                 <div className="relative">
                   <input
                     type="text"
@@ -185,14 +186,14 @@ function ContactUs() {
                     onChange={handleChange}
                     placeholder="John Doe"
                     required
-                    className="w-full bg-[#111827] border border-gray-800 rounded-xl px-4 py-4 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all font-medium"
+                    className="w-full bg-card border border-line rounded-xl px-4 py-4 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all font-medium"
                   />
-                  <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted" />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-gray-400 text-sm font-medium ml-1">Email Address</label>
+                <label className="text-ink-soft text-sm font-medium ml-1">Email Address</label>
                 <div className="relative">
                   <input
                     type="email"
@@ -201,14 +202,14 @@ function ContactUs() {
                     onChange={handleChange}
                     placeholder="john@example.com"
                     required
-                    className="w-full bg-[#111827] border border-gray-800 rounded-xl px-4 py-4 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all font-medium"
+                    className="w-full bg-card border border-line rounded-xl px-4 py-4 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all font-medium"
                   />
-                  <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted" />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-gray-400 text-sm font-medium ml-1">Message</label>
+                <label className="text-ink-soft text-sm font-medium ml-1">Message</label>
                 <textarea
                   name="message"
                   value={formData.message}
@@ -216,14 +217,14 @@ function ContactUs() {
                   placeholder="Tell me about your project..."
                   required
                   rows="4"
-                  className="w-full bg-[#111827] border border-gray-800 rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all font-medium resize-none"
+                  className="w-full bg-card border border-line rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all font-medium resize-none"
                 ></textarea>
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full bg-gradient-to-r from-neonPink to-deepBlue text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-purple-500/25 transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 ${
+                className={`w-full bg-gradient-to-r from-neonPink to-deepBlue text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-accent/25 transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 ${
                   loading ? "opacity-70 cursor-not-allowed" : ""
                 }`}
               >
@@ -237,10 +238,15 @@ function ContactUs() {
         </div>
       </div>
 
-      {isStatusModalOpen && status.message && (
+      {/* Portaled to <body>: the section animates on scroll, and a transformed
+          ancestor would otherwise become the containing block for this
+          position:fixed overlay. */}
+      {isStatusModalOpen &&
+        status.message &&
+        createPortal(
         <div
           className={`fixed inset-0 z-[100] flex items-center justify-center px-4 transition-opacity duration-250 ${
-            isStatusAnimatingIn ? "bg-black/60 opacity-100" : "bg-black/0 opacity-0"
+            isStatusAnimatingIn ? "bg-night/60 opacity-100" : "bg-night/0 opacity-0"
           }`}
         >
           <div
@@ -282,8 +288,9 @@ function ContactUs() {
               Close
             </button>
           </div>
-        </div>
-      )}
+        </div>,
+          document.body
+        )}
     </section>
   );
 }
