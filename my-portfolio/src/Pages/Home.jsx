@@ -8,6 +8,7 @@ import Reveal from "../Components/Motion/Reveal";
 
 // Lazy load below-the-fold sections for better performance
 const Aboutme = lazy(() => import("../Sections/Aboutme"));
+const Services = lazy(() => import("../Sections/Services"));
 const Experience = lazy(() => import("../Sections/Experience"));
 const Skills = lazy(() => import("../Sections/Skills"));
 const Projects = lazy(() => import("../Sections/Projects"));
@@ -84,6 +85,12 @@ function Home() {
         <Suspense fallback={<SectionShimmerSkeleton />}>
           <Reveal id="about" aria-label="About Me Section" variant="unfold">
             <Aboutme />
+          </Reveal>
+        </Suspense>
+
+        <Suspense fallback={<SectionShimmerSkeleton />}>
+          <Reveal id="services" aria-label="Services Section" variant="flip-up">
+            <Services />
           </Reveal>
         </Suspense>
 

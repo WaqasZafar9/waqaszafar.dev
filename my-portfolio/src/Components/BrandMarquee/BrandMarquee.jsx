@@ -33,14 +33,14 @@ function BrandMarquee() {
   return (
     <section
       aria-label="Companies and products I've worked with"
-      className="relative w-full bg-base border-y border-white/[0.06] py-7 md:py-9 overflow-hidden font-sans select-none z-10"
+      className="relative w-full bg-background border-y border-white/[0.06] py-7 md:py-9 overflow-hidden font-sans select-none z-10"
     >
       {/* Background Subtle Room Light Glow */}
       <div className="absolute inset-0 pointer-events-none bg-radial from-white/[0.02] to-transparent opacity-60" />
 
       {/* Edge Gradient Dissolve Masks (Left & Right) */}
-      <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-24 md:w-36 bg-gradient-to-r from-base to-transparent z-20" />
-      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-24 md:w-36 bg-gradient-to-l from-base to-transparent z-20" />
+      <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-24 md:w-36 bg-gradient-to-r from-background to-transparent z-20" />
+      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-24 md:w-36 bg-gradient-to-l from-background to-transparent z-20" />
 
       {/* Marquee Track Container */}
       <div className="group relative w-full overflow-hidden flex items-center">

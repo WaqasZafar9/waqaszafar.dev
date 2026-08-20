@@ -28,11 +28,11 @@
 }
 
 .shiny-cta {
-  --shiny-cta-bg: var(--color-surface, #0c0e12);
-  --shiny-cta-bg-subtle: var(--color-elevated, #111318);
-  --shiny-cta-fg: var(--color-ink, #f2f3f5);
-  --shiny-cta-highlight: var(--color-accent, #8b93ff);
-  --shiny-cta-highlight-subtle: var(--color-accent-soft, #a7adff);
+  --shiny-cta-bg: var(--background, #1a1d23);
+  --shiny-cta-bg-subtle: var(--card, #2f3436);
+  --shiny-cta-fg: var(--foreground, #e5e5e5);
+  --shiny-cta-highlight: var(--primary, #34a85a);
+  --shiny-cta-highlight-subtle: color-mix(in srgb, var(--primary, #34a85a) 55%, white);
   --animation: gradient-angle linear infinite;
   --duration: 3s;
   --shadow-size: 2px;

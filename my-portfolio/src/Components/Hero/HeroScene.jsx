@@ -295,9 +295,9 @@ function HeroScene({
         <ambientLight intensity={0.85} />
         {/* Soft key light */}
         <directionalLight position={[2.5, 4, 5]} intensity={2.2} color="#ffffff" />
-        {/* Periwinkle rim lights */}
-        <pointLight position={[-4, -1, 2.5]} intensity={24} color="#6f78ff" />
-        <pointLight position={[4, -2.5, -2]} intensity={16} color="#8b7cff" />
+        {/* Rim lights, retuned to the theme's primary green */}
+        <pointLight position={[-4, -1, 2.5]} intensity={24} color="#34a85a" />
+        <pointLight position={[4, -2.5, -2]} intensity={16} color="#7ed9a0" />
 
         <Ghost
           pointer={pointer}

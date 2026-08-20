@@ -5,7 +5,7 @@ function Herosec() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 pb-24 pt-32 font-sans sm:px-6 md:pt-36 bg-[#08090c]"
+      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 pb-24 pt-32 font-sans sm:px-6 md:pt-36 bg-background"
     >
       {/* Layer 1 — Full-Section Environment & Ambient Lighting (Matching User's BG Idea) */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -14,22 +14,22 @@ function Herosec() {
           className="absolute inset-0 opacity-[0.32]"
           style={{
             backgroundImage:
-              "radial-gradient(rgba(139, 147, 255, 0.4) 1.2px, transparent 1.2px)",
+              "radial-gradient(rgba(52, 168, 90, 0.4) 1.2px, transparent 1.2px)",
             backgroundSize: "28px 28px",
           }}
         />
 
         {/* Ambient Glow 1: Top Ghost Area Lighting */}
-        <div className="absolute top-[2%] left-1/2 h-[450px] w-[min(90vw,750px)] -translate-x-1/2 rounded-full bg-gradient-to-b from-accent/25 via-accent-deep/15 to-transparent blur-[120px] opacity-80" />
+        <div className="absolute top-[2%] left-1/2 h-[450px] w-[min(90vw,750px)] -translate-x-1/2 rounded-full bg-gradient-to-b from-primary/25 via-primary/15 to-transparent blur-[120px] opacity-80" />
 
         {/* Ambient Glow 2: Center Headline Lighting */}
-        <div className="absolute top-[35%] left-1/2 h-[480px] w-[min(95vw,880px)] -translate-x-1/2 rounded-full bg-gradient-to-tr from-accent/15 via-neonPink/10 to-transparent blur-[140px] opacity-75" />
+        <div className="absolute top-[35%] left-1/2 h-[480px] w-[min(95vw,880px)] -translate-x-1/2 rounded-full bg-gradient-to-tr from-primary/15 via-primary/10 to-transparent blur-[140px] opacity-75" />
 
         {/* Ambient Glow 3: Bottom CTA & Social Links Lighting */}
-        <div className="absolute bottom-[8%] left-1/2 h-[350px] w-[min(90vw,780px)] -translate-x-1/2 rounded-full bg-accent-soft/[0.12] blur-[130px] opacity-70" />
+        <div className="absolute bottom-[8%] left-1/2 h-[350px] w-[min(90vw,780px)] -translate-x-1/2 rounded-full bg-primary/[0.12] blur-[130px] opacity-70" />
 
         {/* Soft Bottom Transition to Next Section */}
-        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent to-[#08090c]" />
+        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent to-background" />
       </div>
 
       {/* Layer 2 — Interactive Floating Mascot Focal Object */}
@@ -45,15 +45,15 @@ function Herosec() {
       {/* Scroll cue */}
       <a
         href="#about"
-        className="hero-fade group absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2.5 rounded-full px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-night"
+        className="hero-fade group absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2.5 rounded-full px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         style={{ animationDelay: "1100ms" }}
       >
-        <span className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-ink-muted transition-colors duration-300 group-hover:text-ink-soft">
+        <span className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 group-hover:text-muted-foreground">
           Scroll to explore
         </span>
         <span
           aria-hidden="true"
-          className="hero-scroll-line h-7 w-px bg-gradient-to-b from-accent/70 to-transparent"
+          className="hero-scroll-line h-7 w-px bg-gradient-to-b from-primary/70 to-transparent"
         />
       </a>
     </section>

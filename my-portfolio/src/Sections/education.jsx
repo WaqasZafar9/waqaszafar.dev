@@ -63,7 +63,7 @@ function Education() {
       className="bg-card min-h-screen flex items-center justify-center py-16 px-4 relative overflow-hidden"
     >
       {/* Top Separator Glow */}
-      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-accent/50 to-transparent"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent"></div>
       <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
         <div
           className={`transition-all duration-1000 ${
@@ -74,7 +74,7 @@ function Education() {
         >
           {/* Education Button */}
           <div className="flex justify-center mb-6">
-            <button className="bg-elevated text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-elevated transition-colors">
+            <button className="bg-card text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-card transition-colors">
               Education
             </button>
           </div>
@@ -87,8 +87,8 @@ function Education() {
           {/* Education Timeline */}
           <div className="relative max-w-4xl mx-auto">
             {/* Timeline Line */}
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-elevated transform -translate-x-1/2"></div>
-            <div className="md:hidden absolute left-4 top-0 bottom-0 w-0.5 bg-elevated"></div>
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-card transform -translate-x-1/2"></div>
+            <div className="md:hidden absolute left-4 top-0 bottom-0 w-0.5 bg-card"></div>
 
             {/* Education Cards */}
             <div className="space-y-8 md:space-y-12">
@@ -101,8 +101,8 @@ function Education() {
                 >
                   {/* Timeline Dot */}
                   <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 z-10">
-                    <div className="w-8 h-8 bg-card border-4 border-[#10B981] rounded-full flex items-center justify-center">
-                      <FaGraduationCap className="text-[#10B981] text-xs" />
+                    <div className="w-8 h-8 bg-card border-4 border-primary rounded-full flex items-center justify-center">
+                      <FaGraduationCap className="text-primary text-xs" />
                     </div>
                   </div>
 
@@ -117,47 +117,47 @@ function Education() {
                       animationDelay: `${index * 0.2}s`,
                     }}
                   >
-                    <div className="bg-elevated rounded-lg p-4 sm:p-6 md:p-8 hover:bg-elevated transition-all duration-300 experience-card">
+                    <div className="bg-card rounded-lg p-4 sm:p-6 md:p-8 hover:bg-card transition-all duration-300 experience-card">
                       {/* Degree */}
                       <div className="flex items-start gap-3 mb-4">
-                        <FaGraduationCap className="text-[#10B981] text-lg sm:text-xl mt-1 shrink-0" />
+                        <FaGraduationCap className="text-primary text-lg sm:text-xl mt-1 shrink-0" />
                         <h3 className="text-white text-lg sm:text-xl md:text-2xl font-bold break-words">
                           {edu.degree}
                         </h3>
                       </div>
 
                       {/* Institution */}
-                      <p className="text-[#D1D5DB] text-base sm:text-lg font-semibold mb-3 break-words">
+                      <p className="text-foreground/90 text-base sm:text-lg font-semibold mb-3 break-words">
                         {edu.institution}
                       </p>
 
                       {/* Location and Period */}
-                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4 text-[#9CA3AF] text-xs sm:text-sm">
+                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4 text-muted-foreground text-xs sm:text-sm">
                         <div className="flex items-center gap-2 shrink-0">
-                          <FaMapMarkerAlt className="text-[#10B981] shrink-0" />
+                          <FaMapMarkerAlt className="text-primary shrink-0" />
                           <span className="break-words">{edu.location}</span>
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
-                          <FaCalendarAlt className="text-[#10B981] shrink-0" />
+                          <FaCalendarAlt className="text-primary shrink-0" />
                           <span>{edu.period}</span>
                         </div>
                       </div>
 
                       {/* Description */}
-                      <p className="text-[#D1D5DB] text-sm md:text-base leading-relaxed mb-4 break-words">
+                      <p className="text-foreground/90 text-sm md:text-base leading-relaxed mb-4 break-words">
                         {edu.description}
                       </p>
 
                       {/* Achievements */}
                       {edu.achievements.length > 0 && (
-                        <div className="mt-4 pt-4 border-t border-[#374151]">
+                        <div className="mt-4 pt-4 border-t border-border">
                           <ul className="space-y-2">
                             {edu.achievements.map((achievement, achIndex) => (
                               <li
                                 key={achIndex}
-                                className="text-[#D1D5DB] text-xs sm:text-sm flex items-start gap-2"
+                                className="text-foreground/90 text-xs sm:text-sm flex items-start gap-2"
                               >
-                                <span className="text-[#10B981] mt-1.5 shrink-0">
+                                <span className="text-primary mt-1.5 shrink-0">
                                   ▹
                                 </span>
                                 <span className="break-words">

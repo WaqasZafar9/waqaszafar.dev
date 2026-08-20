@@ -50,38 +50,38 @@ function Footer() {
   }
 
   return (
-    <footer className="bg-night text-white pt-16 relative">
+    <footer className="bg-background text-white pt-16 relative">
       {/* Top Separator Glow */}
-      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-accent/50 to-transparent"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent"></div>
       <div className="container mx-auto max-w-4xl">
         {/* Get in touch button */}
         <div className="flex justify-center mb-8">
           <button
             onClick={scrollToContact}
-            className="px-6 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white text-sm font-medium hover:bg-accent-deep hover:border-accent-deep hover:shadow-[0_0_15px_rgba(147,51,234,0.3)] transition-all duration-300"
+            className="px-6 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white text-sm font-medium hover:bg-primary hover:border-primary hover:shadow-[0_0_15px_rgba(147,51,234,0.3)] transition-all duration-300"
           >
             {footerData.buttonText}
           </button>
         </div>
 
         {/* Description */}
-        <p className="text-ink-soft text-center mb-12 max-w-2xl mx-auto text-sm md:text-base">
+        <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto text-sm md:text-base">
           {footerData.description}
         </p>
 
         {/* Contact Details */}
         <div className="space-y-4 mb-12">
           {/* Email */}
-          <div className="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-lg px-4 py-3 max-w-md mx-auto group hover:border-accent/30 transition-colors">
-            <FaEnvelope className="text-ink-soft text-lg group-hover:text-accent transition-colors" />
-            <span className="flex-1 text-ink-soft text-sm md:text-base group-hover:text-white transition-colors">{footerData.contact.email}</span>
+          <div className="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-lg px-4 py-3 max-w-md mx-auto group hover:border-primary/30 transition-colors">
+            <FaEnvelope className="text-muted-foreground text-lg group-hover:text-primary transition-colors" />
+            <span className="flex-1 text-muted-foreground text-sm md:text-base group-hover:text-white transition-colors">{footerData.contact.email}</span>
             <button
               onClick={() => handleCopy(footerData.contact.email, 'email')}
-              className="text-ink-soft hover:text-accent transition-colors p-1"
+              className="text-muted-foreground hover:text-primary transition-colors p-1"
               aria-label="Copy email"
             >
               {copiedEmail ? (
-                <span className="text-green-400 text-xs">Copied!</span>
+                <span className="text-primary text-xs">Copied!</span>
               ) : (
                 <FaCopy className="text-lg" />
               )}
@@ -89,16 +89,16 @@ function Footer() {
           </div>
 
           {/* Phone */}
-          <div className="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-lg px-4 py-3 max-w-md mx-auto group hover:border-accent/30 transition-colors">
-            <FaPhone className="text-ink-soft text-lg group-hover:text-accent transition-colors" />
-            <span className="flex-1 text-ink-soft text-sm md:text-base group-hover:text-white transition-colors">{footerData.contact.phone}</span>
+          <div className="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-lg px-4 py-3 max-w-md mx-auto group hover:border-primary/30 transition-colors">
+            <FaPhone className="text-muted-foreground text-lg group-hover:text-primary transition-colors" />
+            <span className="flex-1 text-muted-foreground text-sm md:text-base group-hover:text-white transition-colors">{footerData.contact.phone}</span>
             <button
               onClick={() => handleCopy(footerData.contact.phone, 'phone')}
-              className="text-ink-soft hover:text-accent transition-colors p-1"
+              className="text-muted-foreground hover:text-primary transition-colors p-1"
               aria-label="Copy phone"
             >
               {copiedPhone ? (
-                <span className="text-green-400 text-xs">Copied!</span>
+                <span className="text-primary text-xs">Copied!</span>
               ) : (
                 <FaCopy className="text-lg" />
               )}
@@ -108,7 +108,7 @@ function Footer() {
 
         {/* Social Platforms */}
         <div className="text-center mb-8">
-          <p className="text-ink-soft text-sm mb-6">{footerData.socialPlatforms.text}</p>
+          <p className="text-muted-foreground text-sm mb-6">{footerData.socialPlatforms.text}</p>
           <div className="flex items-center justify-center gap-6">
             {footerData.socialPlatforms.links.map((social, index) => {
               const IconComponent = social.icon
@@ -118,7 +118,7 @@ function Footer() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white text-2xl hover:text-accent transform hover:scale-110 transition-all duration-300"
+                  className="text-white text-2xl hover:text-primary transform hover:scale-110 transition-all duration-300"
                   aria-label={social.name}
                 >
                   <IconComponent />
@@ -130,10 +130,10 @@ function Footer() {
       </div>
 
       {/* Copyright - Full width bar */}
-      <div className="bg-night pt-8 pb-8 mt-8 border-t border-white/5">
+      <div className="bg-background pt-8 pb-8 mt-8 border-t border-white/5">
         <div className="container mx-auto max-w-4xl px-4">
           <p className="text-center text-white text-sm">
-            © {footerData.copyright.year} Designed and coded <span className="text-accent font-medium">  by M Waqas Zafar </span>
+            © {footerData.copyright.year} Designed and coded <span className="text-primary font-medium">  by M Waqas Zafar </span>
           </p>
         </div>
       </div>

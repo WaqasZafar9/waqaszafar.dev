@@ -119,10 +119,10 @@ function ContactUs() {
   return (
     <section
       id="contact"
-      className="bg-night min-h-screen py-20 px-4 relative overflow-hidden flex items-center"
+      className="bg-background min-h-screen py-20 px-4 relative overflow-hidden flex items-center"
     >
       {/* Top Separator Glow */}
-      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-accent/50 to-transparent"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent"></div>
       
       {/* Glamour Glow Effects Removed */}
 
@@ -134,9 +134,9 @@ function ContactUs() {
             <div>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                 Let's Work <br />
-                <span className="text-accent-soft">Together</span>
+                <span className="text-primary">Together</span>
               </h2>
-              <p className="text-ink-soft text-lg leading-relaxed max-w-lg">
+              <p className="text-muted-foreground text-lg leading-relaxed max-w-lg">
                 Have a project in mind? I'm available for freelance work and full-time opportunities. Let's create something amazing.
               </p>
             </div>
@@ -144,12 +144,12 @@ function ContactUs() {
             <div className="space-y-6">
               {contactInfo.map((item, index) => (
                 <div key={index} className="flex items-center gap-5 group">
-                  <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-accent text-xl group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(139,147,255,0.15)] group-hover:shadow-[0_0_25px_rgba(139,147,255,0.4)]">
+                  <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-primary text-xl group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(52,168,90,0.15)] group-hover:shadow-[0_0_25px_rgba(52,168,90,0.4)]">
                     <item.icon />
                   </div>
                   <div>
-                    <h4 className="text-ink-soft text-sm font-medium mb-1">{item.title}</h4>
-                    <a href={item.link} className="text-white text-lg font-semibold hover:text-accent transition-colors">
+                    <h4 className="text-muted-foreground text-sm font-medium mb-1">{item.title}</h4>
+                    <a href={item.link} className="text-white text-lg font-semibold hover:text-primary transition-colors">
                       {item.content}
                     </a>
                   </div>
@@ -176,7 +176,7 @@ function ContactUs() {
 
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div className="space-y-2">
-                <label className="text-ink-soft text-sm font-medium ml-1">Your Name</label>
+                <label className="text-muted-foreground text-sm font-medium ml-1">Your Name</label>
                 <div className="relative">
                   <input
                     type="text"
@@ -185,14 +185,14 @@ function ContactUs() {
                     onChange={handleChange}
                     placeholder="John Doe"
                     required
-                    className="w-full bg-card border border-line rounded-xl px-4 py-4 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all font-medium"
+                    className="w-full bg-card border border-border rounded-xl px-4 py-4 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-medium"
                   />
-                  <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted" />
+                  <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-ink-soft text-sm font-medium ml-1">Email Address</label>
+                <label className="text-muted-foreground text-sm font-medium ml-1">Email Address</label>
                 <div className="relative">
                   <input
                     type="email"
@@ -201,14 +201,14 @@ function ContactUs() {
                     onChange={handleChange}
                     placeholder="john@example.com"
                     required
-                    className="w-full bg-card border border-line rounded-xl px-4 py-4 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all font-medium"
+                    className="w-full bg-card border border-border rounded-xl px-4 py-4 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-medium"
                   />
-                  <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted" />
+                  <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-ink-soft text-sm font-medium ml-1">Message</label>
+                <label className="text-muted-foreground text-sm font-medium ml-1">Message</label>
                 <textarea
                   name="message"
                   value={formData.message}
@@ -216,7 +216,7 @@ function ContactUs() {
                   placeholder="Tell me about your project..."
                   required
                   rows="4"
-                  className="w-full bg-card border border-line rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all font-medium resize-none"
+                  className="w-full bg-card border border-border rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-medium resize-none"
                 ></textarea>
               </div>
 
@@ -243,7 +243,7 @@ function ContactUs() {
         createPortal(
         <div
           className={`fixed inset-0 z-[100] flex items-center justify-center px-4 transition-opacity duration-250 ${
-            isStatusAnimatingIn ? "bg-night/60 opacity-100" : "bg-night/0 opacity-0"
+            isStatusAnimatingIn ? "bg-background/60 opacity-100" : "bg-background/0 opacity-0"
           }`}
         >
           <div
@@ -251,14 +251,14 @@ function ContactUs() {
               isStatusAnimatingIn ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-3 scale-95"
             } ${
               status.type === "success"
-                ? "bg-emerald-950/80 border-emerald-400/30"
-                : "bg-rose-950/80 border-rose-400/30"
+                ? "bg-primary/10 border-primary/30"
+                : "bg-destructive/10 border-destructive/30"
             }`}
           >
             <div className="flex items-start gap-3">
               <div
                 className={`mt-0.5 text-2xl ${
-                  status.type === "success" ? "text-emerald-300" : "text-rose-300"
+                  status.type === "success" ? "text-primary" : "text-destructive"
                 }`}
               >
                 {status.type === "success" ? <FaCircleCheck /> : <FaCircleExclamation />}
@@ -269,7 +269,7 @@ function ContactUs() {
                 </h4>
                 <p
                   className={`mt-1 text-sm ${
-                    status.type === "success" ? "text-emerald-200" : "text-rose-200"
+                    status.type === "success" ? "text-primary/80" : "text-destructive/80"
                   }`}
                 >
                   {status.message}

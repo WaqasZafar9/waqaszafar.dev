@@ -20,9 +20,9 @@ function GroundShadow({ floatY = 0, hovered = false }) {
       aria-hidden="true"
       className="pointer-events-none absolute bottom-[14%] left-1/2 z-0 h-16 w-64 -translate-x-1/2 select-none"
     >
-      {/* Outer ambient contact glow (cool periwinkle/accent) */}
+      {/* Outer ambient contact glow (brand primary tint) */}
       <div
-        className="absolute inset-0 rounded-[100%] bg-accent/20 blur-[28px] transition-all duration-500 ease-out"
+        className="absolute inset-0 rounded-[100%] bg-primary/20 blur-[28px] transition-all duration-500 ease-out"
         style={{
           transform: `scale(${ambientGlowScale})`,
           opacity: hovered ? 0.45 : 0.28,
@@ -40,7 +40,7 @@ function GroundShadow({ floatY = 0, hovered = false }) {
 
       {/* Inner tight shadow line */}
       <div
-        className="absolute left-1/2 top-1/2 h-3 w-28 -translate-x-1/2 -translate-y-1/2 rounded-[100%] bg-[#08090c] blur-[6px] transition-transform duration-300 ease-out"
+        className="absolute left-1/2 top-1/2 h-3 w-28 -translate-x-1/2 -translate-y-1/2 rounded-[100%] bg-background blur-[6px] transition-transform duration-300 ease-out"
         style={{
           transform: `translate(-50%, -50%) scale(${shadowScale * 0.85})`,
           opacity: shadowOpacity * 0.8,

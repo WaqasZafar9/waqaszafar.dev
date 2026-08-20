@@ -22,7 +22,7 @@ function HeroFallback({ mousePos = { x: 0, y: 0 }, hovered = false }) {
       >
         {/* Dynamic drop shadow */}
         <div
-          className="absolute inset-0 rounded-full bg-accent/30 blur-[40px] transition-opacity duration-300"
+          className="absolute inset-0 rounded-full bg-primary/30 blur-[40px] transition-opacity duration-300"
           style={{
             transform: `translate3d(${-translateX * 0.5}px, ${-translateY * 0.5 + 20}px, -20px)`,
             opacity: hovered ? 0.6 : 0.35,
@@ -32,7 +32,7 @@ function HeroFallback({ mousePos = { x: 0, y: 0 }, hovered = false }) {
         <svg
           viewBox="0 0 200 240"
           className={`h-full w-auto max-h-[300px] transition-transform duration-500 ${
-            hovered ? "scale-105 drop-shadow-[0_0_60px_rgba(139,147,255,0.5)]" : "drop-shadow-[0_0_40px_rgba(139,147,255,0.3)]"
+            hovered ? "scale-105 drop-shadow-[0_0_60px_rgba(52,168,90,0.5)]" : "drop-shadow-[0_0_40px_rgba(52,168,90,0.3)]"
           }`}
           role="presentation"
         >

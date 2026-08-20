@@ -18,7 +18,7 @@ const NAV_LINKS = [
 ];
 
 const FOCUS_RING =
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neonPink/70 focus-visible:ring-offset-2 focus-visible:ring-offset-night";
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -144,7 +144,7 @@ function Navbar() {
         {isDesktop && isActive && (
           <span
             aria-hidden="true"
-            className="absolute inset-x-0 -bottom-0.5 mx-auto h-[3px] w-[3px] rounded-full bg-neonPink shadow-[0_0_8px_rgba(139,147,255,0.85)]"
+            className="absolute inset-x-0 -bottom-0.5 mx-auto h-[3px] w-[3px] rounded-full bg-primary shadow-[0_0_8px_rgba(52,168,90,0.85)]"
           />
         )}
       </a>
@@ -161,7 +161,7 @@ function Navbar() {
         <div
           className={`mx-auto flex max-w-5xl items-center justify-between gap-4 rounded-full border backdrop-blur-xl transition-all duration-300 ${
             isScrolled
-              ? "border-white/[0.12] bg-night/70 py-2 pl-4 pr-2 shadow-[0_10px_40px_-12px_rgba(0,0,0,0.9)] sm:pl-5 sm:pr-2.5"
+              ? "border-white/[0.12] bg-background/70 py-2 pl-4 pr-2 shadow-[0_10px_40px_-12px_rgba(0,0,0,0.9)] sm:pl-5 sm:pr-2.5"
               : "border-white/[0.08] bg-white/[0.03] py-2.5 pl-4 pr-2.5 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.7)] sm:pl-6 sm:pr-3"
           }`}
         >
@@ -174,9 +174,7 @@ function Navbar() {
           >
             <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-[0.8125rem] font-semibold tracking-tight text-white transition-colors duration-200 group-hover:border-white/20">
               W
-              <span className="bg-linear-to-r from-neonPink to-blue-400 bg-clip-text text-transparent">
-                Z
-              </span>
+              <span className="text-primary">Z</span>
             </span>
             <span className="hidden text-sm font-medium tracking-tight text-white/85 transition-colors duration-200 group-hover:text-white lg:block">
               Waqas Zafar
@@ -226,7 +224,7 @@ function Navbar() {
         <div
           id="mobile-navigation"
           hidden={!isMobileMenuOpen}
-          className={`mx-auto mt-2 max-w-5xl overflow-hidden rounded-3xl border border-white/[0.1] bg-night/85 p-2 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.95)] backdrop-blur-xl transition-all duration-300 ease-out md:hidden ${
+          className={`mx-auto mt-2 max-w-5xl overflow-hidden rounded-3xl border border-white/[0.1] bg-background/85 p-2 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.95)] backdrop-blur-xl transition-all duration-300 ease-out md:hidden ${
             isMobileMenuOpen
               ? "translate-y-0 opacity-100"
               : "pointer-events-none -translate-y-2 opacity-0"

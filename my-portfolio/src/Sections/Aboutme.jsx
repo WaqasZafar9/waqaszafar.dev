@@ -30,7 +30,7 @@ const MOTES = [
 ];
 
 const FOCUS_RING =
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-night";
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
 function Aboutme() {
   const sceneRef = useRef(null);
@@ -101,7 +101,7 @@ function Aboutme() {
   return (
     <section
       ref={sceneRef}
-      className={`relative overflow-hidden px-5 pt-3 pb-12 font-sans sm:px-6 sm:pt-4 sm:pb-16 lg:pt-6 lg:pb-20 bg-[#08090c] ${
+      className={`relative overflow-hidden px-5 pt-3 pb-12 font-sans sm:px-6 sm:pt-4 sm:pb-16 lg:pt-6 lg:pb-20 bg-background ${
         revealed ? "is-visible" : ""
       }`}
       style={{ "--mx": "0", "--my": "0" }}
@@ -109,17 +109,17 @@ function Aboutme() {
       {/* Global Ambient Glow behind section (unchanged — this is the portrait's backlight) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[min(88vw,680px)] w-[min(88vw,680px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/[0.08] blur-[140px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[min(88vw,680px)] w-[min(88vw,680px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.08] blur-[140px]"
         style={{
           transform:
             "translate(-50%, -50%) translate3d(calc(var(--mx) * 18px), calc(var(--my) * 18px), 0)",
         }}
       />
 
-      {/* Top hairline — matches the accent separator every other section opens with */}
+      {/* Top hairline — matches the primary separator every other section opens with */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-0 h-px w-full bg-linear-to-r from-transparent via-accent/50 to-transparent"
+        className="pointer-events-none absolute top-0 left-0 h-px w-full bg-linear-to-r from-transparent via-primary/50 to-transparent"
       />
 
       {/* Faint room-scale dot grid for texture, so the black reads as depth
@@ -129,7 +129,7 @@ function Aboutme() {
         className="pointer-events-none absolute inset-0 opacity-[0.05]"
         style={{
           backgroundImage:
-            "radial-gradient(rgba(139, 147, 255, 0.5) 1px, transparent 1px)",
+            "radial-gradient(rgba(52, 168, 90, 0.5) 1px, transparent 1px)",
           backgroundSize: "26px 26px",
           maskImage:
             "radial-gradient(ellipse 70% 65% at 50% 45%, #000 35%, transparent 82%)",
@@ -142,11 +142,11 @@ function Aboutme() {
           glow instead of sitting in flat black next to the portrait's light. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-[10%] top-[8%] h-[420px] w-[420px] rounded-full bg-accent-violet/[0.1] blur-[130px]"
+        className="pointer-events-none absolute -left-[10%] top-[8%] h-[420px] w-[420px] rounded-full bg-primary/[0.1] blur-[130px]"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-[10%] bottom-[6%] h-[420px] w-[420px] rounded-full bg-accent/[0.1] blur-[130px] animate-pulse"
+        className="pointer-events-none absolute -right-[10%] bottom-[6%] h-[420px] w-[420px] rounded-full bg-primary/[0.1] blur-[130px] animate-pulse"
         style={{ animationDuration: "5s" }}
       />
 
@@ -155,7 +155,7 @@ function Aboutme() {
         {MOTES.map((mote) => (
           <span
             key={`${mote.top}-${mote.left}`}
-            className="about-float absolute rounded-full bg-accent/40"
+            className="about-float absolute rounded-full bg-primary/40"
             style={{
               top: mote.top,
               left: mote.left,
@@ -208,8 +208,8 @@ function Aboutme() {
           {/* Actions — in normal flow beneath portrait */}
           <div className="reveal relative z-30 -mt-14 flex w-full flex-col items-center gap-4 text-center sm:-mt-20 lg:-mt-24" style={{ "--d": "560ms" }}>
             {/* "Previously designed for" Header with Brand Badges */}
-            <div className="flex items-center gap-3 bg-[#08090c]/80 px-4 py-1.5 rounded-full backdrop-blur-md border border-white/15 shadow-xl">
-              <span className="text-xs sm:text-sm font-normal text-ink-soft/90 tracking-wide">
+            <div className="flex items-center gap-3 bg-background/80 px-4 py-1.5 rounded-full backdrop-blur-md border border-white/15 shadow-xl">
+              <span className="text-xs sm:text-sm font-normal text-muted-foreground/90 tracking-wide">
                 Previously designed for
               </span>
               <div className="flex items-center gap-1.5">
@@ -260,29 +260,29 @@ function Aboutme() {
           style={{ "--d": "0ms" }}
         >
           {/* Aligned Editorial Label */}
-          <p className="mb-6 flex items-center gap-3 text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-ink-muted">
+          <p className="mb-6 flex items-center gap-3 text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-muted-foreground">
             <span
               aria-hidden="true"
-              className="h-px w-8 bg-accent-soft/70 shadow-[0_0_8px_rgba(139,147,255,0.6)]"
+              className="h-px w-8 bg-primary/70 shadow-[0_0_8px_rgba(52,168,90,0.6)]"
             />
             About Me
           </p>
 
-          <h2 className="text-balance text-2xl font-semibold leading-[1.18] tracking-tight text-ink sm:text-[1.75rem] lg:text-3xl">
+          <h2 className="text-balance text-2xl font-semibold leading-[1.18] tracking-tight text-foreground sm:text-[1.75rem] lg:text-3xl">
             I build things that{" "}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-accent-soft to-accent-violet">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-white to-primary">
               still work after launch day
             </span>
             .
           </h2>
-          <p className="mt-5 text-pretty text-[0.9375rem] leading-relaxed text-ink-soft">
+          <p className="mt-5 text-pretty text-[0.9375rem] leading-relaxed text-muted-foreground">
             I&apos;m Waqas — a Software Engineer at Lab 3 Technology, working
             mostly in React and Next.js. I came up through internships and a lot
             of side projects, which is where I learned the interesting part
             isn&apos;t getting something on screen — it&apos;s keeping it fast
             and maintainable once real people use it.
           </p>
-          <p className="mt-4 text-pretty text-[0.9375rem] leading-relaxed text-ink-soft">
+          <p className="mt-4 text-pretty text-[0.9375rem] leading-relaxed text-muted-foreground">
             I work across the stack, on web and mobile, and I like problems that
             sit close to the product.
           </p>
@@ -294,10 +294,10 @@ function Aboutme() {
           style={{ "--d": "420ms" }}
         >
           {/* Header: WHAT I BUILD */}
-          <p className="flex items-center gap-3 text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-ink-muted lg:justify-end">
+          <p className="flex items-center gap-3 text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-muted-foreground lg:justify-end">
             <span
               aria-hidden="true"
-              className="h-px w-8 bg-accent-soft/70 shadow-[0_0_8px_rgba(139,147,255,0.6)]"
+              className="h-px w-8 bg-primary/70 shadow-[0_0_8px_rgba(52,168,90,0.6)]"
             />
             What I Build
           </p>
@@ -307,13 +307,13 @@ function Aboutme() {
             {STATS.map((stat) => (
               <div
                 key={stat.label}
-                className="group rounded-2xl border border-white/10 bg-card px-4 py-5 text-center transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-elevated cursor-default"
+                className="group rounded-2xl border border-white/10 bg-card px-4 py-5 text-center transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-card cursor-default"
               >
-                <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.05] text-accent-soft transition-colors duration-300 group-hover:bg-accent/10">
+                <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.05] text-primary transition-colors duration-300 group-hover:bg-primary/10">
                   <stat.icon className="text-base" />
                 </div>
                 <p className="mt-3 text-2xl font-bold text-white">{stat.value}</p>
-                <p className="mt-1 text-[0.6875rem] font-medium uppercase tracking-wide text-ink-muted">
+                <p className="mt-1 text-[0.6875rem] font-medium uppercase tracking-wide text-muted-foreground">
                   {stat.label}
                 </p>
               </div>
@@ -322,10 +322,10 @@ function Aboutme() {
 
           {/* Selected Products & Teams Footer Block */}
           <div className="mt-8 pt-5 border-t border-white/[0.08]">
-            <p className="flex items-center gap-3 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-ink-muted lg:justify-end">
+            <p className="flex items-center gap-3 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-muted-foreground lg:justify-end">
               <span
                 aria-hidden="true"
-                className="h-px w-8 bg-accent-soft/70 shadow-[0_0_8px_rgba(139,147,255,0.6)]"
+                className="h-px w-8 bg-primary/70 shadow-[0_0_8px_rgba(52,168,90,0.6)]"
               />
               Selected products &amp; teams
             </p>
@@ -333,7 +333,7 @@ function Aboutme() {
               {WORKED_ON.map((name) => (
                 <span
                   key={name}
-                  className="cursor-default rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-ink-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-white/[0.08] hover:text-white hover:shadow-[0_8px_20px_-8px_rgba(139,147,255,0.4)]"
+                  className="cursor-default rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-white/[0.08] hover:text-white hover:shadow-[0_8px_20px_-8px_rgba(52,168,90,0.4)]"
                 >
                   {name}
                 </span>

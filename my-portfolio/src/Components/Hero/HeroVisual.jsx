@@ -157,7 +157,7 @@ function HeroVisual() {
       {isPointerVisible && !reducedMotion && (
         <div
           aria-hidden="true"
-          className="pointer-events-none fixed top-0 left-0 z-50 h-4 w-4 rounded-full bg-white shadow-[0_0_16px_rgba(255,255,255,0.9),0_0_30px_rgba(139,147,255,0.7)] transition-transform duration-75 ease-out"
+          className="pointer-events-none fixed top-0 left-0 z-50 h-4 w-4 rounded-full bg-white shadow-[0_0_16px_rgba(255,255,255,0.9),0_0_30px_rgba(52,168,90,0.7)] transition-transform duration-75 ease-out"
           style={{
             transform: `translate3d(${pointerPos.x}px, ${pointerPos.y}px, 0) translate(-50%, -50%) scale(${
               hovered ? 1.5 : 1
@@ -185,7 +185,7 @@ function HeroVisual() {
         {/* Ambient Room Glow Behind Mascot */}
         <div
           className={`pointer-events-none absolute left-1/2 top-1/2 h-[min(75vw,520px)] w-[min(75vw,520px)] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[110px] transition-all duration-700 ${
-            hovered ? "bg-accent/[0.32] scale-105" : "bg-accent/[0.18] scale-100"
+            hovered ? "bg-primary/[0.32] scale-105" : "bg-primary/[0.18] scale-100"
           }`}
           style={{
             transform: `translate(-50%, -50%) translate3d(${mousePos.x * 18}px, ${mousePos.y * 18}px, 0)`,

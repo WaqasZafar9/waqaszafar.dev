@@ -81,7 +81,7 @@ function HeroMascot2D({
       >
         {/* Soft Ambient Body Glow */}
         <div
-          className={`absolute inset-2 rounded-full bg-accent/40 blur-[35px] transition-all duration-300 ${
+          className={`absolute inset-2 rounded-full bg-primary/40 blur-[35px] transition-all duration-300 ${
             hovered ? "scale-125 opacity-80" : "scale-100 opacity-50"
           }`}
         />
@@ -89,7 +89,7 @@ function HeroMascot2D({
         {/* 2D SVG Ghost Mascot */}
         <svg
           viewBox="0 0 200 240"
-          className="relative z-10 h-full w-full drop-shadow-[0_15px_35px_rgba(111,120,255,0.4)] transition-all duration-300"
+          className="relative z-10 h-full w-full drop-shadow-[0_15px_35px_rgba(52,168,90,0.4)] transition-all duration-300"
           role="presentation"
         >
           <defs>

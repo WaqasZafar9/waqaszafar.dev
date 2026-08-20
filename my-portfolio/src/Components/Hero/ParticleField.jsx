@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 /**
  * ParticleField
  * Sparse floating background particles creating depth behind the 2.5D/3D mascot.
- * Uses cool blue/violet tones, slow drift, and subtle mouse parallax offset.
+ * Uses the theme's green/blue tones, slow drift, and subtle mouse parallax offset.
  */
 function ParticleField({ mousePos = { x: 0, y: 0 }, compact = false, active = true }) {
   const canvasRef = useRef(null);
@@ -29,9 +29,9 @@ function ParticleField({ mousePos = { x: 0, y: 0 }, compact = false, active = tr
 
     const count = compact ? 12 : 28;
     const colors = [
-      "rgba(139, 147, 255, ", // #8b93ff accent
-      "rgba(111, 120, 255, ", // #6f78ff accent-deep
-      "rgba(167, 171, 179, ", // #a7abb3 ink-soft
+      "rgba(52, 168, 90, ", // #34a85a primary
+      "rgba(126, 217, 160, ", // #7ed9a0 primary, lighter tint
+      "rgba(163, 163, 163, ", // #a3a3a3 muted-foreground
       "rgba(255, 255, 255, ", // white
     ];
 

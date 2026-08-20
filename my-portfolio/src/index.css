@@ -1,51 +1,205 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Legacy theme — superseded by the "Northern Lights" system
+   below. Left in place (not deleted) as a rollback reference;
+   every class it powered (bg-night, bg-elevated, text-ink-soft,
+   accent/accent-deep/accent-soft, border-line, neonPink, …) has
+   been repointed to the new tokens across the app.
+   ============================================================
 @theme {
   --font-sans: "Outfit", sans-serif;
   --breakpoint-xxl: 1440px;
 
-  /* Surfaces — midnight black, darkest to most elevated */
+  // Surfaces — midnight black, darkest to most elevated
   --color-night: #08090c;
   --color-surface: #0c0e12;
   --color-elevated: #111318;
   --color-card: #15171c;
 
-  /* Text — off-white down to muted */
+  // Text — off-white down to muted
   --color-ink: #f2f3f5;
   --color-ink-soft: #a7abb3;
   --color-ink-muted: #737984;
 
-  /* Hairlines */
+  // Hairlines
   --color-line: rgba(255, 255, 255, 0.07);
   --color-line-strong: rgba(255, 255, 255, 0.14);
 
-  /* Cool accent — used sparingly */
+  // Cool accent — used sparingly
   --color-accent: #8b93ff;
   --color-accent-deep: #6f78ff;
   --color-accent-soft: #a7adff;
   --color-accent-violet: #8b7cff;
 
-  /* Legacy token names retuned to the new system so existing
-     section markup inherits the theme without being rewritten. */
+  // Legacy token names retuned to the new system so existing
+  // section markup inherits the theme without being rewritten.
   --color-neonPink: #8b93ff;
   --color-deepBlue: #6f78ff;
+}
+   ============================================================ */
+
+/* Breakpoint kept from the legacy theme — not part of the new
+   token system, unrelated to the color rewrite below. */
+@theme {
+  --breakpoint-xxl: 1440px;
+}
+
+/* ============================================================
+   "Northern Lights" theme — pulled from 21st.dev, applied
+   site-wide. Site has no light/dark switch, so `.dark` is
+   forced on <html> (see index.html) and carries the live
+   palette; `:root` keeps the light variant available for a
+   future toggle without re-pasting the source theme.
+   ============================================================ */
+:root {
+  --card: #ffffff;
+  --ring: #34a85a;
+  --input: #d4d4d4;
+  --muted: #ddd9c4;
+  --accent: #66d9ef;
+  --border: #d4d4d4;
+  --radius: 0.5rem;
+  --chart-1: #34a85a;
+  --chart-2: #6495ed;
+  --chart-3: #66d9ef;
+  --chart-4: #4682b4;
+  --chart-5: #1a9641;
+  --popover: #ffffff;
+  --primary: #34a85a;
+  --sidebar: #f9f9fa;
+  --spacing: 0.25rem;
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
+  --font-sans: "Outfit", sans-serif;
+  --secondary: #6495ed;
+  --background: #f9f9fa;
+  --font-serif: ui-serif, Georgia, serif;
+  --foreground: #333333;
+  --destructive: #ef4444;
+  --shadow-blur: 8px;
+  --shadow-color: hsl(0 0% 0%);
+  --sidebar-ring: #34a85a;
+  --shadow-spread: -1px;
+  --letter-spacing: 0em;
+  --shadow-opacity: 0.1;
+  --sidebar-accent: #66d9ef;
+  --sidebar-border: #d4d4d4;
+  --card-foreground: #333333;
+  --shadow-offset-x: 0px;
+  --shadow-offset-y: 4px;
+  --sidebar-primary: #34a85a;
+  --muted-foreground: #6e6e6e;
+  --accent-foreground: #333333;
+  --popover-foreground: #333333;
+  --primary-foreground: #ffffff;
+  --sidebar-foreground: #333333;
+  --secondary-foreground: #ffffff;
+  --destructive-foreground: #ffffff;
+  --sidebar-accent-foreground: #333333;
+  --sidebar-primary-foreground: #ffffff;
+}
+
+.dark {
+  --card: #2f3436;
+  --ring: #34a85a;
+  --input: #444444;
+  --muted: #444444;
+  --accent: #6495ed;
+  --border: #444444;
+  --radius: 0.5rem;
+  --chart-1: #34a85a;
+  --chart-2: #4682b4;
+  --chart-3: #6495ed;
+  --chart-4: #66d9ef;
+  --chart-5: #1a9641;
+  --popover: #2f3436;
+  --primary: #34a85a;
+  --sidebar: #1a1d23;
+  --spacing: 0.25rem;
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
+  --font-sans: "Outfit", sans-serif;
+  --secondary: #4682b4;
+  --background: #1a1d23;
+  --font-serif: ui-serif, Georgia, serif;
+  --foreground: #e5e5e5;
+  --destructive: #ef4444;
+  --shadow-blur: 8px;
+  --shadow-color: hsl(0 0% 0%);
+  --sidebar-ring: #34a85a;
+  --shadow-spread: -1px;
+  --letter-spacing: 0em;
+  --shadow-opacity: 0.1;
+  --sidebar-accent: #6495ed;
+  --sidebar-border: #444444;
+  --card-foreground: #e5e5e5;
+  --shadow-offset-x: 0px;
+  --shadow-offset-y: 4px;
+  --sidebar-primary: #34a85a;
+  --muted-foreground: #a3a3a3;
+  --accent-foreground: #e5e5e5;
+  --popover-foreground: #e5e5e5;
+  --primary-foreground: #ffffff;
+  --sidebar-foreground: #e5e5e5;
+  --secondary-foreground: #e5e5e5;
+  --destructive-foreground: #ffffff;
+  --sidebar-accent-foreground: #e5e5e5;
+  --sidebar-primary-foreground: #ffffff;
+}
+
+@theme inline {
+  --color-card: var(--card);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-popover: var(--popover);
+  --color-primary: var(--primary);
+  --color-sidebar: var(--sidebar);
+  --font-mono: var(--font-mono);
+  --font-sans: var(--font-sans);
+  --color-secondary: var(--secondary);
+  --color-background: var(--background);
+  --font-serif: var(--font-serif);
+  --color-foreground: var(--foreground);
+  --color-destructive: var(--destructive);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-card-foreground: var(--card-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
 }
 
 /* Smooth scrolling for the entire page */
 html {
   scroll-behavior: smooth;
-  background-color: var(--color-night);
+  background-color: var(--color-background);
 }
 
 body {
   margin: 0;
-  background-color: var(--color-night);
-  color: var(--color-ink);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ambient room light — a barely-there cool wash behind the whole page. */
+/* Ambient room light — a barely-there wash behind the whole page, all in
+   the theme's primary green so the whole site reads as one accent color. */
 body::before {
   content: "";
   position: fixed;
@@ -55,17 +209,17 @@ body::before {
   background:
     radial-gradient(
       60% 45% at 50% 0%,
-      rgba(139, 147, 255, 0.09),
+      rgba(52, 168, 90, 0.09),
       transparent 70%
     ),
     radial-gradient(
       45% 40% at 12% 22%,
-      rgba(111, 120, 255, 0.055),
+      rgba(52, 168, 90, 0.05),
       transparent 72%
     ),
     radial-gradient(
       50% 45% at 88% 78%,
-      rgba(139, 124, 255, 0.045),
+      rgba(52, 168, 90, 0.04),
       transparent 72%
     );
 }
@@ -87,8 +241,8 @@ body::after {
 }
 
 ::selection {
-  background: rgba(139, 147, 255, 0.28);
-  color: var(--color-ink);
+  background: rgba(52, 168, 90, 0.28);
+  color: var(--color-foreground);
 }
 
 /* ---- Global Shimmer Effect & Smooth Micro-Interactions ---- */
