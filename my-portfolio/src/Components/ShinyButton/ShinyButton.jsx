@@ -16,7 +16,7 @@ function ShinyButton({ children, href, onClick, className = "", ...rest }) {
           block }, which would otherwise break a plain inline span onto a
           new line. Also the actual flex container for any `gap-*` passed
           via className: .shiny-cta itself only ever has this one child. */}
-      <span className="relative z-[1] inline-flex items-center justify-center gap-2">
+      <span className="z-[1] inline-flex items-center justify-center gap-2">
         {children}
       </span>
       </a>
@@ -30,7 +30,7 @@ function ShinyButton({ children, href, onClick, className = "", ...rest }) {
           block }, which would otherwise break a plain inline span onto a
           new line. Also the actual flex container for any `gap-*` passed
           via className: .shiny-cta itself only ever has this one child. */}
-      <span className="relative z-[1] inline-flex items-center justify-center gap-2">
+      <span className="z-[1] inline-flex items-center justify-center gap-2">
         {children}
       </span>
     </button>

@@ -435,11 +435,6 @@ button:active, a:active {
   }
 }
 
-.animate-marquee-track:hover,
-.group:hover .animate-marquee-track {
-  animation-play-state: paused;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee-track {
     animation: none !important;

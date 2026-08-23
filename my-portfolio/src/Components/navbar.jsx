@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
 import resume from "../assets/Resume.pdf";
+import portrait from "../assets/my.webp";
+import ShinyButton from "./ShinyButton/ShinyButton";
 
 const CALENDLY_URL = "https://calendly.com/mwaqaszafar76/30min";
 
@@ -26,6 +28,28 @@ function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
   const location = useLocation();
   const isHome = location.pathname === "/";
+
+  // Pill that glides beneath the hovered desktop nav link, tracking its
+  // position/width via transform so the motion stays GPU-smooth. While it's
+  // showing, it's the only highlight on screen — the active link's own
+  // static background steps aside (see hoveredId below) so two links never
+  // read as highlighted at once.
+  const desktopNavRef = useRef(null);
+  const linkRefs = useRef({});
+  const [hoverPill, setHoverPill] = useState({ left: 0, width: 0, opacity: 0 });
+  const [hoveredId, setHoveredId] = useState(null);
+
+  const moveHoverPill = useCallback((id) => {
+    const el = linkRefs.current[id];
+    if (!el) return;
+    setHoverPill({ left: el.offsetLeft, width: el.offsetWidth, opacity: 1 });
+    setHoveredId(id);
+  }, []);
+
+  const hideHoverPill = useCallback(() => {
+    setHoverPill((prev) => ({ ...prev, opacity: 0 }));
+    setHoveredId(null);
+  }, []);
 
   const closeMobileMenu = useCallback(() => setIsMobileMenuOpen(false), []);
 
@@ -119,24 +143,35 @@ function Navbar() {
   const renderNavLink = (link, variant) => {
     const isActive = isHome && activeSection === link.id;
     const isDesktop = variant === "desktop";
+    // The active link only wears its own static pill while nothing else is
+    // hovered/focused — once the sliding hover pill is showing somewhere,
+    // it's the sole highlight, so the two never overlap into a double one.
+    const showActiveBg = isActive && (hoveredId === null || hoveredId === link.id);
 
     return (
       <a
         key={link.id}
+        ref={
+          isDesktop
+            ? (el) => {
+                linkRefs.current[link.id] = el;
+              }
+            : undefined
+        }
         href={`${isHome ? "" : "/"}#${link.id}`}
         onClick={(event) => handleNavClick(event, link.id)}
+        onMouseEnter={isDesktop ? () => moveHoverPill(link.id) : undefined}
+        onFocus={isDesktop ? () => moveHoverPill(link.id) : undefined}
         aria-current={isActive ? "true" : undefined}
-        className={`relative rounded-full font-medium transition-colors duration-200 ${FOCUS_RING} ${
+        className={`relative z-10 rounded-full font-medium transition-colors duration-200 ${FOCUS_RING} ${
           isDesktop
             ? `px-3.5 py-2 text-[0.9375rem] ${
-                isActive
-                  ? "bg-white/[0.07] text-white"
-                  : "text-white/55 hover:bg-white/[0.05] hover:text-white"
-              }`
+                isActive ? "text-white" : "text-white/55 hover:text-white"
+              } ${showActiveBg ? "bg-white/[0.07]" : ""}`
             : `px-4 py-3 text-base ${
                 isActive
                   ? "bg-white/[0.07] text-white"
-                  : "text-white/60 hover:bg-white/[0.04] hover:text-white"
+                  : "text-white/60 hover:bg-white/[0.04] hover:text-white active:bg-white/[0.06]"
               }`
         }`}
       >
@@ -172,9 +207,15 @@ function Navbar() {
             aria-label="Waqas Zafar — back to top"
             className={`group flex shrink-0 items-center gap-2.5 rounded-full py-1 pr-2 ${FOCUS_RING}`}
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-[0.8125rem] font-semibold tracking-tight text-white transition-colors duration-200 group-hover:border-white/20">
-              W
-              <span className="text-primary">Z</span>
+            <span className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-white/[0.06] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-primary/60 group-hover:shadow-[0_0_18px_-2px_rgba(52,168,90,0.6)] motion-reduce:transform-none">
+              <img
+                src={portrait}
+                alt="Waqas Zafar"
+                width={36}
+                height={36}
+                loading="eager"
+                className="h-full w-full object-cover"
+              />
             </span>
             <span className="hidden text-sm font-medium tracking-tight text-white/85 transition-colors duration-200 group-hover:text-white lg:block">
               Waqas Zafar
@@ -183,29 +224,52 @@ function Navbar() {
 
           {/* Desktop navigation */}
           <nav
+            ref={desktopNavRef}
             aria-label="Primary"
-            className="hidden items-center gap-0.5 md:flex lg:gap-1"
+            onMouseLeave={hideHoverPill}
+            onBlur={(event) => {
+              // Only clear once focus actually leaves the nav — moving
+              // between links inside it re-fires onFocus before this,
+              // so it never flickers off between tabs.
+              if (!event.currentTarget.contains(event.relatedTarget)) {
+                hideHoverPill();
+              }
+            }}
+            className="relative hidden items-center gap-0.5 md:flex lg:gap-1"
           >
+            {/* Glides beneath the hovered/focused link — position driven by
+                transform so it stays off the layout-thrashing path. */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0.5 left-0 z-0 rounded-full bg-white/[0.06] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] transition-[transform,width,opacity] duration-300 ease-out"
+              style={{
+                transform: `translateX(${hoverPill.left}px)`,
+                width: `${hoverPill.width}px`,
+                opacity: hoverPill.opacity,
+              }}
+            />
             {NAV_LINKS.map((link) => renderNavLink(link, "desktop"))}
+          </nav>
+
+          {/* Desktop actions — secondary (Resume) + primary (Hire Me) */}
+          <div className="hidden shrink-0 items-center gap-2 md:flex">
             <a
               href={resume}
               target="_blank"
               rel="noopener noreferrer"
-              className={`rounded-full px-3.5 py-2 text-[0.9375rem] font-medium text-white/55 transition-colors duration-200 hover:bg-white/[0.05] hover:text-white ${FOCUS_RING}`}
+              className={`rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold tracking-tight text-white/80 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-background hover:shadow-[0_0_24px_-4px_rgba(255,255,255,0.4)] motion-reduce:transform-none ${FOCUS_RING}`}
             >
               Resume
             </a>
-          </nav>
-
-          {/* Desktop call to action */}
-          <a
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`hidden shrink-0 rounded-full bg-white px-5 py-2.5 text-sm font-semibold tracking-tight text-black transition-[transform,box-shadow,background-color] duration-300 hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-[0_8px_24px_-8px_rgba(255,255,255,0.45)] motion-reduce:transform-none md:block ${FOCUS_RING}`}
-          >
-            Hire Me
-          </a>
+            <ShinyButton
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`!px-5 !py-2.5 text-sm ${FOCUS_RING}`}
+            >
+              Hire Me
+            </ShinyButton>
+          </div>
 
           {/* Mobile toggle */}
           <button
@@ -232,26 +296,29 @@ function Navbar() {
         >
           <nav aria-label="Mobile" className="flex flex-col">
             {NAV_LINKS.map((link) => renderNavLink(link, "mobile"))}
+          </nav>
+
+          {/* Actions — secondary (Resume) + primary (Hire Me) */}
+          <div className="mt-2 flex flex-col gap-2">
             <a
               href={resume}
               target="_blank"
               rel="noopener noreferrer"
               onClick={closeMobileMenu}
-              className={`rounded-full px-4 py-3 text-base font-medium text-white/60 transition-colors duration-200 hover:bg-white/[0.04] hover:text-white ${FOCUS_RING}`}
+              className={`block rounded-full border border-white/15 bg-white/[0.03] px-5 py-3 text-center text-sm font-semibold tracking-tight text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white hover:bg-white hover:text-background active:scale-[0.98] ${FOCUS_RING}`}
             >
               Resume
             </a>
-          </nav>
-
-          <a
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={closeMobileMenu}
-            className={`mt-2 block rounded-full bg-white px-5 py-3 text-center text-sm font-semibold tracking-tight text-black transition-colors duration-200 hover:bg-white/90 ${FOCUS_RING}`}
-          >
-            Hire Me
-          </a>
+            <ShinyButton
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={closeMobileMenu}
+              className={`w-full !py-3 text-sm ${FOCUS_RING}`}
+            >
+              Hire Me
+            </ShinyButton>
+          </div>
         </div>
       </div>
     </header>

@@ -7,33 +7,75 @@ function Herosec() {
       id="home"
       className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 pb-24 pt-32 font-sans sm:px-6 md:pt-36 bg-background"
     >
-      {/* Layer 1 — Full-Section Environment & Ambient Lighting (Matching User's BG Idea) */}
+      {/* Layer 1 — Full-Section Environment & Ambient Lighting */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* Full-Section Dot Grid Matrix Pattern */}
+        {/* Base Mesh Wash — asymmetric radial tint for depth before anything else */}
         <div
-          className="absolute inset-0 opacity-[0.32]"
+          className="absolute inset-0"
           style={{
-            backgroundImage:
-              "radial-gradient(rgba(52, 168, 90, 0.4) 1.2px, transparent 1.2px)",
-            backgroundSize: "28px 28px",
+            background:
+              "radial-gradient(120% 90% at 18% -10%, rgba(52,168,90,0.16) 0%, transparent 55%), radial-gradient(90% 70% at 88% 8%, rgba(52,168,90,0.10) 0%, transparent 60%)",
           }}
         />
 
-        {/* Ambient Glow 1: Top Ghost Area Lighting */}
-        <div className="absolute top-[2%] left-1/2 h-[450px] w-[min(90vw,750px)] -translate-x-1/2 rounded-full bg-gradient-to-b from-primary/25 via-primary/15 to-transparent blur-[120px] opacity-80" />
+        {/* Dot Grid, masked so it blooms near the ghost/headline and dissolves at the edges */}
+        <div
+          className="absolute inset-0 opacity-[0.4]"
+          style={{
+            backgroundImage:
+              "radial-gradient(rgba(52, 168, 90, 0.45) 1.2px, transparent 1.2px)",
+            backgroundSize: "28px 28px",
+            maskImage:
+              "radial-gradient(60% 55% at 50% 32%, black 0%, transparent 75%)",
+            WebkitMaskImage:
+              "radial-gradient(60% 55% at 50% 32%, black 0%, transparent 75%)",
+          }}
+        />
+
+        {/* Faint structural grid lines for a premium, engineered feel */}
+        <div
+          className="absolute inset-0 opacity-[0.12]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.5) 1px, transparent 1px)",
+            backgroundSize: "88px 88px",
+            maskImage:
+              "radial-gradient(70% 60% at 50% 30%, black 0%, transparent 80%)",
+            WebkitMaskImage:
+              "radial-gradient(70% 60% at 50% 30%, black 0%, transparent 80%)",
+          }}
+        />
+
+        {/* Ambient Glow 1: Top Ghost Area Lighting — offset for a natural, non-centered light source */}
+        <div className="absolute top-[-4%] left-[42%] h-[460px] w-[min(90vw,760px)] -translate-x-1/2 rounded-full bg-gradient-to-b from-primary/30 via-primary/14 to-transparent blur-[130px] opacity-90 mix-blend-screen" />
 
         {/* Ambient Glow 2: Center Headline Lighting */}
-        <div className="absolute top-[35%] left-1/2 h-[480px] w-[min(95vw,880px)] -translate-x-1/2 rounded-full bg-gradient-to-tr from-primary/15 via-primary/10 to-transparent blur-[140px] opacity-75" />
+        <div className="absolute top-[33%] left-[56%] h-[480px] w-[min(95vw,880px)] -translate-x-1/2 rounded-full bg-gradient-to-tr from-primary/18 via-primary/8 to-transparent blur-[150px] opacity-80 mix-blend-screen" />
 
         {/* Ambient Glow 3: Bottom CTA & Social Links Lighting */}
-        <div className="absolute bottom-[8%] left-1/2 h-[350px] w-[min(90vw,780px)] -translate-x-1/2 rounded-full bg-primary/[0.12] blur-[130px] opacity-70" />
+        <div className="absolute bottom-[6%] left-1/2 h-[360px] w-[min(90vw,780px)] -translate-x-1/2 rounded-full bg-primary/[0.14] blur-[140px] opacity-70" />
+
+        {/* Subtle Grain — breaks up the glow banding for a less "CSS gradient" look */}
+        <div
+          className="absolute inset-0 opacity-[0.05] mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          }}
+        />
+
+        {/* Soft Top Vignette so the section reads as its own space, not a flat rectangle */}
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/70 to-transparent" />
 
         {/* Soft Bottom Transition to Next Section */}
         <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent to-background" />
       </div>
 
-      {/* Layer 2 — Interactive Floating Mascot Focal Object */}
-      <div className="absolute inset-x-0 top-[12%] mx-auto h-[44vh] max-h-[440px] w-full max-w-[620px] md:top-[9%] md:h-[50vh]">
+      {/* Layer 2 — Interactive Floating Mascot Focal Object.
+          z-20 keeps the ghost above Layer 3, whose pt-[36vh] box covers this
+          area and would otherwise swallow every click aimed at the mascot.
+          Everything inside is click-through except the ghost itself. */}
+      <div className="absolute inset-x-0 top-[12%] z-20 mx-auto h-[44vh] max-h-[440px] w-full max-w-[620px] md:top-[9%] md:h-[50vh]">
         <HeroVisual />
       </div>
 

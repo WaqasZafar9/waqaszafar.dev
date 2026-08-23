@@ -13,6 +13,11 @@ const GHOST_LINES = [
   "Still faster than your last build.",
 ];
 
+// How close (px) the cursor must get to the mascot's centre before the hint
+// appears. The ghost is ~300px tall, so this reaches a good way past its
+// edge in every direction.
+const GHOST_NEAR_RADIUS = 400;
+
 function useMediaQuery(query) {
   const [matches, setMatches] = useState(false);
 
@@ -50,6 +55,9 @@ function HeroVisual() {
   const [isNear, setIsNear] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isHeroVisible, setIsHeroVisible] = useState(true);
+  // Which quote comes next. Kept outside `line` so dismissing a line doesn't
+  // lose our place in the rotation.
+  const lineCursorRef = useRef(-1);
 
   // Only run the rAF float loop (and its 60/sec re-renders) while the hero
   // is actually on screen — otherwise it keeps re-rendering forever, fighting
@@ -82,12 +90,17 @@ function HeroVisual() {
     return () => cancelAnimationFrame(animationId);
   }, [reducedMotion, isHeroVisible]);
 
-  // Track mouse position for the white glowing dot pointer (Screenshot 3) —
-  // scoped to the Hero section itself, not the whole document. It's a
-  // fixed-position overlay, so a window-level listener made it follow the
-  // cursor everywhere on the site (sitting on top of button text in other
-  // sections); this keeps it a Hero-only accent, active only while the
-  // pointer is actually over Hero.
+  // Track the cursor across the whole Hero section — not the whole document.
+  // The dot is a fixed-position overlay, so a window-level listener made it
+  // follow the cursor everywhere on the site (sitting on top of button text
+  // in other sections); this keeps it a Hero-only accent.
+  //
+  // Aim, proximity and the dot all derive from this one listener. They used
+  // to hang off the mascot wrapper's own mousemove, but that wrapper is a
+  // bounded ~620x440 box (see Herosec), so leaving it — including simply
+  // moving below the ghost — read as "cursor gone" and snapped the mascot
+  // back to neutral. Listening at the section keeps them live across the
+  // whole hero, with distance measured from the mascot itself.
   useEffect(() => {
     if (reducedMotion) return undefined;
     const heroSection = containerRef.current?.closest("section");
@@ -96,10 +109,30 @@ function HeroVisual() {
     const handleMove = (e) => {
       setPointerPos({ x: e.clientX, y: e.clientY });
       setIsPointerVisible(true);
+
+      const node = containerRef.current;
+      if (!node) return;
+
+      const rect = node.getBoundingClientRect();
+      const dx = e.clientX - (rect.left + rect.width / 2);
+      const dy = e.clientY - (rect.top + rect.height / 2);
+
+      // Normalised against the mascot's own half-size, then capped by
+      // magnitude rather than per-axis so the aim direction survives the
+      // clamp once the cursor is outside the wrapper.
+      const nx = dx / (rect.width / 2);
+      const ny = dy / (rect.height / 2);
+      const length = Math.hypot(nx, ny);
+      const cap = length > 1 ? 1 / length : 1;
+      setMousePos({ x: nx * cap, y: ny * cap });
+
+      setIsNear(Math.hypot(dx, dy) < GHOST_NEAR_RADIUS);
     };
 
     const handleLeave = () => {
       setIsPointerVisible(false);
+      setIsNear(false);
+      setMousePos({ x: 0, y: 0 });
     };
 
     heroSection.addEventListener("mousemove", handleMove);
@@ -124,32 +157,26 @@ function HeroVisual() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Track mouse coordinates across container for proximity & eye tracking
-  const handleMouseMove = (e) => {
-    if (reducedMotion) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
-    setMousePos({ x, y });
-
-    const dist = Math.hypot(x, y);
-    setIsNear(dist < 0.88);
-  };
-
-  const handleMouseLeave = () => {
-    setMousePos({ x: 0, y: 0 });
-    setIsNear(false);
-  };
+  // Remember where we got to, so dismissing a line doesn't restart the
+  // rotation. Recorded here rather than inside the updater below: StrictMode
+  // double-invokes updaters, so advancing the cursor in there would skip a
+  // quote on every click.
+  useEffect(() => {
+    if (line !== null) lineCursorRef.current = line;
+  }, [line]);
 
   const handlePoke = useCallback(() => {
-    setLine((current) => {
-      const next = current === null ? 0 : (current + 1) % GHOST_LINES.length;
-      return next;
-    });
+    setLine((current) =>
+      // Clicking again dismisses the current line; the one after that opens
+      // the next quote, so the ghost keeps cycling across separate showings.
+      current !== null
+        ? null
+        : (lineCursorRef.current + 1) % GHOST_LINES.length
+    );
   }, []);
 
   const showBubble = line !== null;
-  const showBadge = (isNear || hovered) && !reducedMotion;
+  const showBadge = (isNear || hovered) && !reducedMotion && isPointerVisible;
 
   return (
     <>
@@ -166,12 +193,31 @@ function HeroVisual() {
         />
       )}
 
+      {/* "Click on Ghost" hint — rides along with the cursor while it's near
+          the mascot. Fixed + pointer-events-none so it sits under the cursor
+          without ever intercepting the click it's asking for. Its transform
+          isn't transitioned, so it stays stuck to the pointer rather than
+          trailing it. */}
+      {!reducedMotion && (
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none fixed top-0 left-0 z-40 transition-opacity duration-200 ${
+            showBadge ? "opacity-100" : "opacity-0"
+          }`}
+          style={{
+            transform: `translate3d(${pointerPos.x}px, ${pointerPos.y}px, 0) translate(18px, 16px)`,
+          }}
+        >
+          <span className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-white/40 bg-white/20 px-4 py-1.5 text-xs font-medium text-white shadow-lg backdrop-blur-md">
+            Click on Ghost
+          </span>
+        </div>
+      )}
+
       <div
         ref={containerRef}
         aria-hidden="true"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className="pointer-events-auto absolute inset-0 select-none"
+        className="pointer-events-none absolute inset-0 select-none"
         style={{
           transform: `translateY(${-scrollProgress * 80}px)`,
           opacity: Math.max(0.2, 1 - scrollProgress * 1.2),
@@ -197,12 +243,13 @@ function HeroVisual() {
           <GroundShadow floatY={floatY / 70} hovered={hovered} />
         )}
 
-        {/* Main Mascot Component */}
-        <div className="pointer-events-auto absolute inset-0">
+        {/* Main Mascot Component — only the ghost's own box opts back into
+            pointer events (see HeroMascot2D), so the rest of this layer
+            stays click-through for the content sitting under it. */}
+        <div className="pointer-events-none absolute inset-0">
           <HeroMascot2D
             mousePos={mousePos}
             hovered={hovered}
-            showBadge={showBadge}
             onHoverChange={setHovered}
             onPoke={handlePoke}
             floatY={floatY}
