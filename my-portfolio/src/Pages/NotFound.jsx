@@ -86,7 +86,7 @@ function NotFound() {
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
           {/* Glitch effect 404 */}
           <div className="relative inline-block mb-8">
-            <h1 className="text-[12rem] sm:text-[16rem] md:text-[20rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-primary leading-none animate-pulse select-none">
+            <h1 className="text-[12rem] sm:text-[16rem] md:text-[20rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground to-primary leading-none animate-pulse select-none">
               404
             </h1>
             {/* Glitch layers */}
@@ -116,7 +116,7 @@ function NotFound() {
 
           {/* Error message */}
           <div className="space-y-4 mb-12">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white animate-fade-in-up">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground animate-fade-in-up">
               Page Not Found
             </h2>
             <p
@@ -135,7 +135,7 @@ function NotFound() {
           >
             <button
               onClick={handleGoHome}
-              className="group relative px-8 py-4 bg-primary text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/50 hover:scale-105"
+              className="group relative px-8 py-4 bg-primary text-foreground font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/50 hover:scale-105"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <svg
@@ -158,7 +158,7 @@ function NotFound() {
 
             <button
               onClick={() => window.history.back()}
-              className="group px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-xl border-2 border-white/20 hover:bg-white/20 hover:border-white/40 transition-all duration-300 hover:scale-105"
+              className="group px-8 py-4 bg-black/10 dark:bg-white/10 backdrop-blur-sm text-foreground font-semibold rounded-xl border-2 border-black/20 dark:border-white/20 hover:bg-black/20 hover:dark:bg-white/20 hover:border-black/40 hover:dark:border-white/40 transition-all duration-300 hover:scale-105"
             >
               <span className="flex items-center gap-2">
                 <svg
@@ -181,12 +181,12 @@ function NotFound() {
 
           {/* Auto-redirect counter */}
           <div
-            className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 backdrop-blur-md rounded-full border border-white/10 animate-fade-in-up"
+            className="inline-flex items-center gap-3 px-6 py-3 bg-black/5 dark:bg-white/5 backdrop-blur-md rounded-full border border-black/10 dark:border-white/10 animate-fade-in-up"
             style={{ animationDelay: "0.6s" }}
           >
             <div className="relative">
-              <div className="w-12 h-12 rounded-full border-4 border-white/10 flex items-center justify-center">
-                <span className="text-xl font-bold text-white">
+              <div className="w-12 h-12 rounded-full border-4 border-black/10 dark:border-white/10 flex items-center justify-center">
+                <span className="text-xl font-bold text-foreground">
                   {countdown}
                 </span>
               </div>

@@ -45,14 +45,26 @@ function HowIWork() {
       {/* Top Separator — matches the hairline every other section opens with */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent" />
 
-      {/* Ambient glow — same restrained treatment used across the other sections */}
+      {/* Single top-center glow — sits above the divided 4-step row like a
+          spotlight, instead of the mirrored corner-blob pattern elsewhere */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-1/4 h-[500px] w-[500px] rounded-full bg-primary/[0.06] blur-[140px]"
+        className="pointer-events-none absolute left-1/2 top-[-6%] h-[420px] w-[min(80vw,760px)] -translate-x-1/2 rounded-full bg-primary/[0.1] blur-[130px]"
       />
+
+      {/* Faint diagonal hatch — a distinct texture from the dot grids used
+          elsewhere, confined to the upper section */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-0 bottom-1/4 h-[500px] w-[500px] rounded-full bg-primary/[0.08] blur-[140px]"
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(135deg, rgba(255,255,255,0.6) 0px, rgba(255,255,255,0.6) 1px, transparent 1px, transparent 22px)",
+          maskImage:
+            "linear-gradient(to bottom, black 0%, transparent 55%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 0%, transparent 55%)",
+        }}
       />
 
       <div className="mx-auto max-w-7xl relative z-10">
@@ -62,7 +74,7 @@ function HowIWork() {
             <span className="h-px w-8 bg-primary/60" />
             How I Work
           </span>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             A clear process for better work.
           </h2>
           <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-xl">
@@ -77,7 +89,7 @@ function HowIWork() {
           {STEPS.map((step) => (
             <div
               key={step.index}
-              className="group p-6 transition-colors duration-300 hover:bg-white/[0.03] sm:p-8"
+              className="group p-6 transition-colors duration-300 hover:bg-black/[0.03] hover:dark:bg-white/[0.03] sm:p-8"
             >
               <div className="flex items-center justify-between">
                 <span className="font-mono text-xs text-muted-foreground transition-colors duration-300 group-hover:text-primary">
@@ -88,7 +100,7 @@ function HowIWork() {
                   aria-hidden="true"
                 />
               </div>
-              <h3 className="mt-6 text-lg sm:text-xl font-bold text-white">
+              <h3 className="mt-6 text-lg sm:text-xl font-bold text-foreground">
                 {step.title}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -101,7 +113,7 @@ function HowIWork() {
         {/* CTA bar */}
         <div className="mt-6 flex flex-col items-start gap-6 rounded-2xl border border-border bg-card/40 backdrop-blur-sm p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
           <div>
-            <p className="text-base sm:text-lg font-semibold text-white">
+            <p className="text-base sm:text-lg font-semibold text-foreground">
               Have an idea you want to explore?
             </p>
             <p className="mt-1 text-sm text-muted-foreground">

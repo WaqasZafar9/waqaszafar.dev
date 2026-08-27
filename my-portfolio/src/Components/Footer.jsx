@@ -50,7 +50,7 @@ function Footer() {
   }
 
   return (
-    <footer className="bg-background text-white pt-16 relative">
+    <footer className="bg-background text-foreground pt-16 relative">
       {/* Top Separator Glow */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent"></div>
       <div className="container mx-auto max-w-4xl">
@@ -58,7 +58,7 @@ function Footer() {
         <div className="flex justify-center mb-8">
           <button
             onClick={scrollToContact}
-            className="px-6 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white text-sm font-medium hover:bg-primary hover:border-primary hover:shadow-[0_0_15px_rgba(147,51,234,0.3)] transition-all duration-300"
+            className="px-6 py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg text-foreground text-sm font-medium hover:bg-primary hover:border-primary hover:shadow-[0_0_15px_rgba(147,51,234,0.3)] transition-all duration-300"
           >
             {footerData.buttonText}
           </button>
@@ -72,9 +72,9 @@ function Footer() {
         {/* Contact Details */}
         <div className="space-y-4 mb-12">
           {/* Email */}
-          <div className="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-lg px-4 py-3 max-w-md mx-auto group hover:border-primary/30 transition-colors">
+          <div className="flex items-center justify-center gap-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg px-4 py-3 max-w-md mx-auto group hover:border-primary/30 transition-colors">
             <FaEnvelope className="text-muted-foreground text-lg group-hover:text-primary transition-colors" />
-            <span className="flex-1 text-muted-foreground text-sm md:text-base group-hover:text-white transition-colors">{footerData.contact.email}</span>
+            <span className="flex-1 text-muted-foreground text-sm md:text-base group-hover:text-foreground transition-colors">{footerData.contact.email}</span>
             <button
               onClick={() => handleCopy(footerData.contact.email, 'email')}
               className="text-muted-foreground hover:text-primary transition-colors p-1"
@@ -89,9 +89,9 @@ function Footer() {
           </div>
 
           {/* Phone */}
-          <div className="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-lg px-4 py-3 max-w-md mx-auto group hover:border-primary/30 transition-colors">
+          <div className="flex items-center justify-center gap-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg px-4 py-3 max-w-md mx-auto group hover:border-primary/30 transition-colors">
             <FaPhone className="text-muted-foreground text-lg group-hover:text-primary transition-colors" />
-            <span className="flex-1 text-muted-foreground text-sm md:text-base group-hover:text-white transition-colors">{footerData.contact.phone}</span>
+            <span className="flex-1 text-muted-foreground text-sm md:text-base group-hover:text-foreground transition-colors">{footerData.contact.phone}</span>
             <button
               onClick={() => handleCopy(footerData.contact.phone, 'phone')}
               className="text-muted-foreground hover:text-primary transition-colors p-1"
@@ -118,7 +118,7 @@ function Footer() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white text-2xl hover:text-primary transform hover:scale-110 transition-all duration-300"
+                  className="text-foreground text-2xl hover:text-primary transform hover:scale-110 transition-all duration-300"
                   aria-label={social.name}
                 >
                   <IconComponent />
@@ -130,9 +130,9 @@ function Footer() {
       </div>
 
       {/* Copyright - Full width bar */}
-      <div className="bg-background pt-8 pb-8 mt-8 border-t border-white/5">
+      <div className="bg-background pt-8 pb-8 mt-8 border-t border-black/5 dark:border-white/5">
         <div className="container mx-auto max-w-4xl px-4">
-          <p className="text-center text-white text-sm">
+          <p className="text-center text-foreground text-sm">
             © {footerData.copyright.year} Designed and coded <span className="text-primary font-medium">  by M Waqas Zafar </span>
           </p>
         </div>

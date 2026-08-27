@@ -1,6 +1,22 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
+    <!-- Theme — applied before first paint to avoid a flash of the wrong
+         theme. Defaults to dark (the site's original look) unless the
+         visitor has explicitly chosen light before. -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          if (stored ? stored === "dark" : true) {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
     <!-- Essential Meta Tags -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

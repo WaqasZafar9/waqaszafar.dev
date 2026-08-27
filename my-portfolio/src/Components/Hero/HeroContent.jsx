@@ -33,7 +33,7 @@ function HeroContent() {
   return (
     <div className="relative z-10 flex flex-col items-center text-center">
       {/* Status badge — first thing the eye should land on */}
-      <div
+      {/* <div
         className="hero-rise mb-5 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/[0.08] px-4 py-1.5 text-[0.6875rem] font-semibold uppercase tracking-wider text-amber-300 backdrop-blur-sm shadow-[0_0_20px_rgba(251,191,36,0.18)] sm:text-xs"
         style={{ animationDelay: `${STEP.badge}ms` }}
       >
@@ -42,7 +42,7 @@ function HeroContent() {
           <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
         </span>
         Portfolio under active construction — new work landing soon
-      </div>
+      </div> */}
 
       {/* Introduction + Name with Glowing Hover Lightup Effect */}
       <p
@@ -50,7 +50,7 @@ function HeroContent() {
         style={{ animationDelay: `${STEP.intro}ms` }}
       >
         Hi, I&apos;m{" "}
-        <span className="font-bold text-white transition-all duration-300 group-hover/name:text-transparent group-hover/name:bg-clip-text group-hover/name:bg-linear-to-r group-hover/name:from-white group-hover/name:to-primary group-hover/name:drop-shadow-[0_0_25px_rgba(52,168,90,0.9)]">
+        <span className="font-bold text-foreground transition-all duration-300 group-hover/name:text-transparent group-hover/name:bg-clip-text group-hover/name:bg-linear-to-r group-hover/name:from-foreground group-hover/name:to-primary group-hover/name:drop-shadow-[0_0_25px_rgba(52,168,90,0.9)]">
           Waqas Zafar
         </span>
       </p>
@@ -86,16 +86,16 @@ function HeroContent() {
         {/* Primary CTA — Solid white default -> Transparent BG + White text on hover */}
         <a
           href="#projects"
-          className={`group inline-flex w-full items-center justify-center gap-2 rounded-full border border-white bg-white px-7 py-3.5 text-sm font-semibold tracking-tight text-background transition-all duration-300 hover:-translate-y-0.5 hover:bg-transparent hover:text-white hover:shadow-[0_0_30px_rgba(255,255,255,0.35)] motion-reduce:transform-none sm:w-auto ${FOCUS_RING}`}
+          className={`group inline-flex w-full items-center justify-center gap-2 rounded-full border border-foreground bg-foreground px-7 py-3.5 text-sm font-semibold tracking-tight text-background transition-all duration-300 hover:-translate-y-0.5 hover:bg-transparent hover:text-foreground hover:shadow-[0_0_30px_rgba(255,255,255,0.35)] motion-reduce:transform-none sm:w-auto ${FOCUS_RING}`}
         >
           View My Work
-          <FaArrowRight className="text-xs transition-transform duration-300 group-hover:translate-x-1 group-hover:text-white motion-reduce:transform-none" />
+          <FaArrowRight className="text-xs transition-transform duration-300 group-hover:translate-x-1 group-hover:text-foreground motion-reduce:transform-none" />
         </a>
 
         {/* Secondary CTA — Transparent default -> Solid white BG + Dark text on hover */}
         <a
           href="#contact"
-          className={`inline-flex w-full items-center justify-center rounded-full border border-border bg-white/[0.03] px-7 py-3.5 text-sm font-semibold tracking-tight text-foreground backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-background hover:shadow-[0_0_30px_rgba(255,255,255,0.35)] sm:w-auto ${FOCUS_RING}`}
+          className={`inline-flex w-full items-center justify-center rounded-full border border-border bg-black/[0.03] dark:bg-white/[0.03] px-7 py-3.5 text-sm font-semibold tracking-tight text-foreground backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground hover:bg-foreground hover:text-background hover:shadow-[0_0_30px_rgba(255,255,255,0.35)] sm:w-auto ${FOCUS_RING}`}
         >
           Let&apos;s Talk
         </a>
@@ -113,7 +113,7 @@ function HeroContent() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={social.label}
-            className={`flex h-12 w-12 items-center justify-center rounded-full border border-border text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:border-white hover:text-white hover:bg-white/[0.06] hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] ${FOCUS_RING}`}
+            className={`flex h-12 w-12 items-center justify-center rounded-full border border-border text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:border-foreground hover:text-foreground hover:bg-black/[0.06] hover:dark:bg-white/[0.06] hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] ${FOCUS_RING}`}
           >
             <social.Icon className="text-base" />
           </a>

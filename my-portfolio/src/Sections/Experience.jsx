@@ -216,25 +216,26 @@ function Experience() {
       {/* Top Separator — matches the hairline every other section opens with */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent" />
 
-      {/* Background Ambient Glow */}
+      {/* Left-edge glow tracing the timeline rail, instead of mirrored
+          corner blobs — ties the light to the content it sits behind */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-1/4 h-[500px] w-[500px] rounded-full bg-primary/[0.06] blur-[140px]"
+        className="pointer-events-none absolute left-0 top-0 h-full w-[340px] bg-gradient-to-r from-primary/[0.09] via-primary/[0.03] to-transparent"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-0 bottom-1/4 h-[500px] w-[500px] rounded-full bg-primary/[0.08] blur-[140px]"
+        className="pointer-events-none absolute right-[-6%] bottom-[-8%] h-[420px] w-[420px] rounded-full bg-primary/[0.1] blur-[130px]"
       />
 
       <div className="mx-auto max-w-7xl relative z-10">
         {/* Header Section */}
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between border-b border-white/10 pb-8">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between border-b border-black/10 dark:border-white/10 pb-8">
           <div>
             <span className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
               <span className="h-px w-8 bg-primary/60" />
               Experience
             </span>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
               Where I&apos;ve built and shipped.
             </h2>
             <p className="mt-2.5 text-sm sm:text-base text-muted-foreground max-w-xl">
@@ -267,7 +268,7 @@ function Experience() {
                   padding — keeps the track centred under the dots, which
                   sit inside that separate positioning context. */}
               <div
-                className="absolute left-[32px] z-0 w-1 rounded-full bg-white/20 border border-white/10"
+                className="absolute left-[32px] z-0 w-1 rounded-full bg-black/20 dark:bg-white/20 border border-black/10 dark:border-white/10"
                 style={{
                   top: nodeTops[0] ?? 0,
                   height: Math.max(0, trackEnd - (nodeTops[0] ?? 0)),
@@ -276,7 +277,7 @@ function Experience() {
 
               {/* Animated glowing progress line, filling the same span */}
               <div
-                className="absolute left-[32px] z-0 w-1 rounded-full bg-gradient-to-b from-white to-primary transition-all duration-200 ease-out shadow-[0_0_16px_rgba(52,168,90,0.95),0_0_30px_rgba(255,255,255,0.7)]"
+                className="absolute left-[32px] z-0 w-1 rounded-full bg-gradient-to-b from-foreground to-primary transition-all duration-200 ease-out shadow-[0_0_16px_rgba(52,168,90,0.95),0_0_30px_rgba(255,255,255,0.7)]"
                 style={{
                   top: nodeTops[0] ?? 0,
                   height:
@@ -309,10 +310,10 @@ function Experience() {
                       <div
                         className={`flex h-5 w-5 items-center justify-center rounded-full transition-all duration-300 ${
                           isActive
-                            ? "bg-white scale-125 shadow-[0_0_20px_rgba(255,255,255,1),0_0_35px_rgba(52,168,90,0.9)]"
+                            ? "bg-foreground scale-125 shadow-[0_0_20px_rgba(255,255,255,1),0_0_35px_rgba(52,168,90,0.9)]"
                             : isPassed
                             ? "bg-primary scale-105 shadow-[0_0_12px_rgba(52,168,90,0.6)]"
-                            : "bg-muted border-2 border-white/30"
+                            : "bg-muted border-2 border-black/30 dark:border-white/30"
                         }`}
                       >
                         {isActive && <span className="h-2 w-2 rounded-full bg-background" />}
@@ -322,7 +323,7 @@ function Experience() {
                       <div className="transition-all duration-300">
                         <p
                           className={`text-xs sm:text-sm font-bold tracking-wide transition-colors ${
-                            isActive ? "text-white scale-105" : "text-muted-foreground group-hover:text-white/90"
+                            isActive ? "text-foreground scale-105" : "text-muted-foreground group-hover:text-foreground/90"
                           }`}
                         >
                           {exp.company}
@@ -364,30 +365,30 @@ function Experience() {
                   <article
                     className={`group relative rounded-2xl border transition-all duration-500 bg-card/95 backdrop-blur-xl p-6 sm:p-8 lg:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] ${
                       isActive
-                        ? "border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_35px_rgba(52,168,90,0.15)] scale-[1.01]"
-                        : "border-white/10 opacity-90 hover:border-white/20"
+                        ? "border-black/25 dark:border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_35px_rgba(52,168,90,0.15)] scale-[1.01]"
+                        : "border-black/10 dark:border-white/10 opacity-90 hover:border-black/20 hover:dark:border-white/20"
                     }`}
                   >
                     {/* Top Row: Company Badge + Title + Period */}
-                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between border-b border-white/10 pb-6">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between border-b border-black/10 dark:border-white/10 pb-6">
                       <div className="flex items-center gap-4">
                         {/* Company Logo Badge */}
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] p-2.5 shadow-inner">
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-black/15 dark:border-white/15 bg-black/[0.06] dark:bg-white/[0.06] p-2.5 shadow-inner">
                           {item.logoSrc ? (
                             <img src={item.logoSrc} alt={`${item.company} logo`} className="h-full w-full object-contain" />
                           ) : (
-                            <span className="text-sm font-bold text-white">{item.logoText}</span>
+                            <span className="text-sm font-bold text-foreground">{item.logoText}</span>
                           )}
                         </div>
                         <div>
-                          <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white group-hover:text-primary transition-colors duration-300">
+                          <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors duration-300">
                             {item.title}
                           </h3>
                           <div className="mt-1 flex items-center gap-2.5">
                             <p className="text-sm font-semibold text-primary">
                               {item.company}
                             </p>
-                            <span className="h-1 w-1 rounded-full bg-white/30" />
+                            <span className="h-1 w-1 rounded-full bg-black/30 dark:bg-white/30" />
                             <span className="text-xs text-muted-foreground">{item.type}</span>
                           </div>
                         </div>
@@ -395,7 +396,7 @@ function Experience() {
 
                       {/* Date & Status */}
                       <div className="flex sm:flex-col sm:items-end justify-between gap-1 text-xs text-muted-foreground">
-                        <span className="font-mono text-xs font-medium text-white/80 bg-white/[0.05] px-3 py-1 rounded-full border border-white/10">
+                        <span className="font-mono text-xs font-medium text-foreground/80 bg-black/[0.05] dark:bg-white/[0.05] px-3 py-1 rounded-full border border-black/10 dark:border-white/10">
                           {item.period}
                         </span>
                         {item.status && (
@@ -418,14 +419,14 @@ function Experience() {
                     </ul>
 
                     {/* Tech Stack Pills */}
-                    <div className="mt-7 flex flex-wrap items-center gap-2 pt-5 border-t border-white/[0.08]">
+                    <div className="mt-7 flex flex-wrap items-center gap-2 pt-5 border-t border-black/[0.08] dark:border-white/[0.08]">
                       <span className="text-[0.7rem] uppercase tracking-wider font-semibold text-muted-foreground mr-1">
                         Stack:
                       </span>
                       {item.stack.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-medium text-muted-foreground transition-all duration-300 hover:border-white/25 hover:text-white"
+                          className="rounded-full border border-black/10 dark:border-white/10 bg-black/[0.04] dark:bg-white/[0.04] px-3 py-1 text-xs font-medium text-muted-foreground transition-all duration-300 hover:border-black/25 hover:dark:border-white/25 hover:text-foreground"
                         >
                           {tag}
                         </span>
@@ -440,12 +441,12 @@ function Experience() {
 
         {/* Education Section Header (Commented out as requested) */}
         {/*
-        <div className="mt-28 border-t border-white/10 pt-16">
+        <div className="mt-28 border-t border-black/10 dark:border-white/10 pt-16">
           <span className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
             <span className="h-px w-8 bg-primary/60" />
             Education History
           </span>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Academic Background
           </h2>
           <p className="mt-2 text-sm sm:text-base text-muted-foreground">
@@ -456,14 +457,14 @@ function Experience() {
             {EDUCATION_DATA.map((item) => (
               <article
                 key={item.degree}
-                className="group rounded-2xl border border-white/10 bg-card/90 p-6 sm:p-7 backdrop-blur-md shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:shadow-[0_20px_40px_rgba(0,0,0,0.8)]"
+                className="group rounded-2xl border border-black/10 dark:border-white/10 bg-card/90 p-6 sm:p-7 backdrop-blur-md shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-black/25 hover:dark:border-white/25 hover:shadow-[0_20px_40px_rgba(0,0,0,0.8)]"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/[0.05] text-lg text-white">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-black/15 dark:border-white/15 bg-black/[0.05] dark:bg-white/[0.05] text-lg text-foreground">
                     🎓
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white transition-colors duration-300 group-hover:text-primary">
+                    <h3 className="text-xl font-bold text-foreground transition-colors duration-300 group-hover:text-primary">
                       {item.degree}
                     </h3>
                     <p className="mt-1 text-sm font-semibold text-primary">

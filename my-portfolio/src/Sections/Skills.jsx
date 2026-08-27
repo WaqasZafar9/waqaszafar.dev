@@ -27,7 +27,6 @@ import {
 import vscodeImg from "../assets/vscode.png";
 import clickupImg from "../assets/clickup.png";
 import intelliJImg from "../assets/intelliJ.png";
-import githubImg from "../assets/github.png";
 import nextjslogo from "../assets/next.png";
 
 function Skills() {
@@ -73,7 +72,10 @@ function Skills() {
     { name: "React Native", icon: SiReact, color: "#61DAFB" },
     { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
     { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
-    { name: "Git & GitHub", icon: githubImg, color: "#181717" },
+    // No fixed color — the GitHub mark is monochrome, so it inherits
+    // text-foreground and stays visible in both themes (a light PNG here
+    // used to vanish against a light card).
+    { name: "Git & GitHub", icon: SiGithub, color: null },
     { name: "VS Code", icon: vscodeImg, color: "#000000" },
     { name: "IntelliJ", icon: intelliJImg, color: "#000000" },
     { name: "Android Studio", icon: SiAndroidstudio, color: "#3DDC84" },
@@ -97,7 +99,7 @@ function Skills() {
 
     return (
       <div className="flex-shrink-0 w-[80px] md:w-[100px] lg:w-[110px] mx-2">
-        <div className="bg-card/30 backdrop-blur-sm rounded-xl p-3 border border-white/10 hover:border-primary/50 hover:bg-card/60 transition-all duration-300 group cursor-pointer h-full flex flex-col items-center justify-center">
+        <div className="bg-card/30 backdrop-blur-sm rounded-xl p-3 border border-black/10 dark:border-white/10 hover:border-primary/50 hover:bg-card/60 transition-all duration-300 group cursor-pointer h-full flex flex-col items-center justify-center">
           <div className="mb-3 transition-transform duration-300 group-hover:scale-110 flex items-center justify-center">
             {isImageIcon ? (
               <img
@@ -107,7 +109,9 @@ function Skills() {
               />
             ) : (
               <IconComponent
-                className="w-8 h-8 md:w-10 md:h-10 lg:w-10 lg:h-10"
+                className={`w-8 h-8 md:w-10 md:h-10 lg:w-10 lg:h-10 ${
+                  item.color ? "" : "text-foreground"
+                }`}
                 style={item.color ? { color: item.color } : {}}
               />
             )}
@@ -185,10 +189,9 @@ function Skills() {
       {/* Top Separator Glow */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent"></div>
       
-      {/* Ambient glow — same restrained treatment as Hero/Experience, not a
-          saturated wash */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/[0.06] rounded-full blur-[140px] pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/[0.08] rounded-full blur-[140px] pointer-events-none"></div>
+      {/* Wide, flat center glow — reads like a stage light under the
+          scrolling skill rows, rather than corner blobs */}
+      <div className="absolute left-1/2 top-1/2 h-[280px] w-[min(90vw,1100px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.09] blur-[140px] pointer-events-none"></div>
 
       <div className="container max-w-[1600px] relative z-10">
         
@@ -198,7 +201,7 @@ function Skills() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-2 text-center">
             Professional <span className="text-primary">Skills</span>
           </h2>
           <p className="text-muted-foreground text-lg text-center">

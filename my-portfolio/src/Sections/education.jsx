@@ -64,6 +64,18 @@ function Education() {
     >
       {/* Top Separator Glow */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent"></div>
+
+      {/* Vertical glow tracing the timeline spine — this section's own
+          signature, since the layout itself is a centered vertical line */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[80%] w-[3px] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-primary/25 to-transparent blur-[6px] hidden md:block"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.08] blur-[140px]"
+      />
+
       <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
         <div
           className={`transition-all duration-1000 ${
@@ -74,13 +86,13 @@ function Education() {
         >
           {/* Education Button */}
           <div className="flex justify-center mb-6">
-            <button className="bg-card text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-card transition-colors">
+            <button className="bg-card text-foreground px-4 py-2 rounded-lg text-sm font-medium hover:bg-card transition-colors">
               Education
             </button>
           </div>
 
           {/* Heading */}
-          <h2 className="text-xl md:text-3xl font-regular text-white mb-8 md:mb-12 text-center">
+          <h2 className="text-xl md:text-3xl font-regular text-foreground mb-8 md:mb-12 text-center">
             My educational background and academic journey:
           </h2>
 
@@ -121,7 +133,7 @@ function Education() {
                       {/* Degree */}
                       <div className="flex items-start gap-3 mb-4">
                         <FaGraduationCap className="text-primary text-lg sm:text-xl mt-1 shrink-0" />
-                        <h3 className="text-white text-lg sm:text-xl md:text-2xl font-bold break-words">
+                        <h3 className="text-foreground text-lg sm:text-xl md:text-2xl font-bold break-words">
                           {edu.degree}
                         </h3>
                       </div>

@@ -2,14 +2,14 @@ import socialSwirlImg from "../assets/socialSwirlImg.webp";
 import unitystackImg from "../assets/unitystack.webp";
 import pettifyImg from "../assets/nursery_teacher_device_2.webp";
 import galaxyCricketImg from "../assets/cricket.webp";
-import salonImg from "../assets/Salon.webp";
 import lisenceImg from "../assets/lisence.webp";
 import uamsImg from "../assets/umas.webp";
 import crickdatabaseImg from "../assets/database.webp";
 import zanderioprojectImg from "../assets/zanderioproject.webp";
-import lahoriyaImg from "../assets/lahoriya.webp";
-import zanderiofullpage from "../assets/zanderio-fullpage.webp";
-import lynxsystemsImg from "../assets/lynxsystem-fullpage.webp";
+import zanderiofullpage from "../assets/zanderio-scroll.webp";
+import lynxsystemsImg from "../assets/lynx-scroll.webp";
+import lahoriyaScrollImg from "../assets/lahoriya-scroll.webp";
+import salonScrollImg from "../assets/salon-scroll.webp";
 
 
 const PROJECTS_DATA = [
@@ -89,7 +89,7 @@ const PROJECTS_DATA = [
     description:
       "Corporate digital platform for Lahoriya featuring a brand-forward layout, seamless user journeys, responsive motion architecture, and clean editorial design.",
     tags: ["BRANDING", "CORPORATE", "WEB EXPERIENCE"],
-    image: lahoriyaImg,
+    image: lahoriyaScrollImg,
     liveUrl: "https://www.lahoriya.co/",
     liveButtonText: "Visit Lahoriya ↗",
     githubUrl: null,
@@ -325,7 +325,7 @@ const PROJECTS_DATA = [
     description:
       "Dynamic appointment booking and service showcase web application for luxury salons with inventory management.",
     tags: ["PHP", "BOOKING ENGINE", "WEB APP"],
-    image: salonImg,
+    image: salonScrollImg,
     liveUrl: "https://fresh-rose.vercel.app/",
     liveButtonText: "Launch Salon App ↗",
     githubUrl: "https://github.com/WaqasZafar9/Fresh-Rose",

@@ -166,12 +166,12 @@ function Navbar() {
         className={`relative z-10 rounded-full font-medium transition-colors duration-200 ${FOCUS_RING} ${
           isDesktop
             ? `px-3.5 py-2 text-[0.9375rem] ${
-                isActive ? "text-white" : "text-white/55 hover:text-white"
-              } ${showActiveBg ? "bg-white/[0.07]" : ""}`
+                isActive ? "text-foreground" : "text-foreground/55 hover:text-foreground"
+              } ${showActiveBg ? "bg-black/[0.07] dark:bg-white/[0.07]" : ""}`
             : `px-4 py-3 text-base ${
                 isActive
-                  ? "bg-white/[0.07] text-white"
-                  : "text-white/60 hover:bg-white/[0.04] hover:text-white active:bg-white/[0.06]"
+                  ? "bg-black/[0.07] dark:bg-white/[0.07] text-foreground"
+                  : "text-foreground/60 hover:bg-black/[0.04] hover:dark:bg-white/[0.04] hover:text-foreground active:bg-black/[0.06] active:dark:bg-white/[0.06]"
               }`
         }`}
       >
@@ -196,8 +196,8 @@ function Navbar() {
         <div
           className={`mx-auto flex max-w-5xl items-center justify-between gap-4 rounded-full border backdrop-blur-xl transition-all duration-300 ${
             isScrolled
-              ? "border-white/[0.12] bg-background/70 py-2 pl-4 pr-2 shadow-[0_10px_40px_-12px_rgba(0,0,0,0.9)] sm:pl-5 sm:pr-2.5"
-              : "border-white/[0.08] bg-white/[0.03] py-2.5 pl-4 pr-2.5 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.7)] sm:pl-6 sm:pr-3"
+              ? "border-black/[0.12] dark:border-white/[0.12] bg-background/70 py-2 pl-4 pr-2 shadow-[0_10px_40px_-12px_rgba(0,0,0,0.9)] sm:pl-5 sm:pr-2.5"
+              : "border-black/[0.08] dark:border-white/[0.08] bg-black/[0.03] dark:bg-white/[0.03] py-2.5 pl-4 pr-2.5 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.7)] sm:pl-6 sm:pr-3"
           }`}
         >
           {/* Brand */}
@@ -207,7 +207,7 @@ function Navbar() {
             aria-label="Waqas Zafar — back to top"
             className={`group flex shrink-0 items-center gap-2.5 rounded-full py-1 pr-2 ${FOCUS_RING}`}
           >
-            <span className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-white/[0.06] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-primary/60 group-hover:shadow-[0_0_18px_-2px_rgba(52,168,90,0.6)] motion-reduce:transform-none">
+            <span className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border border-black/15 dark:border-white/15 bg-black/[0.06] dark:bg-white/[0.06] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-primary/60 group-hover:shadow-[0_0_18px_-2px_rgba(52,168,90,0.6)] motion-reduce:transform-none">
               <img
                 src={portrait}
                 alt="Waqas Zafar"
@@ -217,7 +217,7 @@ function Navbar() {
                 className="h-full w-full object-cover"
               />
             </span>
-            <span className="hidden text-sm font-medium tracking-tight text-white/85 transition-colors duration-200 group-hover:text-white lg:block">
+            <span className="hidden text-sm font-medium tracking-tight text-foreground/85 transition-colors duration-200 group-hover:text-foreground lg:block">
               Waqas Zafar
             </span>
           </a>
@@ -241,7 +241,7 @@ function Navbar() {
                 transform so it stays off the layout-thrashing path. */}
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0.5 left-0 z-0 rounded-full bg-white/[0.06] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] transition-[transform,width,opacity] duration-300 ease-out"
+              className="pointer-events-none absolute inset-y-0.5 left-0 z-0 rounded-full bg-black/[0.06] dark:bg-white/[0.06] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] transition-[transform,width,opacity] duration-300 ease-out"
               style={{
                 transform: `translateX(${hoverPill.left}px)`,
                 width: `${hoverPill.width}px`,
@@ -257,7 +257,7 @@ function Navbar() {
               href={resume}
               target="_blank"
               rel="noopener noreferrer"
-              className={`rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold tracking-tight text-white/80 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-background hover:shadow-[0_0_24px_-4px_rgba(255,255,255,0.4)] motion-reduce:transform-none ${FOCUS_RING}`}
+              className={`rounded-full border border-black/15 dark:border-white/15 bg-black/[0.03] dark:bg-white/[0.03] px-4 py-2.5 text-sm font-semibold tracking-tight text-foreground/80 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground hover:bg-foreground hover:text-background hover:shadow-[0_0_24px_-4px_rgba(255,255,255,0.4)] motion-reduce:transform-none ${FOCUS_RING}`}
             >
               Resume
             </a>
@@ -278,7 +278,7 @@ function Navbar() {
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-navigation"
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-xl text-white transition-colors duration-200 hover:bg-white/[0.1] md:hidden ${FOCUS_RING}`}
+            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/10 dark:border-white/10 bg-black/[0.06] dark:bg-white/[0.06] text-xl text-foreground transition-colors duration-200 hover:bg-black/[0.1] hover:dark:bg-white/[0.1] md:hidden ${FOCUS_RING}`}
           >
             {isMobileMenuOpen ? <HiX /> : <HiMenu />}
           </button>
@@ -288,7 +288,7 @@ function Navbar() {
         <div
           id="mobile-navigation"
           hidden={!isMobileMenuOpen}
-          className={`mx-auto mt-2 max-w-5xl overflow-hidden rounded-3xl border border-white/[0.1] bg-background/85 p-2 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.95)] backdrop-blur-xl transition-all duration-300 ease-out md:hidden ${
+          className={`mx-auto mt-2 max-w-5xl overflow-hidden rounded-3xl border border-black/[0.1] dark:border-white/[0.1] bg-background/85 p-2 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.95)] backdrop-blur-xl transition-all duration-300 ease-out md:hidden ${
             isMobileMenuOpen
               ? "translate-y-0 opacity-100"
               : "pointer-events-none -translate-y-2 opacity-0"
@@ -305,7 +305,7 @@ function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={closeMobileMenu}
-              className={`block rounded-full border border-white/15 bg-white/[0.03] px-5 py-3 text-center text-sm font-semibold tracking-tight text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white hover:bg-white hover:text-background active:scale-[0.98] ${FOCUS_RING}`}
+              className={`block rounded-full border border-black/15 dark:border-white/15 bg-black/[0.03] dark:bg-white/[0.03] px-5 py-3 text-center text-sm font-semibold tracking-tight text-foreground/80 backdrop-blur-sm transition-all duration-300 hover:border-foreground hover:bg-foreground hover:text-background active:scale-[0.98] ${FOCUS_RING}`}
             >
               Resume
             </a>

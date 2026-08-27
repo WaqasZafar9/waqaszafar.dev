@@ -76,11 +76,11 @@ function ServiceCard({ service }) {
         service.span || ""
       }`}
     >
-      <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-white/[0.03] text-primary transition-all duration-300 group-hover:border-primary/50 group-hover:bg-primary/10 group-hover:text-primary">
+      <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-black/[0.03] dark:bg-white/[0.03] text-primary transition-all duration-300 group-hover:border-primary/50 group-hover:bg-primary/10 group-hover:text-primary">
         <service.icon className="text-sm" aria-hidden="true" />
       </div>
 
-      <h3 className="mt-4 text-base sm:text-lg font-bold text-white">
+      <h3 className="mt-4 text-base sm:text-lg font-bold text-foreground">
         {service.title}
       </h3>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -91,7 +91,7 @@ function ServiceCard({ service }) {
         {service.tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-full border border-border bg-white/[0.03] px-2.5 py-0.5 text-[0.65rem] font-medium text-muted-foreground transition-colors duration-300 group-hover:border-primary/30 group-hover:text-primary"
+            className="rounded-full border border-border bg-black/[0.03] dark:bg-white/[0.03] px-2.5 py-0.5 text-[0.65rem] font-medium text-muted-foreground transition-colors duration-300 group-hover:border-primary/30 group-hover:text-primary"
           >
             {tag}
           </span>
@@ -110,14 +110,28 @@ function Services() {
       {/* Top Separator — matches the hairline every other section opens with */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent" />
 
-      {/* Ambient glow — same restrained treatment used across the other sections */}
+      {/* Flat dark surface — one tight glow anchored top-right (build-menu
+          corner), no mirrored second blob, so the section reads distinct
+          from Experience/HowIWork below it. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-primary/[0.06] blur-[140px]"
+        className="pointer-events-none absolute right-[-8%] top-[-10%] h-[460px] w-[460px] rounded-full bg-primary/[0.14] blur-[120px]"
       />
+
+      {/* Faint grid confined to the header corner — a signature texture
+          unique to this section rather than a full-bleed pattern */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-0 bottom-0 h-[500px] w-[500px] rounded-full bg-primary/[0.08] blur-[140px]"
+        className="pointer-events-none absolute inset-0 opacity-[0.1]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.5) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+          maskImage:
+            "radial-gradient(55% 55% at 85% 0%, black 0%, transparent 70%)",
+          WebkitMaskImage:
+            "radial-gradient(55% 55% at 85% 0%, black 0%, transparent 70%)",
+        }}
       />
 
       <div className="mx-auto max-w-7xl relative z-10">
@@ -127,7 +141,7 @@ function Services() {
             <span className="h-px w-8 bg-primary/60" />
             What I Offer
           </span>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             What I can build for you.
           </h2>
           <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-xl">

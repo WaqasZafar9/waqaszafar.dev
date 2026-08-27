@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Class-based dark mode: `dark:` utilities apply whenever an ancestor
+   carries `.dark` (toggled by ThemeToggle), instead of Tailwind's default
+   `prefers-color-scheme` media query. */
+@custom-variant dark (&:is(.dark *));
+
 /* ============================================================
    Legacy theme — superseded by the "Northern Lights" system
    below. Left in place (not deleted) as a rollback reference;
@@ -47,10 +52,10 @@
 
 /* ============================================================
    "Northern Lights" theme — pulled from 21st.dev, applied
-   site-wide. Site has no light/dark switch, so `.dark` is
-   forced on <html> (see index.html) and carries the live
-   palette; `:root` keeps the light variant available for a
-   future toggle without re-pasting the source theme.
+   site-wide. `:root` holds the light palette; `.dark` (toggled
+   by ThemeToggle, see src/Components/ThemeToggle.jsx) overrides
+   it with the dark palette. Dark is the default on first visit
+   (see the inline script in index.html), light is opt-in.
    ============================================================ */
 :root {
   --card: #ffffff;
@@ -276,6 +281,44 @@ body::after {
   transform: translateX(-150%) rotate(25deg);
   animation: shimmerSweep 7s ease-in-out infinite;
   pointer-events: none;
+}
+
+/* ---- Advanced button hover: light sweep on demand ----
+   Unlike .shimmer-card (always animating), this sweep only plays when the
+   button is actually hovered/focused — a single pass of light across the
+   label, on top of whatever background/border/translate hover state the
+   button already declares. */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.btn-sheen:hover::after,
+.btn-sheen:focus-visible::after {
+  transform: translateX(120%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-sheen::after {
+    display: none;
+  }
 }
 
 /* Smooth Button & Tab Active Touch Feedback */
@@ -537,126 +580,38 @@ button:active, a:active {
   animation: aboutFloat 7s ease-in-out infinite;
 }
 
-/* Scroll reveal: blurred rise, staggered per block via --d. */
+/* Scroll reveal: crisp rise (no blur), staggered per block via --d. */
 @keyframes aboutReveal {
   from {
     opacity: 0;
     transform: translateY(30px);
-    filter: blur(12px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 }
 
 .reveal {
   opacity: 0;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
 }
 
 .is-visible .reveal {
-  animation: aboutReveal 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: aboutReveal 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
   animation-delay: var(--d, 0ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;
-    filter: none;
     transform: none;
   }
 }
 
-/* ---- Section scroll choreography ----
-   Each section declares its own hidden state; `.is-in` releases it back to
-   identity. Transitions (not keyframes) so leaving the viewport reverses. */
-
-.sr {
-  transition:
-    opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 650ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 650ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.sr.is-in {
-  opacity: 1;
-  transform: none;
-  filter: none;
-}
-
-/* Lifts and settles */
-.sr-rise:not(.is-in) {
-  opacity: 0;
-  transform: translateY(32px) scale(0.99);
-  filter: blur(4px);
-}
-
-/* Tips up from its base, like a panel being stood upright */
-.sr-flip-up:not(.is-in) {
-  opacity: 0;
-  transform: perspective(1400px) rotateX(8deg) translateY(28px);
-  transform-origin: 50% 100%;
-  filter: blur(4px);
-}
-
-/* Hinges down from the top edge */
-.sr-unfold:not(.is-in) {
-  opacity: 0;
-  transform: perspective(1400px) rotateX(-7deg) scale(0.985);
-  transform-origin: 50% 0%;
-  filter: blur(5px);
-}
-
-/* Swings in on a left-hand hinge */
-.sr-swing-left:not(.is-in) {
-  opacity: 0;
-  transform: perspective(1400px) rotateY(-7deg) translateX(-28px);
-  transform-origin: 0% 50%;
-  filter: blur(4px);
-}
-
-/* Swings in on a right-hand hinge */
-.sr-swing-right:not(.is-in) {
-  opacity: 0;
-  transform: perspective(1400px) rotateY(7deg) translateX(28px);
-  transform-origin: 100% 50%;
-  filter: blur(4px);
-}
-
-/* Arrives from depth, straight toward the viewer */
-.sr-zoom-depth:not(.is-in) {
-  opacity: 0;
-  transform: perspective(1400px) translateZ(-90px) scale(0.975);
-  filter: blur(5px);
-}
-
-/* Climbs from far below and behind, levelling out as it lands */
-.sr-ascend:not(.is-in) {
-  opacity: 0;
-  transform: perspective(1600px) translate3d(0, 44px, -100px) rotateX(-4deg);
-  transform-origin: 50% 100%;
-  filter: blur(5px);
-}
-
-/* Rotates on two axes as it rises */
-.sr-spiral:not(.is-in) {
-  opacity: 0;
-  transform: perspective(1400px) rotateZ(-2deg) rotateY(5deg) scale(0.975)
-    translateY(24px);
-  filter: blur(4px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sr,
-  .sr:not(.is-in) {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-    transition: none !important;
-  }
-}
+/* Section scroll choreography now lives in src/Components/Motion/Reveal.jsx
+   via framer-motion (opacity + transform, no blur/filter — a long page of
+   sections settling in from a haze read as foggy rather than crisp). */
 
 /* Honour the OS reduced-motion setting across the whole site. */
 @media (prefers-reduced-motion: reduce) {

@@ -106,10 +106,15 @@ function Aboutme() {
       }`}
       style={{ "--mx": "0", "--my": "0" }}
     >
-      {/* Global Ambient Glow behind section (unchanged — this is the portrait's backlight) */}
+      {/* Flat, solid dark backdrop — no grid/haze layers. Content sits on a
+          clean surface so text and cards carry all the contrast. */}
+      <div className="pointer-events-none absolute inset-0 dark:bg-[#0b0e14]" />
+
+      {/* One soft glow directly behind the portrait — just enough lift to
+          keep the black from feeling like a void, without fogging the page. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[min(88vw,680px)] w-[min(88vw,680px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.08] blur-[140px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[min(55vw,460px)] w-[min(55vw,460px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.1] blur-[120px]"
         style={{
           transform:
             "translate(-50%, -50%) translate3d(calc(var(--mx) * 18px), calc(var(--my) * 18px), 0)",
@@ -120,34 +125,6 @@ function Aboutme() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-0 left-0 h-px w-full bg-linear-to-r from-transparent via-primary/50 to-transparent"
-      />
-
-      {/* Faint room-scale dot grid for texture, so the black reads as depth
-          rather than a void. Fades out toward the edges. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "radial-gradient(rgba(52, 168, 90, 0.5) 1px, transparent 1px)",
-          backgroundSize: "26px 26px",
-          maskImage:
-            "radial-gradient(ellipse 70% 65% at 50% 45%, #000 35%, transparent 82%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 70% 65% at 50% 45%, #000 35%, transparent 82%)",
-        }}
-      />
-
-      {/* Side ambient light — gives the two text columns their own soft
-          glow instead of sitting in flat black next to the portrait's light. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-[10%] top-[8%] h-[420px] w-[420px] rounded-full bg-primary/[0.1] blur-[130px]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-[10%] bottom-[6%] h-[420px] w-[420px] rounded-full bg-primary/[0.1] blur-[130px] animate-pulse"
-        style={{ animationDuration: "5s" }}
       />
 
       {/* Depth motes */}
@@ -193,7 +170,7 @@ function Aboutme() {
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
-                  className="h-full w-full select-none object-cover object-bottom grayscale contrast-[1.35] brightness-[0.94] translate-y-[6%]"
+                  className="h-full w-full select-none object-cover object-bottom translate-y-[6%] dark:grayscale dark:contrast-[1.35] dark:brightness-[0.94]"
                   style={{
                     maskImage:
                       "linear-gradient(to bottom, #000 0%, #000 52%, rgba(0,0,0,0.55) 74%, transparent 90%)",
@@ -208,25 +185,25 @@ function Aboutme() {
           {/* Actions — in normal flow beneath portrait */}
           <div className="reveal relative z-30 -mt-14 flex w-full flex-col items-center gap-4 text-center sm:-mt-20 lg:-mt-24" style={{ "--d": "560ms" }}>
             {/* "Previously designed for" Header with Brand Badges */}
-            <div className="flex items-center gap-3 bg-background/80 px-4 py-1.5 rounded-full backdrop-blur-md border border-white/15 shadow-xl">
+            <div className="flex items-center gap-3 bg-background/80 px-4 py-1.5 rounded-full backdrop-blur-md border border-black/15 dark:border-white/15 shadow-xl">
               <span className="text-xs sm:text-sm font-normal text-muted-foreground/90 tracking-wide">
                 Previously designed for
               </span>
               <div className="flex items-center gap-1.5">
                 <div
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-md shadow-md p-1.5 transition-all duration-300 hover:scale-110 hover:border-white/40"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-black/20 dark:border-white/20 bg-black/10 dark:bg-white/10 backdrop-blur-md shadow-md p-1.5 transition-all duration-300 hover:scale-110 hover:border-black/40 hover:dark:border-white/40"
                   title="Lab 23 Technology"
                 >
                   <img src="/Icons/lab23.svg" alt="Lab 23" className="h-full w-full object-contain" />
                 </div>
                 <div
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-md shadow-md p-1.5 transition-all duration-300 hover:scale-110 hover:border-white/40"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-black/20 dark:border-white/20 bg-black/10 dark:bg-white/10 backdrop-blur-md shadow-md p-1.5 transition-all duration-300 hover:scale-110 hover:border-black/40 hover:dark:border-white/40"
                   title="Zanderio AI"
                 >
                   <img src="/Icons/zanderio.svg" alt="Zanderio AI" className="h-full w-full object-contain" />
                 </div>
                 <div
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-md shadow-md p-1.5 transition-all duration-300 hover:scale-110 hover:border-white/40"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-black/20 dark:border-white/20 bg-black/10 dark:bg-white/10 backdrop-blur-md shadow-md p-1.5 transition-all duration-300 hover:scale-110 hover:border-black/40 hover:dark:border-white/40"
                   title="Social Swirl"
                 >
                   <img src="/Icons/social-swirl-logo.png" alt="Social Swirl" className="h-full w-full object-contain" />
@@ -270,7 +247,7 @@ function Aboutme() {
 
           <h2 className="text-balance text-2xl font-semibold leading-[1.18] tracking-tight text-foreground sm:text-[1.75rem] lg:text-3xl">
             I build things that{" "}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-white to-primary">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-foreground to-primary">
               still work after launch day
             </span>
             .
@@ -307,12 +284,12 @@ function Aboutme() {
             {STATS.map((stat) => (
               <div
                 key={stat.label}
-                className="group rounded-2xl border border-white/10 bg-card px-4 py-5 text-center transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-card cursor-default"
+                className="group rounded-2xl border border-black/10 dark:border-white/10 bg-card px-4 py-5 text-center transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-card cursor-default"
               >
-                <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.05] text-primary transition-colors duration-300 group-hover:bg-primary/10">
+                <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-black/[0.05] dark:bg-white/[0.05] text-primary transition-colors duration-300 group-hover:bg-primary/10">
                   <stat.icon className="text-base" />
                 </div>
-                <p className="mt-3 text-2xl font-bold text-white">{stat.value}</p>
+                <p className="mt-3 text-2xl font-bold text-foreground">{stat.value}</p>
                 <p className="mt-1 text-[0.6875rem] font-medium uppercase tracking-wide text-muted-foreground">
                   {stat.label}
                 </p>
@@ -321,7 +298,7 @@ function Aboutme() {
           </div>
 
           {/* Selected Products & Teams Footer Block */}
-          <div className="mt-8 pt-5 border-t border-white/[0.08]">
+          <div className="mt-8 pt-5 border-t border-black/[0.08] dark:border-white/[0.08]">
             <p className="flex items-center gap-3 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-muted-foreground lg:justify-end">
               <span
                 aria-hidden="true"
@@ -333,7 +310,7 @@ function Aboutme() {
               {WORKED_ON.map((name) => (
                 <span
                   key={name}
-                  className="cursor-default rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-white/[0.08] hover:text-white hover:shadow-[0_8px_20px_-8px_rgba(52,168,90,0.4)]"
+                  className="cursor-default rounded-full border border-black/10 dark:border-white/10 bg-black/[0.04] dark:bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-black/[0.08] hover:dark:bg-white/[0.08] hover:text-foreground hover:shadow-[0_8px_20px_-8px_rgba(52,168,90,0.4)]"
                 >
                   {name}
                 </span>

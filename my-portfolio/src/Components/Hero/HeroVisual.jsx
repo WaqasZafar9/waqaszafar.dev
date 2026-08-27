@@ -208,7 +208,7 @@ function HeroVisual() {
             transform: `translate3d(${pointerPos.x}px, ${pointerPos.y}px, 0) translate(18px, 16px)`,
           }}
         >
-          <span className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-white/40 bg-white/20 px-4 py-1.5 text-xs font-medium text-white shadow-lg backdrop-blur-md">
+          <span className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/40 dark:border-white/40 bg-black/20 dark:bg-white/20 px-4 py-1.5 text-xs font-medium text-foreground shadow-lg backdrop-blur-md">
             Click on Ghost
           </span>
         </div>

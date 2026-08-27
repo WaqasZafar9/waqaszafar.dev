@@ -124,7 +124,12 @@ function ContactUs() {
       {/* Top Separator Glow */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent"></div>
       
-      {/* Glamour Glow Effects Removed */}
+      {/* Closing-section glow — anchored bottom-center like a stage light
+          rising under the CTA, distinct from the corner blobs used above */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 bottom-[-15%] h-[520px] w-[min(85vw,900px)] -translate-x-1/2 rounded-full bg-primary/[0.12] blur-[150px]"
+      />
 
       <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -132,7 +137,7 @@ function ContactUs() {
           {/* Left Column: Content & Info */}
           <div className="space-y-10">
             <div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
                 Let's Work <br />
                 <span className="text-primary">Together</span>
               </h2>
@@ -144,12 +149,12 @@ function ContactUs() {
             <div className="space-y-6">
               {contactInfo.map((item, index) => (
                 <div key={index} className="flex items-center gap-5 group">
-                  <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-primary text-xl group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(52,168,90,0.15)] group-hover:shadow-[0_0_25px_rgba(52,168,90,0.4)]">
+                  <div className="w-14 h-14 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-primary text-xl group-hover:bg-primary group-hover:text-foreground transition-all duration-300 shadow-[0_0_15px_rgba(52,168,90,0.15)] group-hover:shadow-[0_0_25px_rgba(52,168,90,0.4)]">
                     <item.icon />
                   </div>
                   <div>
                     <h4 className="text-muted-foreground text-sm font-medium mb-1">{item.title}</h4>
-                    <a href={item.link} className="text-white text-lg font-semibold hover:text-primary transition-colors">
+                    <a href={item.link} className="text-foreground text-lg font-semibold hover:text-primary transition-colors">
                       {item.content}
                     </a>
                   </div>
@@ -158,20 +163,20 @@ function ContactUs() {
             </div>
 
             <div className="flex items-center gap-4 pt-4">
-              <a href="https://www.linkedin.com/in/m-waqas-zafar" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300">
+              <a href="https://www.linkedin.com/in/m-waqas-zafar" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-all duration-300">
                 <FaLinkedin className="text-xl" />
               </a>
-              <a href="https://github.com/WaqasZafar9" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300">
+              <a href="https://github.com/WaqasZafar9" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-all duration-300">
                 <FaGithub className="text-xl" />
               </a>
-              <a href="https://x.com/m_waqaszafar" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300">
+              <a href="https://x.com/m_waqaszafar" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-all duration-300">
                 <FaXTwitter className="text-xl" />
               </a>
             </div>
           </div>
 
           {/* Right Column: Form */}
-          <div className="bg-card/90 backdrop-blur-xl rounded-3xl p-8 md:p-10 border border-white/10 shadow-2xl relative overflow-hidden group">
+          <div className="bg-card/90 backdrop-blur-xl rounded-3xl p-8 md:p-10 border border-black/10 dark:border-white/10 shadow-2xl relative overflow-hidden group">
             {/* Form Glow Helper Removed */}
 
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
@@ -185,7 +190,7 @@ function ContactUs() {
                     onChange={handleChange}
                     placeholder="John Doe"
                     required
-                    className="w-full bg-card border border-border rounded-xl px-4 py-4 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-medium"
+                    className="w-full bg-card border border-border rounded-xl px-4 py-4 pl-12 text-foreground placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-medium"
                   />
                   <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 </div>
@@ -201,7 +206,7 @@ function ContactUs() {
                     onChange={handleChange}
                     placeholder="john@example.com"
                     required
-                    className="w-full bg-card border border-border rounded-xl px-4 py-4 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-medium"
+                    className="w-full bg-card border border-border rounded-xl px-4 py-4 pl-12 text-foreground placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-medium"
                   />
                   <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 </div>
@@ -216,7 +221,7 @@ function ContactUs() {
                   placeholder="Tell me about your project..."
                   required
                   rows="4"
-                  className="w-full bg-card border border-border rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-medium resize-none"
+                  className="w-full bg-card border border-border rounded-xl px-4 py-4 text-foreground placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-medium resize-none"
                 ></textarea>
               </div>
 
@@ -264,7 +269,7 @@ function ContactUs() {
                 {status.type === "success" ? <FaCircleCheck /> : <FaCircleExclamation />}
               </div>
               <div className="flex-1">
-                <h4 className="text-white font-semibold text-lg">
+                <h4 className="text-foreground font-semibold text-lg">
                   {status.type === "success" ? "Message Sent" : "Message Failed"}
                 </h4>
                 <p
@@ -280,7 +285,7 @@ function ContactUs() {
             <button
               type="button"
               onClick={closeStatusModal}
-              className="mt-6 w-full rounded-xl bg-white/10 py-2.5 text-white font-medium hover:bg-white/20 transition-colors"
+              className="mt-6 w-full rounded-xl bg-black/10 dark:bg-white/10 py-2.5 text-foreground font-medium hover:bg-black/20 hover:dark:bg-white/20 transition-colors"
             >
               Close
             </button>
