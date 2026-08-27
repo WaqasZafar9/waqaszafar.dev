@@ -252,16 +252,21 @@ function Aboutme() {
             </span>
             .
           </h2>
-          <p className="mt-5 text-pretty text-[0.9375rem] leading-relaxed text-muted-foreground">
-            I&apos;m Waqas — a Software Engineer at Lab 3 Technology, working
-            mostly in React and Next.js. I came up through internships and a lot
-            of side projects, which is where I learned the interesting part
-            isn&apos;t getting something on screen — it&apos;s keeping it fast
-            and maintainable once real people use it.
+          <p className="mt-5 text-justify text-pretty text-[0.9375rem] leading-relaxed text-muted-foreground">
+            Hy, I turn product ideas into high-performance web and mobile
+            applications that load fast, scale effortlessly, and convert
+            users. Specializing in end-to-end frontend and full-stack
+            development, I take complete ownership of your project and from
+            translating raw designs into pixel-perfect UIs to engineering
+            backends and seamless API integrations.
           </p>
-          <p className="mt-4 text-pretty text-[0.9375rem] leading-relaxed text-muted-foreground">
-            I work across the stack, on web and mobile, and I like problems that
-            sit close to the product.
+          <p className="mt-4 text-justify text-pretty text-[0.9375rem] leading-relaxed text-muted-foreground">
+            Having launched production grade SaaS products and client
+            platforms, I focus heavily on clean architecture, lightning-fast
+            speed, and maintainable code so your software performs flawlessly
+            after launch day. You get a reliable partner who communicates
+            clearly, respects deadlines, and builds technology designed to
+            move your business forward.
           </p>
         </div>
 
