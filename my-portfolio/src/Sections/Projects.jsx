@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { FaFilter, FaChevronDown, FaCheck } from "react-icons/fa6";
 import PROJECTS_DATA from "./projectsData";
 
 const ITEMS_PER_PAGE = 4;
@@ -48,6 +49,19 @@ function CaseStudyModal({ project, onClose }) {
         if (e.target === e.currentTarget) handleClose();
       }}
     >
+      {/* Close button lives outside the scrolling card, `fixed` to the
+          viewport rather than `absolute` inside it — a case study is long
+          enough on mobile that an absolutely-positioned button anchored to
+          modalRef's top scrolled out of reach as soon as the user scrolled
+          the content, leaving no visible way to close the modal. */}
+      <button
+        onClick={handleClose}
+        className="fixed top-4 right-4 z-[60] flex h-10 w-10 items-center justify-center rounded-full border border-black/15 dark:border-white/15 bg-card/90 text-foreground/70 backdrop-blur-md shadow-lg transition-all duration-300 hover:bg-black/20 hover:dark:bg-white/20 hover:text-foreground hover:scale-110 cursor-pointer active:scale-95 sm:top-6 sm:right-6 sm:h-11 sm:w-11 lg:top-8 lg:right-8"
+        title="Close Modal (Esc)"
+      >
+        ✕
+      </button>
+
       <div
         ref={modalRef}
         className={`relative w-full max-w-6xl max-h-[92vh] overflow-y-auto rounded-3xl border border-black/10 dark:border-white/10 bg-card p-6 sm:p-10 lg:p-12 text-foreground shadow-[0_30px_90px_rgba(0,0,0,0.95)] transition-all duration-300 transform ease-out ${
@@ -56,13 +70,6 @@ function CaseStudyModal({ project, onClose }) {
             : "opacity-100 scale-100 translate-y-0 animate-in zoom-in-95"
         } [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden`}
       >
-        <button
-          onClick={handleClose}
-          className="absolute top-6 right-6 sm:top-8 sm:right-8 flex h-11 w-11 items-center justify-center rounded-full border border-black/15 dark:border-white/15 bg-black/[0.05] dark:bg-white/[0.05] text-foreground/70 transition-all duration-300 hover:bg-black/20 hover:dark:bg-white/20 hover:text-foreground hover:scale-110 cursor-pointer z-30 active:scale-95"
-          title="Close Modal (Esc)"
-        >
-          ✕
-        </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start border-b border-black/10 dark:border-white/10 pb-10">
           <div className="lg:col-span-5 relative overflow-hidden rounded-2xl border border-black/15 dark:border-white/15 bg-black/50 shadow-2xl">
@@ -407,6 +414,7 @@ function Projects() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCaseStudy, setSelectedCaseStudy] = useState(null);
   const [isTabChanging, setIsTabChanging] = useState(false);
+  const [isMobileCategoryOpen, setIsMobileCategoryOpen] = useState(false);
   const sectionRef = useRef(null);
 
   const totalCount = PROJECTS_DATA.length;
@@ -482,47 +490,123 @@ function Projects() {
             Selected Work
             <span className="h-px w-6 bg-primary/60" />
           </span>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+          <h2 className="mt-3 text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground text-balance">
             Shipped Products &amp; Case Studies.
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
+          <p className="mt-3 text-xs sm:text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
             Explore recent web platforms, mobile applications, and software engineering projects.
           </p>
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm font-mono tracking-wider uppercase text-foreground/70">
-          <div className="flex items-center gap-2">
+        {/* Stats Grid — 2x2 on mobile, flex row on sm+ */}
+        <div className="mt-8 sm:mt-10 grid grid-cols-2 sm:flex flex-wrap items-center justify-center gap-3 sm:gap-10 text-xs sm:text-sm font-mono tracking-wider uppercase text-foreground/70 px-2">
+          <div className="flex items-center justify-center sm:justify-start gap-2 bg-black/[0.03] dark:bg-white/[0.03] sm:bg-transparent p-2 sm:p-0 rounded-xl">
             <span className="font-bold text-foreground text-base sm:text-lg">{String(totalCount).padStart(2, "0")}</span>
-            <span className="text-muted-foreground">TOTAL PROJECTS</span>
+            <span className="text-muted-foreground text-[0.65rem] sm:text-xs">TOTAL PROJECTS</span>
           </div>
           <span className="h-4 w-px bg-black/20 dark:bg-white/20 hidden sm:block" />
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center sm:justify-start gap-2 bg-black/[0.03] dark:bg-white/[0.03] sm:bg-transparent p-2 sm:p-0 rounded-xl">
             <span className="font-bold text-foreground text-base sm:text-lg">{String(webPlatformsCount).padStart(2, "0")}</span>
-            <span className="text-muted-foreground">WEB PLATFORMS</span>
+            <span className="text-muted-foreground text-[0.65rem] sm:text-xs">WEB PLATFORMS</span>
           </div>
           <span className="h-4 w-px bg-black/20 dark:bg-white/20 hidden sm:block" />
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center sm:justify-start gap-2 bg-black/[0.03] dark:bg-white/[0.03] sm:bg-transparent p-2 sm:p-0 rounded-xl">
             <span className="font-bold text-foreground text-base sm:text-lg">{String(mobileAppsCount).padStart(2, "0")}</span>
-            <span className="text-muted-foreground">MOBILE APPS</span>
+            <span className="text-muted-foreground text-[0.65rem] sm:text-xs">MOBILE APPS</span>
           </div>
           <span className="h-4 w-px bg-black/20 dark:bg-white/20 hidden sm:block" />
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center sm:justify-start gap-2 bg-black/[0.03] dark:bg-white/[0.03] sm:bg-transparent p-2 sm:p-0 rounded-xl">
             <span className="font-bold text-foreground text-base sm:text-lg">{String(desktopCount).padStart(2, "0")}</span>
-            <span className="text-muted-foreground">DESKTOP</span>
+            <span className="text-muted-foreground text-[0.65rem] sm:text-xs">DESKTOP</span>
           </div>
         </div>
 
-        <div className="mt-8 flex justify-center">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-black/10 dark:border-white/10 bg-card/90 p-1.5 backdrop-blur-xl shadow-xl">
+        {/* Mobile Dropdown Category Menu (< sm screens) */}
+        <div className="mt-6 sm:hidden relative flex justify-center px-2 z-30">
+          <div className="w-full max-w-xs relative">
+            <button
+              type="button"
+              onClick={() => setIsMobileCategoryOpen(!isMobileCategoryOpen)}
+              className="w-full flex items-center justify-between gap-3 bg-card/90 border border-black/10 dark:border-white/10 rounded-2xl px-4 py-3 shadow-lg backdrop-blur-xl text-foreground cursor-pointer active:scale-98 transition-all"
+              aria-expanded={isMobileCategoryOpen}
+              aria-label="Select Category"
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                <FaFilter className="text-primary text-xs shrink-0" />
+                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider shrink-0">Category:</span>
+                <span className="text-xs font-bold text-foreground truncate">{activeCategory}</span>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="text-[0.68rem] font-mono font-bold rounded-full bg-primary/10 text-primary px-2 py-0.5">
+                  {categories.find((c) => c.label === activeCategory)?.count || 0}
+                </span>
+                <FaChevronDown className={`text-xs text-muted-foreground transition-transform duration-300 ${isMobileCategoryOpen ? "rotate-180 text-primary" : ""}`} />
+              </div>
+            </button>
+
+            {/* Dropdown Menu Items */}
+            {isMobileCategoryOpen && (
+              <>
+                <div
+                  className="fixed inset-0 z-40"
+                  onClick={() => setIsMobileCategoryOpen(false)}
+                />
+                <div className="absolute left-0 right-0 top-full mt-2 z-50 bg-card/95 border border-black/10 dark:border-white/10 rounded-2xl p-1.5 shadow-2xl backdrop-blur-2xl animate-in fade-in zoom-in-95 duration-200">
+                  {categories.map((cat) => {
+                    const isActive = activeCategory === cat.label;
+                    return (
+                      <button
+                        key={cat.label}
+                        type="button"
+                        onClick={() => {
+                          handleCategoryChange(cat.label);
+                          setIsMobileCategoryOpen(false);
+                        }}
+                        className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                          isActive
+                            ? "bg-primary/10 text-primary font-bold"
+                            : "text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          {isActive ? (
+                            <FaCheck className="text-primary text-xs shrink-0" />
+                          ) : (
+                            <span className="w-3 h-3 rounded-full border border-black/20 dark:border-white/20 shrink-0" />
+                          )}
+                          <span>{cat.label}</span>
+                        </div>
+                        <span
+                          className={`text-[0.65rem] font-mono rounded-full px-2 py-0.5 ${
+                            isActive
+                              ? "bg-primary text-background font-bold"
+                              : "bg-black/5 dark:bg-white/5 text-muted-foreground"
+                          }`}
+                        >
+                          {cat.count}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Desktop Category Tabs (>= sm screens) */}
+        <div className="mt-8 hidden sm:flex justify-center px-2">
+          <div className="flex items-center justify-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-card/90 p-1.5 backdrop-blur-xl shadow-xl">
             {categories.map((cat) => {
               const isActive = activeCategory === cat.label;
               return (
                 <button
                   key={cat.label}
+                  type="button"
                   onClick={() => handleCategoryChange(cat.label)}
-                  className={`flex items-center gap-2 rounded-full px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer active:scale-95 ${
+                  className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full px-5 py-2 text-sm font-semibold transition-all duration-300 cursor-pointer active:scale-95 ${
                     isActive
-                      ? "bg-white text-black font-bold shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105"
+                      ? "bg-white text-black font-bold shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-[1.02]"
                       : "text-muted-foreground hover:text-foreground hover:bg-black/[0.06] hover:dark:bg-white/[0.06]"
                   }`}
                 >

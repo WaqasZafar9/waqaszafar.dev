@@ -394,9 +394,12 @@ function Experience() {
                         </div>
                       </div>
 
-                      {/* Date & Status */}
-                      <div className="flex sm:flex-col sm:items-end justify-between gap-1 text-xs text-muted-foreground">
-                        <span className="font-mono text-xs font-medium text-foreground/80 bg-black/[0.05] dark:bg-white/[0.05] px-3 py-1 rounded-full border border-black/10 dark:border-white/10">
+                      {/* Date & Status.
+                          flex-wrap keeps the period pill and status tag from
+                          overflowing the card on the narrowest phones (they
+                          share one row until sm:, where they stack). */}
+                      <div className="flex flex-wrap sm:flex-col sm:items-end justify-between gap-1 text-xs text-muted-foreground">
+                        <span className="font-mono text-[0.6875rem] sm:text-xs font-medium text-foreground/80 bg-black/[0.05] dark:bg-white/[0.05] px-2.5 sm:px-3 py-1 rounded-full border border-black/10 dark:border-white/10 whitespace-nowrap">
                           {item.period}
                         </span>
                         {item.status && (

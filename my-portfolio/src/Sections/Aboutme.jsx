@@ -184,26 +184,29 @@ function Aboutme() {
 
           {/* Actions — in normal flow beneath portrait */}
           <div className="reveal relative z-30 -mt-14 flex w-full flex-col items-center gap-4 text-center sm:-mt-20 lg:-mt-24" style={{ "--d": "560ms" }}>
-            {/* "Previously designed for" Header with Brand Badges */}
-            <div className="flex items-center gap-3 bg-background/80 px-4 py-1.5 rounded-full backdrop-blur-md border border-black/15 dark:border-white/15 shadow-xl">
-              <span className="text-xs sm:text-sm font-normal text-muted-foreground/90 tracking-wide">
+            {/* "Previously designed for" Header with Brand Badges.
+                flex-wrap + shrunk mobile sizing keeps this pill from
+                overflowing (and getting clipped by the section's
+                overflow-hidden) on narrow phones. */}
+            <div className="flex max-w-full flex-wrap items-center justify-center gap-2 bg-background/80 px-3 py-1.5 rounded-full backdrop-blur-md border border-black/15 dark:border-white/15 shadow-xl sm:gap-3 sm:px-4">
+              <span className="text-[0.6875rem] font-normal text-muted-foreground/90 tracking-wide sm:text-xs md:text-sm">
                 Previously designed for
               </span>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1 sm:gap-1.5">
                 <div
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-black/20 dark:border-white/20 bg-black/10 dark:bg-white/10 backdrop-blur-md shadow-md p-1.5 transition-all duration-300 hover:scale-110 hover:border-black/40 hover:dark:border-white/40"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border border-black/20 dark:border-white/20 bg-black/10 dark:bg-white/10 backdrop-blur-md shadow-md p-1.5 transition-all duration-300 hover:scale-110 hover:border-black/40 hover:dark:border-white/40 sm:h-8 sm:w-8"
                   title="Lab 23 Technology"
                 >
                   <img src="/Icons/lab23.svg" alt="Lab 23" className="h-full w-full object-contain" />
                 </div>
                 <div
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-black/20 dark:border-white/20 bg-black/10 dark:bg-white/10 backdrop-blur-md shadow-md p-1.5 transition-all duration-300 hover:scale-110 hover:border-black/40 hover:dark:border-white/40"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border border-black/20 dark:border-white/20 bg-black/10 dark:bg-white/10 backdrop-blur-md shadow-md p-1.5 transition-all duration-300 hover:scale-110 hover:border-black/40 hover:dark:border-white/40 sm:h-8 sm:w-8"
                   title="Zanderio AI"
                 >
                   <img src="/Icons/zanderio.svg" alt="Zanderio AI" className="h-full w-full object-contain" />
                 </div>
                 <div
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-black/20 dark:border-white/20 bg-black/10 dark:bg-white/10 backdrop-blur-md shadow-md p-1.5 transition-all duration-300 hover:scale-110 hover:border-black/40 hover:dark:border-white/40"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border border-black/20 dark:border-white/20 bg-black/10 dark:bg-white/10 backdrop-blur-md shadow-md p-1.5 transition-all duration-300 hover:scale-110 hover:border-black/40 hover:dark:border-white/40 sm:h-8 sm:w-8"
                   title="Social Swirl"
                 >
                   <img src="/Icons/social-swirl-logo.png" alt="Social Swirl" className="h-full w-full object-contain" />
