@@ -1,61 +1,18 @@
-# waqaszafar.dev
+# React + Vite
 
-Personal portfolio for Software Engineer Waqas Zafar. The site lives in `my-portfolio/` and is a single-page React app that walks visitors through Waqas’ story, skills, work history, highlighted projects, education timeline, and contact form.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-# Live Preview
-https://www.waqaszafar.tech/
+Currently, two official plugins are available:
 
-## Project Highlights
-- Animated hero section with social links, availability indicator, and smooth entrance animations powered by the Intersection Observer API.
-- Story-driven `About me` and expandable `Skills` sections that surface tooling, concepts, and soft skills across web, mobile, and backend stacks.
-- Timeline-style `Experience` and `Education` components with reveal-on-scroll transitions for each card.
-- Project gallery featuring Unity Stack, Pettify, Social Swirl, and other shipped apps with tech badges plus live/GitHub links.
-- Contact form with floating background effect, multi-field validation state, and quick links to X, Instagram, and Discord.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Tech Stack
-- React 18 + Vite for fast local DX and optimized builds.
-- React Router for page-level routing (currently serving the `Home` page).
-- Tailwind CSS utility classes for styling and responsive layouts.
-- React Icons for consistent, lightweight iconography.
-- Intersection Observer hook patterns for scroll-triggered animations.
+## React Compiler
 
-## Repository Layout
-```
-.
-├── LICENSE
-├── README.md          # you are here
-└── my-portfolio/      # Vite project
-    ├── public/        # favicons and static assets
-    ├── src/
-    │   ├── Pages/     # routed pages (Home)
-    │   ├── Sections/  # Hero, About, Skills, Experience, Projects, Education, Contact
-    │   ├── Components/# Navbar, Footer, shared UI
-    │   └── assets/    # profile photo, logos, PDFs, project imagery
-    └── package.json
-```
+The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
-## Getting Started
-1. **Install dependencies**
-   ```bash
-   cd my-portfolio
-   npm install
-   ```
-2. **Run locally**
-   ```bash
-   npm run dev
-   ```
-   Vite prints the local and network URLs (default: http://localhost:5173).
-3. **Create a production build**
-   ```bash
-   npm run build
-   npm run preview  # optional sanity check of the build output
-   ```
+Note: This will impact Vite dev & build performances.
 
-## Customization Tips
-- Update hero/about copy in `src/Sections/Herosec.jsx` and `Aboutme.jsx`.
-- Add or remove skills by editing the `skillSections` array inside `src/Sections/Skills.jsx`.
-- Manage experience, education, and project cards via their respective data arrays in `src/Sections/Experience.jsx`, `education.jsx`, and `Projects.jsx`.
-- Drop new images or documents into `src/assets/` and reference them in the relevant section.
+## Expanding the ESLint configuration
 
-## License
-This project inherits the terms specified in `LICENSE` (MIT). Feel free to adapt the portfolio while retaining attribution. 
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

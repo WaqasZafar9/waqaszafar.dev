@@ -47,6 +47,7 @@ const VARIANTS = {
 function Reveal({ variant = "rise", className = "", children, ...rest }) {
   const prefersReducedMotion = useReducedMotion();
   const { hidden, shown, style } = VARIANTS[variant] ?? VARIANTS.rise;
+  const MotionSection = motion.section;
 
   if (prefersReducedMotion) {
     return (
@@ -57,7 +58,7 @@ function Reveal({ variant = "rise", className = "", children, ...rest }) {
   }
 
   return (
-    <motion.section
+    <MotionSection
       className={className}
       style={style}
       initial={hidden}
@@ -67,7 +68,7 @@ function Reveal({ variant = "rise", className = "", children, ...rest }) {
       {...rest}
     >
       {children}
-    </motion.section>
+    </MotionSection>
   );
 }
 

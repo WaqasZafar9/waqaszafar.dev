@@ -6,6 +6,7 @@ function Education() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
+    const elem = sectionRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -20,13 +21,13 @@ function Education() {
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (elem) {
+      observer.observe(elem);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (elem) {
+        observer.unobserve(elem);
       }
     };
   }, []);

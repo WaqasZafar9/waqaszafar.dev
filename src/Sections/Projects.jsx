@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { FaFilter, FaChevronDown, FaCheck } from "react-icons/fa6";
 import PROJECTS_DATA from "./projectsData";
@@ -9,12 +9,12 @@ function CaseStudyModal({ project, onClose }) {
   const modalRef = useRef(null);
   const [isClosing, setIsClosing] = useState(false);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsClosing(true);
     setTimeout(() => {
       onClose();
     }, 240);
-  };
+  }, [onClose]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -27,7 +27,7 @@ function CaseStudyModal({ project, onClose }) {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "unset";
     };
-  }, []);
+  }, [handleClose]);
 
   if (!project || !project.caseStudy) return null;
   const cs = project.caseStudy;

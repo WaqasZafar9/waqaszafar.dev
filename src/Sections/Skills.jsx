@@ -2,27 +2,31 @@ import { useEffect, useRef, useState } from "react";
 import {
   SiJavascript,
   SiReact,
-  SiNextdotjs,
   SiNodedotjs,
   SiMongodb,
   SiTailwindcss,
   SiFigma,
-  SiGit,
   SiFlutter,
-  SiPhp,
-  SiDart,
   SiWebflow,
-  SiMysql,
   SiFirebase,
-  SiOracle,
   SiGithub,
-  SiIntellijidea,
   SiAndroidstudio,
-  SiCanva,
   SiBitbucket,
   SiPostman,
-  SiCplusplus,
 } from "react-icons/si";
+
+const CanvaIcon = ({ className, style }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    style={style}
+    width="1em"
+    height="1em"
+  >
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5c-2.48 0-4.5-2.02-4.5-4.5S10.52 7.5 13 7.5c1.19 0 2.27.47 3.08 1.23l-1.42 1.42c-.44-.42-1.02-.65-1.66-.65-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5c.64 0 1.22-.23 1.66-.65l1.42 1.42c-.81.76-1.89 1.23-3.08 1.23z" />
+  </svg>
+);
 
 import vscodeImg from "../assets/vscode.png";
 import clickupImg from "../assets/clickup.png";
@@ -35,6 +39,7 @@ function Skills() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
+    const elem = sectionRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -49,13 +54,13 @@ function Skills() {
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (elem) {
+      observer.observe(elem);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (elem) {
+        observer.unobserve(elem);
       }
     };
   }, []);
@@ -76,7 +81,7 @@ function Skills() {
     { name: "IntelliJ", icon: intelliJImg, color: "#000000" },
     { name: "Android Studio", icon: SiAndroidstudio, color: "#3DDC84" },
     { name: "Figma", icon: SiFigma, color: "#F24E1E" },
-    { name: "Canva", icon: SiCanva, color: "#00C4CC" },
+    { name: "Canva", icon: CanvaIcon, color: "#00C4CC" },
     { name: "Bitbucket", icon: SiBitbucket, color: "#0052CC" },
     { name: "Clickup", icon: clickupImg, color: "#000000" },
     { name: "Postman", icon: SiPostman, color: "#FF6C37" },
