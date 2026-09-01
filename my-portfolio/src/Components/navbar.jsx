@@ -5,7 +5,7 @@ import resume from "../assets/Resume.pdf";
 import portrait from "../assets/my.webp";
 import ShinyButton from "./ShinyButton/ShinyButton";
 
-const CALENDLY_URL = "https://calendly.com/mwaqaszafar76/30min";
+const BOOKING_URL = "https://cal.com/m-waqas-zafar/30min";
 
 // Height of the floating pill plus its top gap, so anchored scrolling
 // lands the section heading below the navbar rather than behind it.
@@ -262,7 +262,7 @@ function Navbar() {
               Resume
             </a>
             <ShinyButton
-              href={CALENDLY_URL}
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className={`!px-5 !py-2.5 text-sm ${FOCUS_RING}`}
@@ -310,7 +310,7 @@ function Navbar() {
               Resume
             </a>
             <ShinyButton
-              href={CALENDLY_URL}
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               onClick={closeMobileMenu}

@@ -223,7 +223,7 @@ function Aboutme() {
                 View Impact &amp; Work
               </ShinyButton>
               <ShinyButton
-                href="https://calendly.com/mwaqaszafar76/30min"
+                href="https://cal.com/m-waqas-zafar/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`w-full sm:w-auto ${FOCUS_RING}`}
