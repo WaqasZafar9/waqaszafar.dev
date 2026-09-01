@@ -28,12 +28,21 @@ function ParticleField({ mousePos = { x: 0, y: 0 }, compact = false, active = tr
     window.addEventListener("resize", handleResize);
 
     const count = compact ? 12 : 28;
-    const colors = [
-      "rgba(52, 168, 90, ", // #34a85a primary
-      "rgba(126, 217, 160, ", // #7ed9a0 primary, lighter tint
-      "rgba(163, 163, 163, ", // #a3a3a3 muted-foreground
-      "rgba(255, 255, 255, ", // white
-    ];
+    // Theme-aware: green primary in light mode, red primary ("NestJS Dark") in dark mode.
+    const isDark = document.documentElement.classList.contains("dark");
+    const colors = isDark
+      ? [
+          "rgba(234, 40, 69, ", // #ea2845 primary
+          "rgba(241, 110, 130, ", // #ea2845 primary, lighter tint
+          "rgba(156, 163, 175, ", // #9ca3af muted-foreground
+          "rgba(255, 255, 255, ", // white
+        ]
+      : [
+          "rgba(52, 168, 90, ", // #34a85a primary
+          "rgba(126, 217, 160, ", // #7ed9a0 primary, lighter tint
+          "rgba(163, 163, 163, ", // #a3a3a3 muted-foreground
+          "rgba(255, 255, 255, ", // white
+        ];
 
     const particles = Array.from({ length: count }, () => ({
       x: Math.random() * width,

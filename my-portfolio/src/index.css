@@ -74,8 +74,8 @@
   --primary: #34a85a;
   --sidebar: #f9f9fa;
   --spacing: 0.25rem;
-  --font-mono: ui-monospace, SFMono-Regular, monospace;
-  --font-sans: "Outfit", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-sans: "Manrope", sans-serif;
   --secondary: #6495ed;
   --background: #f9f9fa;
   --font-serif: ui-serif, Georgia, serif;
@@ -104,51 +104,56 @@
   --sidebar-primary-foreground: #ffffff;
 }
 
+/* ---- "NestJS Dark" — the dark half of the palette ----
+   Stark high-contrast surfaces (near-black), pure-white foreground, a slate
+   border for structure instead of shadows, and a single red accent used
+   sparingly for calls to action and emphasis. Flat by design: no glow, no
+   gradients — see the ambient-glow and glow-shadow overrides below. */
 .dark {
-  --card: #2f3436;
-  --ring: #34a85a;
-  --input: #444444;
-  --muted: #444444;
-  --accent: #6495ed;
-  --border: #444444;
+  --card: #050303;
+  --ring: #ea2845;
+  --input: #374151;
+  --muted: #374151;
+  --accent: #ea2845;
+  --border: #374151;
   --radius: 0.5rem;
-  --chart-1: #34a85a;
-  --chart-2: #4682b4;
-  --chart-3: #6495ed;
-  --chart-4: #66d9ef;
-  --chart-5: #1a9641;
-  --popover: #2f3436;
-  --primary: #34a85a;
-  --sidebar: #1a1d23;
+  --chart-1: #ea2845;
+  --chart-2: #ffffff;
+  --chart-3: #9ca3af;
+  --chart-4: #6b7280;
+  --chart-5: #374151;
+  --popover: #050303;
+  --primary: #ea2845;
+  --sidebar: #050303;
   --spacing: 0.25rem;
-  --font-mono: ui-monospace, SFMono-Regular, monospace;
-  --font-sans: "Outfit", sans-serif;
-  --secondary: #4682b4;
-  --background: #1a1d23;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-sans: "Manrope", sans-serif;
+  --secondary: #ffffff;
+  --background: #050303;
   --font-serif: ui-serif, Georgia, serif;
-  --foreground: #e5e5e5;
-  --destructive: #ef4444;
-  --shadow-blur: 8px;
+  --foreground: #ffffff;
+  --destructive: #ea2845;
+  --shadow-blur: 0px;
   --shadow-color: hsl(0 0% 0%);
-  --sidebar-ring: #34a85a;
-  --shadow-spread: -1px;
+  --sidebar-ring: #ea2845;
+  --shadow-spread: 0px;
   --letter-spacing: 0em;
-  --shadow-opacity: 0.1;
-  --sidebar-accent: #6495ed;
-  --sidebar-border: #444444;
-  --card-foreground: #e5e5e5;
+  --shadow-opacity: 0;
+  --sidebar-accent: #ea2845;
+  --sidebar-border: #374151;
+  --card-foreground: #ffffff;
   --shadow-offset-x: 0px;
-  --shadow-offset-y: 4px;
-  --sidebar-primary: #34a85a;
-  --muted-foreground: #a3a3a3;
-  --accent-foreground: #e5e5e5;
-  --popover-foreground: #e5e5e5;
-  --primary-foreground: #ffffff;
-  --sidebar-foreground: #e5e5e5;
-  --secondary-foreground: #e5e5e5;
+  --shadow-offset-y: 0px;
+  --sidebar-primary: #ea2845;
+  --muted-foreground: #9ca3af;
+  --accent-foreground: #ffffff;
+  --popover-foreground: #ffffff;
+  --primary-foreground: #050303;
+  --sidebar-foreground: #ffffff;
+  --secondary-foreground: #050303;
   --destructive-foreground: #ffffff;
-  --sidebar-accent-foreground: #e5e5e5;
-  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-primary-foreground: #050303;
 }
 
 @theme inline {
@@ -203,8 +208,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ambient room light — a barely-there wash behind the whole page, all in
-   the theme's primary green so the whole site reads as one accent color. */
+/* Ambient room light — a barely-there wash behind the whole page, tinted
+   with the active theme's primary accent (green in light, red in dark) so
+   the whole site reads as one accent color. */
 body::before {
   content: "";
   position: fixed;
@@ -214,19 +220,25 @@ body::before {
   background:
     radial-gradient(
       60% 45% at 50% 0%,
-      rgba(52, 168, 90, 0.09),
+      color-mix(in srgb, var(--color-primary) 9%, transparent),
       transparent 70%
     ),
     radial-gradient(
       45% 40% at 12% 22%,
-      rgba(52, 168, 90, 0.05),
+      color-mix(in srgb, var(--color-primary) 5%, transparent),
       transparent 72%
     ),
     radial-gradient(
       50% 45% at 88% 78%,
-      rgba(52, 168, 90, 0.04),
+      color-mix(in srgb, var(--color-primary) 4%, transparent),
       transparent 72%
     );
+}
+
+/* The NestJS Dark system is intentionally flat — no ambient glow, hierarchy
+   comes from contrast and borders instead. */
+.dark body::before {
+  display: none;
 }
 
 /* Fine luminance grain so large dark areas do not band. */
@@ -246,7 +258,7 @@ body::after {
 }
 
 ::selection {
-  background: rgba(52, 168, 90, 0.28);
+  background: color-mix(in srgb, var(--color-primary) 28%, transparent);
   color: var(--color-foreground);
 }
 

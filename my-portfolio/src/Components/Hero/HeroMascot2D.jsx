@@ -266,7 +266,7 @@ function HeroMascot2D({
         <svg
           ref={svgRef}
           viewBox="0 0 200 240"
-          className="relative z-10 h-full w-full drop-shadow-[0_15px_35px_rgba(52,168,90,0.4)] transition-all duration-300"
+          className="relative z-10 h-full w-full drop-shadow-[0_15px_35px_color-mix(in_srgb,var(--color-primary)_40%,transparent)] transition-all duration-300"
           role="presentation"
         >
           <defs>

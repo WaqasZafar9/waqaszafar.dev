@@ -209,8 +209,8 @@ function NotFound() {
                     x2="100%"
                     y2="0%"
                   >
-                    <stop offset="0%" stopColor="#34a85a" />
-                    <stop offset="100%" stopColor="#7ed9a0" />
+                    <stop offset="0%" style={{ stopColor: "var(--color-primary)" }} />
+                    <stop offset="100%" style={{ stopColor: "var(--color-primary)", stopOpacity: 0.5 }} />
                   </linearGradient>
                 </defs>
               </svg>

@@ -345,7 +345,7 @@ function ScrollingScreenshot({ src, alt }) {
  */
 function ProjectCard({ project, onOpenCaseStudy }) {
   return (
-    <article className="group relative rounded-3xl border border-black/10 dark:border-white/10 bg-card/95 p-5 sm:p-6 lg:p-8 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] transition-all duration-300 hover:-translate-y-1 hover:border-black/25 hover:dark:border-white/25 hover:shadow-[0_25px_65px_rgba(52,168,90,0.15)]">
+    <article className="group relative rounded-3xl border border-black/10 dark:border-white/10 bg-card/95 p-5 sm:p-6 lg:p-8 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] transition-all duration-300 hover:-translate-y-1 hover:border-black/25 hover:dark:border-white/25 hover:shadow-[0_25px_65px_color-mix(in_srgb,var(--color-primary)_15%,transparent)]">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
         <div className="lg:col-span-6 relative overflow-hidden rounded-2xl border border-black/15 dark:border-white/15 bg-black/40 shadow-2xl group-hover:border-black/30 group-hover:dark:border-white/30 transition-all duration-500">
           <ScrollingScreenshot src={project.image} alt={project.title} />
@@ -393,7 +393,7 @@ function ProjectCard({ project, onOpenCaseStudy }) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-sheen group/btn inline-flex items-center justify-center gap-2 rounded-2xl border border-primary/40 bg-primary/10 px-5 py-2.5 text-xs sm:text-sm font-medium tracking-wide text-primary backdrop-blur-md shadow-lg transition-all duration-300 hover:bg-primary/25 hover:border-primary/70 hover:text-foreground hover:shadow-[0_0_30px_rgba(52,168,90,0.35)] hover:-translate-y-0.5 hover:scale-[1.03] active:scale-95"
+                className="btn-sheen group/btn inline-flex items-center justify-center gap-2 rounded-2xl border border-primary/40 bg-primary/10 px-5 py-2.5 text-xs sm:text-sm font-medium tracking-wide text-primary backdrop-blur-md shadow-lg transition-all duration-300 hover:bg-primary/25 hover:border-primary/70 hover:text-foreground hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-primary)_35%,transparent)] hover:-translate-y-0.5 hover:scale-[1.03] active:scale-95"
               >
                 {/* liveButtonText already carries its own trailing "↗", so
                     the whole label nudges together rather than double-icon. */}
@@ -474,7 +474,7 @@ function Projects() {
         className="pointer-events-none absolute inset-0 opacity-[0.1]"
         style={{
           backgroundImage:
-            "radial-gradient(rgba(52, 168, 90, 0.6) 1px, transparent 1px)",
+            "radial-gradient(color-mix(in srgb, var(--color-primary) 60%, transparent) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
           maskImage:
             "linear-gradient(to bottom, transparent 0%, black 25%, black 80%, transparent 100%)",
@@ -668,7 +668,7 @@ function Projects() {
                   onClick={() => handlePageChange(pageNum)}
                   className={`h-9 w-9 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer active:scale-95 ${
                     currentPage === pageNum
-                      ? "bg-primary text-foreground shadow-[0_0_15px_rgba(52,168,90,0.5)] scale-105"
+                      ? "bg-primary text-foreground shadow-[0_0_15px_color-mix(in_srgb,var(--color-primary)_50%,transparent)] scale-105"
                       : "border border-black/10 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.03] text-muted-foreground hover:bg-black/10 hover:dark:bg-white/10 hover:text-foreground"
                   }`}
                 >

@@ -249,7 +249,7 @@ const Certificates = () => {
                         href={cert.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-primary text-foreground px-5 py-2 rounded-full font-medium text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center gap-2 hover:bg-primary shadow-[0_0_15px_rgba(52,168,90,0.4)]"
+                        className="bg-primary text-foreground px-5 py-2 rounded-full font-medium text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex items-center gap-2 hover:bg-primary shadow-[0_0_15px_color-mix(in_srgb,var(--color-primary)_40%,transparent)]"
                       >
                         Verify <FaExternalLinkAlt className="text-xs" />
                       </a>
@@ -322,7 +322,7 @@ const Certificates = () => {
           background: linear-gradient(135deg, var(--primary) 0%, var(--primary) 100%);
           width: 40px;
           border-radius: 8px;
-          box-shadow: 0 0 20px rgba(52, 168, 90, 0.4);
+          box-shadow: 0 0 20px color-mix(in srgb, var(--color-primary) 40%, transparent);
         }
         
         /* Mobile adjustments */

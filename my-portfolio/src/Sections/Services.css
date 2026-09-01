@@ -17,7 +17,7 @@
   border-radius: inherit;
   background: radial-gradient(
     360px circle at var(--mx) var(--my),
-    rgba(52, 168, 90, 0.14),
+    color-mix(in srgb, var(--color-primary) 14%, transparent),
     transparent 70%
   );
   opacity: 0;

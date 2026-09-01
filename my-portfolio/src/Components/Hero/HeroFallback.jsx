@@ -32,7 +32,7 @@ function HeroFallback({ mousePos = { x: 0, y: 0 }, hovered = false }) {
         <svg
           viewBox="0 0 200 240"
           className={`h-full w-auto max-h-[300px] transition-transform duration-500 ${
-            hovered ? "scale-105 drop-shadow-[0_0_60px_rgba(52,168,90,0.5)]" : "drop-shadow-[0_0_40px_rgba(52,168,90,0.3)]"
+            hovered ? "scale-105 drop-shadow-[0_0_60px_color-mix(in_srgb,var(--color-primary)_50%,transparent)]" : "drop-shadow-[0_0_40px_color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
           }`}
           role="presentation"
         >

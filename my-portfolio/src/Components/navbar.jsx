@@ -179,7 +179,7 @@ function Navbar() {
         {isDesktop && isActive && (
           <span
             aria-hidden="true"
-            className="absolute inset-x-0 -bottom-0.5 mx-auto h-[3px] w-[3px] rounded-full bg-primary shadow-[0_0_8px_rgba(52,168,90,0.85)]"
+            className="absolute inset-x-0 -bottom-0.5 mx-auto h-[3px] w-[3px] rounded-full bg-primary shadow-[0_0_8px_color-mix(in_srgb,var(--color-primary)_85%,transparent)]"
           />
         )}
       </a>
@@ -207,7 +207,7 @@ function Navbar() {
             aria-label="Waqas Zafar — back to top"
             className={`group flex shrink-0 items-center gap-2.5 rounded-full py-1 pr-2 ${FOCUS_RING}`}
           >
-            <span className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border border-black/15 dark:border-white/15 bg-black/[0.06] dark:bg-white/[0.06] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-primary/60 group-hover:shadow-[0_0_18px_-2px_rgba(52,168,90,0.6)] motion-reduce:transform-none">
+            <span className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border border-black/15 dark:border-white/15 bg-black/[0.06] dark:bg-white/[0.06] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-primary/60 group-hover:shadow-[0_0_18px_-2px_color-mix(in_srgb,var(--color-primary)_60%,transparent)] motion-reduce:transform-none">
               <img
                 src={portrait}
                 alt="Waqas Zafar"

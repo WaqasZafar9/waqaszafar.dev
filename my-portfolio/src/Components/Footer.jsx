@@ -59,7 +59,7 @@ function Footer() {
         <div className="flex justify-center mb-6 sm:mb-8">
           <button
             onClick={scrollToContact}
-            className="px-5 py-2 sm:px-6 sm:py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full text-foreground text-xs sm:text-sm font-medium hover:bg-primary/10 hover:border-primary/50 hover:text-primary hover:shadow-[0_0_20px_rgba(52,168,90,0.25)] transition-all duration-300 cursor-pointer"
+            className="px-5 py-2 sm:px-6 sm:py-2.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full text-foreground text-xs sm:text-sm font-medium hover:bg-primary/10 hover:border-primary/50 hover:text-primary hover:shadow-[0_0_20px_color-mix(in_srgb,var(--color-primary)_25%,transparent)] transition-all duration-300 cursor-pointer"
           >
             {footerData.buttonText}
           </button>
@@ -73,7 +73,7 @@ function Footer() {
         {/* Contact Details */}
         <div className="space-y-3 sm:space-y-4 mb-10 sm:mb-12 max-w-md mx-auto">
           {/* Email Card */}
-          <div className="flex items-center justify-between gap-2 sm:gap-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 group hover:border-primary/40 hover:shadow-[0_0_20px_rgba(52,168,90,0.12)] transition-all duration-300">
+          <div className="flex items-center justify-between gap-2 sm:gap-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 group hover:border-primary/40 hover:shadow-[0_0_20px_color-mix(in_srgb,var(--color-primary)_12%,transparent)] transition-all duration-300">
             <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center text-primary text-sm sm:text-base shrink-0 group-hover:scale-105 transition-transform">
                 <FaEnvelope />
@@ -103,7 +103,7 @@ function Footer() {
           </div>
 
           {/* Phone Card */}
-          <div className="flex items-center justify-between gap-2 sm:gap-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 group hover:border-primary/40 hover:shadow-[0_0_20px_rgba(52,168,90,0.12)] transition-all duration-300">
+          <div className="flex items-center justify-between gap-2 sm:gap-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 group hover:border-primary/40 hover:shadow-[0_0_20px_color-mix(in_srgb,var(--color-primary)_12%,transparent)] transition-all duration-300">
             <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center text-primary text-sm sm:text-base shrink-0 group-hover:scale-105 transition-transform">
                 <FaPhone />

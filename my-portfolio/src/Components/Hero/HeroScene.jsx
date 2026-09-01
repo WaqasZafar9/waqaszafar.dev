@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import useIsDarkMode from "./useIsDarkMode";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   BufferAttribute,
@@ -267,6 +268,11 @@ function HeroScene({
   onFloatUpdate = () => {},
 }) {
   const pointer = useRef({ x: 0, y: 0 });
+  const isDark = useIsDarkMode();
+  // Rim light tint follows the active theme's primary accent — green in
+  // light mode, red ("NestJS Dark") in dark mode.
+  const rimColor = isDark ? "#ea2845" : "#34a85a";
+  const rimColorSoft = isDark ? "#f16e82" : "#7ed9a0";
 
   const handlePointerMove = (event) => {
     const bounds = event.currentTarget.getBoundingClientRect();
@@ -295,9 +301,9 @@ function HeroScene({
         <ambientLight intensity={0.85} />
         {/* Soft key light */}
         <directionalLight position={[2.5, 4, 5]} intensity={2.2} color="#ffffff" />
-        {/* Rim lights, retuned to the theme's primary green */}
-        <pointLight position={[-4, -1, 2.5]} intensity={24} color="#34a85a" />
-        <pointLight position={[4, -2.5, -2]} intensity={16} color="#7ed9a0" />
+        {/* Rim lights, retuned to the active theme's primary accent */}
+        <pointLight position={[-4, -1, 2.5]} intensity={24} color={rimColor} />
+        <pointLight position={[4, -2.5, -2]} intensity={16} color={rimColorSoft} />
 
         <Ghost
           pointer={pointer}

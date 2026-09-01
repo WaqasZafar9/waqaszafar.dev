@@ -14,7 +14,7 @@ function Herosec() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(120% 90% at 18% -10%, rgba(52,168,90,0.16) 0%, transparent 55%), radial-gradient(90% 70% at 88% 8%, rgba(52,168,90,0.10) 0%, transparent 60%)",
+              "radial-gradient(120% 90% at 18% -10%, color-mix(in srgb, var(--color-primary) 16%, transparent) 0%, transparent 55%), radial-gradient(90% 70% at 88% 8%, color-mix(in srgb, var(--color-primary) 10%, transparent) 0%, transparent 60%)",
           }}
         />
 
@@ -23,7 +23,7 @@ function Herosec() {
           className="absolute inset-0 opacity-[0.4]"
           style={{
             backgroundImage:
-              "radial-gradient(rgba(52, 168, 90, 0.45) 1.2px, transparent 1.2px)",
+              "radial-gradient(color-mix(in srgb, var(--color-primary) 45%, transparent) 1.2px, transparent 1.2px)",
             backgroundSize: "28px 28px",
             maskImage:
               "radial-gradient(60% 55% at 50% 32%, black 0%, transparent 75%)",

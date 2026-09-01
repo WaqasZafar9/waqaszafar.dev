@@ -149,7 +149,7 @@ function ContactUs() {
             <div className="space-y-4 sm:space-y-6">
               {contactInfo.map((item, index) => (
                 <div key={index} className="flex items-center gap-4 sm:gap-5 group">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-primary text-lg sm:text-xl shrink-0 group-hover:bg-primary group-hover:text-foreground transition-all duration-300 shadow-[0_0_15px_rgba(52,168,90,0.15)] group-hover:shadow-[0_0_25px_rgba(52,168,90,0.4)]">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-primary text-lg sm:text-xl shrink-0 group-hover:bg-primary group-hover:text-foreground transition-all duration-300 shadow-[0_0_15px_color-mix(in_srgb,var(--color-primary)_15%,transparent)] group-hover:shadow-[0_0_25px_color-mix(in_srgb,var(--color-primary)_40%,transparent)]">
                     <item.icon />
                   </div>
                   <div className="min-w-0 flex-1">

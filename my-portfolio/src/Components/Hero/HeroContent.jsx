@@ -50,7 +50,7 @@ function HeroContent() {
         style={{ animationDelay: `${STEP.intro}ms` }}
       >
         Hi, I&apos;m{" "}
-        <span className="font-bold text-foreground transition-all duration-300 group-hover/name:text-transparent group-hover/name:bg-clip-text group-hover/name:bg-linear-to-r group-hover/name:from-foreground group-hover/name:to-primary group-hover/name:drop-shadow-[0_0_25px_rgba(52,168,90,0.9)]">
+        <span className="font-bold text-foreground transition-all duration-300 group-hover/name:text-transparent group-hover/name:bg-clip-text group-hover/name:bg-linear-to-r group-hover/name:from-foreground group-hover/name:to-primary group-hover/name:drop-shadow-[0_0_25px_color-mix(in_srgb,var(--color-primary)_90%,transparent)]">
           Waqas Zafar
         </span>
       </p>

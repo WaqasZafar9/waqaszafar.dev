@@ -277,7 +277,7 @@ function Experience() {
 
               {/* Animated glowing progress line, filling the same span */}
               <div
-                className="absolute left-[32px] z-0 w-1 rounded-full bg-gradient-to-b from-foreground to-primary transition-all duration-200 ease-out shadow-[0_0_16px_rgba(52,168,90,0.95),0_0_30px_rgba(255,255,255,0.7)]"
+                className="absolute left-[32px] z-0 w-1 rounded-full bg-gradient-to-b from-foreground to-primary transition-all duration-200 ease-out shadow-[0_0_16px_color-mix(in_srgb,var(--color-primary)_95%,transparent),0_0_30px_rgba(255,255,255,0.7)]"
                 style={{
                   top: nodeTops[0] ?? 0,
                   height:
@@ -310,9 +310,9 @@ function Experience() {
                       <div
                         className={`flex h-5 w-5 items-center justify-center rounded-full transition-all duration-300 ${
                           isActive
-                            ? "bg-foreground scale-125 shadow-[0_0_20px_rgba(255,255,255,1),0_0_35px_rgba(52,168,90,0.9)]"
+                            ? "bg-foreground scale-125 shadow-[0_0_20px_rgba(255,255,255,1),0_0_35px_color-mix(in_srgb,var(--color-primary)_90%,transparent)]"
                             : isPassed
-                            ? "bg-primary scale-105 shadow-[0_0_12px_rgba(52,168,90,0.6)]"
+                            ? "bg-primary scale-105 shadow-[0_0_12px_color-mix(in_srgb,var(--color-primary)_60%,transparent)]"
                             : "bg-muted border-2 border-black/30 dark:border-white/30"
                         }`}
                       >
@@ -365,7 +365,7 @@ function Experience() {
                   <article
                     className={`group relative rounded-2xl border transition-all duration-500 bg-card/95 backdrop-blur-xl p-6 sm:p-8 lg:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] ${
                       isActive
-                        ? "border-black/25 dark:border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_35px_rgba(52,168,90,0.15)] scale-[1.01]"
+                        ? "border-black/25 dark:border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_35px_color-mix(in_srgb,var(--color-primary)_15%,transparent)] scale-[1.01]"
                         : "border-black/10 dark:border-white/10 opacity-90 hover:border-black/20 hover:dark:border-white/20"
                     }`}
                   >

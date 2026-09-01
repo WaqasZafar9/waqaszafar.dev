@@ -243,7 +243,7 @@ function Aboutme() {
           <p className="mb-6 flex items-center gap-3 text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-muted-foreground">
             <span
               aria-hidden="true"
-              className="h-px w-8 bg-primary/70 shadow-[0_0_8px_rgba(52,168,90,0.6)]"
+              className="h-px w-8 bg-primary/70 shadow-[0_0_8px_color-mix(in_srgb,var(--color-primary)_60%,transparent)]"
             />
             About Me
           </p>
@@ -282,7 +282,7 @@ function Aboutme() {
           <p className="flex items-center gap-3 text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-muted-foreground lg:justify-end">
             <span
               aria-hidden="true"
-              className="h-px w-8 bg-primary/70 shadow-[0_0_8px_rgba(52,168,90,0.6)]"
+              className="h-px w-8 bg-primary/70 shadow-[0_0_8px_color-mix(in_srgb,var(--color-primary)_60%,transparent)]"
             />
             What I Build
           </p>
@@ -310,7 +310,7 @@ function Aboutme() {
             <p className="flex items-center gap-3 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-muted-foreground lg:justify-end">
               <span
                 aria-hidden="true"
-                className="h-px w-8 bg-primary/70 shadow-[0_0_8px_rgba(52,168,90,0.6)]"
+                className="h-px w-8 bg-primary/70 shadow-[0_0_8px_color-mix(in_srgb,var(--color-primary)_60%,transparent)]"
               />
               Selected products &amp; teams
             </p>
@@ -318,7 +318,7 @@ function Aboutme() {
               {WORKED_ON.map((name) => (
                 <span
                   key={name}
-                  className="cursor-default rounded-full border border-black/10 dark:border-white/10 bg-black/[0.04] dark:bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-black/[0.08] hover:dark:bg-white/[0.08] hover:text-foreground hover:shadow-[0_8px_20px_-8px_rgba(52,168,90,0.4)]"
+                  className="cursor-default rounded-full border border-black/10 dark:border-white/10 bg-black/[0.04] dark:bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-black/[0.08] hover:dark:bg-white/[0.08] hover:text-foreground hover:shadow-[0_8px_20px_-8px_color-mix(in_srgb,var(--color-primary)_40%,transparent)]"
                 >
                   {name}
                 </span>

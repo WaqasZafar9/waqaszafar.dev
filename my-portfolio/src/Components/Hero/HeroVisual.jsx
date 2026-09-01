@@ -184,7 +184,7 @@ function HeroVisual() {
       {isPointerVisible && !reducedMotion && (
         <div
           aria-hidden="true"
-          className="pointer-events-none fixed top-0 left-0 z-50 h-4 w-4 rounded-full bg-white shadow-[0_0_16px_rgba(255,255,255,0.9),0_0_30px_rgba(52,168,90,0.7)] transition-transform duration-75 ease-out"
+          className="pointer-events-none fixed top-0 left-0 z-50 h-4 w-4 rounded-full bg-white shadow-[0_0_16px_rgba(255,255,255,0.9),0_0_30px_color-mix(in_srgb,var(--color-primary)_70%,transparent)] transition-transform duration-75 ease-out"
           style={{
             transform: `translate3d(${pointerPos.x}px, ${pointerPos.y}px, 0) translate(-50%, -50%) scale(${
               hovered ? 1.5 : 1
