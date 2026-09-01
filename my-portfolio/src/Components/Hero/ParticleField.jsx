@@ -1,10 +1,5 @@
 import { useEffect, useRef } from "react";
 
-/**
- * ParticleField
- * Sparse floating background particles creating depth behind the 2.5D/3D mascot.
- * Uses the theme's red accent, slow drift, and subtle mouse parallax offset.
- */
 function ParticleField({ mousePos = { x: 0, y: 0 }, compact = false, active = true }) {
   const canvasRef = useRef(null);
 
@@ -28,14 +23,12 @@ function ParticleField({ mousePos = { x: 0, y: 0 }, compact = false, active = tr
     window.addEventListener("resize", handleResize);
 
     const count = compact ? 12 : 28;
-    // Same red accent in both themes; only the contrast highlight flips —
-    // white reads against the dark surface, near-black against the light one.
     const isDark = document.documentElement.classList.contains("dark");
     const colors = [
-      "rgba(234, 40, 69, ", // #ea2845 primary
-      "rgba(241, 110, 130, ", // #ea2845 primary, lighter tint
-      isDark ? "rgba(156, 163, 175, " : "rgba(107, 114, 128, ", // muted-foreground
-      isDark ? "rgba(255, 255, 255, " : "rgba(17, 17, 17, ", // contrast highlight
+      "rgba(234, 40, 69, ",
+      "rgba(241, 110, 130, ",
+      isDark ? "rgba(156, 163, 175, " : "rgba(107, 114, 128, ",
+      isDark ? "rgba(255, 255, 255, " : "rgba(17, 17, 17, ",
     ];
 
     const particles = Array.from({ length: count }, () => ({
@@ -47,8 +40,8 @@ function ParticleField({ mousePos = { x: 0, y: 0 }, compact = false, active = tr
       alphaPulseSpeed: Math.random() * 0.015 + 0.005,
       alphaPhase: Math.random() * Math.PI * 2,
       vx: (Math.random() - 0.5) * 0.25,
-      vy: -(Math.random() * 0.3 + 0.1), // Slow upward float
-      parallaxFactor: Math.random() * 15 + 8, // Parallax depth multiplier
+      vy: -(Math.random() * 0.3 + 0.1),
+      parallaxFactor: Math.random() * 15 + 8,
     }));
 
     let time = 0;
@@ -57,7 +50,6 @@ function ParticleField({ mousePos = { x: 0, y: 0 }, compact = false, active = tr
       time += 0.016;
       ctx.clearRect(0, 0, width, height);
 
-      // Smooth mouse parallax offset
       const targetPx = mousePos.x * 25;
       const targetPy = mousePos.y * 25;
 
@@ -65,18 +57,15 @@ function ParticleField({ mousePos = { x: 0, y: 0 }, compact = false, active = tr
         p.y += p.vy;
         p.x += p.vx + Math.sin(time + p.alphaPhase) * 0.08;
 
-        // Wrap around boundaries smoothly
         if (p.y < -10) p.y = height + 10;
         if (p.x < -10) p.x = width + 10;
         if (p.x > width + 10) p.x = -10;
 
-        // Pulsing alpha
         const currentAlpha = Math.max(
           0.05,
           p.baseAlpha + Math.sin(time * p.alphaPulseSpeed + p.alphaPhase) * 0.12
         );
 
-        // Apply mouse parallax shift based on particle depth
         const drawX = p.x + (targetPx * (p.parallaxFactor / 20));
         const drawY = p.y + (targetPy * (p.parallaxFactor / 20));
 

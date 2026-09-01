@@ -1,4 +1,3 @@
-import React from "react";
 import { FaArrowRight, FaComment, FaBullseye, FaDiagramProject, FaRocket } from "react-icons/fa6";
 import ShinyButton from "../Components/ShinyButton/ShinyButton";
 
@@ -42,18 +41,13 @@ function HowIWork() {
       id="how-i-work"
       className="relative bg-background py-20 px-4 sm:px-6 font-sans overflow-hidden"
     >
-      {/* Top Separator — matches the hairline every other section opens with */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent" />
 
-      {/* Single top-center glow — sits above the divided 4-step row like a
-          spotlight, instead of the mirrored corner-blob pattern elsewhere */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute left-1/2 top-[-6%] h-[420px] w-[min(80vw,760px)] -translate-x-1/2 rounded-full bg-primary/[0.1] blur-[130px]"
       />
 
-      {/* Faint diagonal hatch — a distinct texture from the dot grids used
-          elsewhere, confined to the upper section */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.05]"
@@ -68,7 +62,6 @@ function HowIWork() {
       />
 
       <div className="mx-auto max-w-7xl relative z-10">
-        {/* Header */}
         <div className="max-w-2xl">
           <span className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
             <span className="h-px w-8 bg-primary/60" />
@@ -83,8 +76,6 @@ function HowIWork() {
           </p>
         </div>
 
-        {/* Steps — stacked with top dividers on mobile, a single divided
-            row from lg up (matches the reference at desktop width). */}
         <div className="mt-12 grid grid-cols-1 divide-y divide-border rounded-2xl border border-border lg:grid-cols-4 lg:divide-y-0 lg:divide-x">
           {STEPS.map((step) => (
             <div
@@ -110,7 +101,6 @@ function HowIWork() {
           ))}
         </div>
 
-        {/* CTA bar */}
         <div className="mt-6 flex flex-col items-start gap-6 rounded-2xl border border-border bg-card/40 backdrop-blur-sm p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
           <div>
             <p className="text-base sm:text-lg font-semibold text-foreground">

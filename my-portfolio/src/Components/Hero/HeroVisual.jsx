@@ -3,7 +3,6 @@ import HeroMascot2D from "./HeroMascot2D";
 import ParticleField from "./ParticleField";
 import GroundShadow from "./GroundShadow";
 
-// Speech bubble lines cycled when ghost or "Click on Ghost" badge is clicked
 const GHOST_LINES = [
   "AI can't eat me 👻",
   "Boo! Scroll down, the work is real.",
@@ -13,9 +12,6 @@ const GHOST_LINES = [
   "Still faster than your last build.",
 ];
 
-// How close (px) the cursor must get to the mascot's centre before the hint
-// appears. The ghost is ~300px tall, so this reaches a good way past its
-// edge in every direction.
 const GHOST_NEAR_RADIUS = 400;
 
 function useMediaQuery(query) {
@@ -33,14 +29,6 @@ function useMediaQuery(query) {
   return matches;
 }
 
-/**
- * HeroVisual Component
- * Renders the interactive floating 2D mascot object:
- * - Glowing white dot pointer tracking mouse movement (Screenshot 3)
- * - Frosted "Click on Ghost" pill badge on ghost body (Screenshot 1)
- * - White speech bubble ("AI can't eat me 👻") on click (Screenshot 2)
- * - Particle depth field & ambient room glow
- */
 function HeroVisual() {
   const containerRef = useRef(null);
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
@@ -53,15 +41,11 @@ function HeroVisual() {
   const [pointerPos, setPointerPos] = useState({ x: -100, y: -100 });
   const [isPointerVisible, setIsPointerVisible] = useState(false);
   const [isNear, setIsNear] = useState(false);
+  const [overInteractive, setOverInteractive] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isHeroVisible, setIsHeroVisible] = useState(true);
-  // Which quote comes next. Kept outside `line` so dismissing a line doesn't
-  // lose our place in the rotation.
   const lineCursorRef = useRef(-1);
 
-  // Only run the rAF float loop (and its 60/sec re-renders) while the hero
-  // is actually on screen — otherwise it keeps re-rendering forever, fighting
-  // the browser for main-thread time on every scroll frame on every page.
   useEffect(() => {
     const node = containerRef.current;
     if (!node || typeof IntersectionObserver === "undefined") return undefined;
@@ -74,7 +58,6 @@ function HeroVisual() {
     return () => observer.disconnect();
   }, []);
 
-  // Smooth continuous idle floating animation loop
   useEffect(() => {
     if (reducedMotion || !isHeroVisible) return undefined;
     let animationId;
@@ -90,17 +73,6 @@ function HeroVisual() {
     return () => cancelAnimationFrame(animationId);
   }, [reducedMotion, isHeroVisible]);
 
-  // Track the cursor across the whole Hero section — not the whole document.
-  // The dot is a fixed-position overlay, so a window-level listener made it
-  // follow the cursor everywhere on the site (sitting on top of button text
-  // in other sections); this keeps it a Hero-only accent.
-  //
-  // Aim, proximity and the dot all derive from this one listener. They used
-  // to hang off the mascot wrapper's own mousemove, but that wrapper is a
-  // bounded ~620x440 box (see Herosec), so leaving it — including simply
-  // moving below the ghost — read as "cursor gone" and snapped the mascot
-  // back to neutral. Listening at the section keeps them live across the
-  // whole hero, with distance measured from the mascot itself.
   useEffect(() => {
     if (reducedMotion) return undefined;
     const heroSection = containerRef.current?.closest("section");
@@ -109,6 +81,7 @@ function HeroVisual() {
     const handleMove = (e) => {
       setPointerPos({ x: e.clientX, y: e.clientY });
       setIsPointerVisible(true);
+      setOverInteractive(Boolean(e.target.closest("a, button")));
 
       const node = containerRef.current;
       if (!node) return;
@@ -117,9 +90,6 @@ function HeroVisual() {
       const dx = e.clientX - (rect.left + rect.width / 2);
       const dy = e.clientY - (rect.top + rect.height / 2);
 
-      // Normalised against the mascot's own half-size, then capped by
-      // magnitude rather than per-axis so the aim direction survives the
-      // clamp once the cursor is outside the wrapper.
       const nx = dx / (rect.width / 2);
       const ny = dy / (rect.height / 2);
       const length = Math.hypot(nx, ny);
@@ -132,6 +102,7 @@ function HeroVisual() {
     const handleLeave = () => {
       setIsPointerVisible(false);
       setIsNear(false);
+      setOverInteractive(false);
       setMousePos({ x: 0, y: 0 });
     };
 
@@ -144,7 +115,6 @@ function HeroVisual() {
     };
   }, [reducedMotion]);
 
-  // Track page scroll position for smooth mascot displacement
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -157,18 +127,12 @@ function HeroVisual() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Remember where we got to, so dismissing a line doesn't restart the
-  // rotation. Recorded here rather than inside the updater below: StrictMode
-  // double-invokes updaters, so advancing the cursor in there would skip a
-  // quote on every click.
   useEffect(() => {
     if (line !== null) lineCursorRef.current = line;
   }, [line]);
 
   const handlePoke = useCallback(() => {
     setLine((current) =>
-      // Clicking again dismisses the current line; the one after that opens
-      // the next quote, so the ghost keeps cycling across separate showings.
       current !== null
         ? null
         : (lineCursorRef.current + 1) % GHOST_LINES.length
@@ -176,12 +140,12 @@ function HeroVisual() {
   }, []);
 
   const showBubble = line !== null;
-  const showBadge = (isNear || hovered) && !reducedMotion && isPointerVisible;
+  const showBadge =
+    (isNear || hovered) && !reducedMotion && isPointerVisible && !overInteractive;
 
   return (
     <>
-      {/* Glowing White Dot Tracking Pointer (Screenshot 3) */}
-      {isPointerVisible && !reducedMotion && (
+      {isPointerVisible && !reducedMotion && !overInteractive && (
         <div
           aria-hidden="true"
           className="pointer-events-none fixed top-0 left-0 z-50 h-4 w-4 rounded-full bg-foreground shadow-[0_0_16px_color-mix(in_srgb,var(--color-foreground)_90%,transparent),0_0_30px_color-mix(in_srgb,var(--color-primary)_70%,transparent)] transition-transform duration-75 ease-out"
@@ -193,11 +157,6 @@ function HeroVisual() {
         />
       )}
 
-      {/* "Click on Ghost" hint — rides along with the cursor while it's near
-          the mascot. Fixed + pointer-events-none so it sits under the cursor
-          without ever intercepting the click it's asking for. Its transform
-          isn't transitioned, so it stays stuck to the pointer rather than
-          trailing it. */}
       {!reducedMotion && (
         <div
           aria-hidden="true"
@@ -223,12 +182,10 @@ function HeroVisual() {
           opacity: Math.max(0.2, 1 - scrollProgress * 1.2),
         }}
       >
-        {/* Background Floating Particles */}
         {!reducedMotion && (
           <ParticleField mousePos={mousePos} compact={compact} active={isHeroVisible} />
         )}
 
-        {/* Ambient Room Glow Behind Mascot */}
         <div
           className={`pointer-events-none absolute left-1/2 top-1/2 h-[min(75vw,520px)] w-[min(75vw,520px)] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[110px] transition-all duration-700 ${
             hovered ? "bg-primary/[0.32] scale-105" : "bg-primary/[0.18] scale-100"
@@ -238,14 +195,10 @@ function HeroVisual() {
           }}
         />
 
-        {/* Dynamic Ground Contact Shadow & Glow */}
         {!reducedMotion && (
           <GroundShadow floatY={floatY / 70} hovered={hovered} />
         )}
 
-        {/* Main Mascot Component — only the ghost's own box opts back into
-            pointer events (see HeroMascot2D), so the rest of this layer
-            stays click-through for the content sitting under it. */}
         <div className="pointer-events-none absolute inset-0">
           <HeroMascot2D
             mousePos={mousePos}
@@ -257,7 +210,6 @@ function HeroVisual() {
           />
         </div>
 
-        {/* White Speech Bubble (Appears on clicking Ghost or Badge - Screenshot 2) */}
         <div
           className={`absolute left-[54%] sm:left-[56%] top-[6%] sm:top-[8%] z-30 max-w-[15rem] transition-all duration-300 ease-out ${
             showBubble
@@ -267,7 +219,6 @@ function HeroVisual() {
         >
           <div className="relative rounded-2xl bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold leading-snug text-[#0a0b12] shadow-[0_12px_32px_-8px_rgba(0,0,0,0.6)]">
             {showBubble ? GHOST_LINES[line] : ""}
-            {/* White Tail pointing down-left toward ghost top-right */}
             <span className="absolute -bottom-1.5 left-4 h-3 w-3 rotate-45 rounded-[2px] bg-white" />
           </div>
         </div>

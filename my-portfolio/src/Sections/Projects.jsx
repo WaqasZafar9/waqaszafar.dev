@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { FaFilter, FaChevronDown, FaCheck } from "react-icons/fa6";
 import PROJECTS_DATA from "./projectsData";
@@ -32,14 +32,6 @@ function CaseStudyModal({ project, onClose }) {
   if (!project || !project.caseStudy) return null;
   const cs = project.caseStudy;
 
-  // Portaled to <body>: this modal is opened from inside the Projects
-  // section, which framer-motion's Reveal wrapper animates via CSS
-  // transform. Any ancestor with a `transform` (even one that's settled at
-  // its identity value) becomes the containing block for `position: fixed`
-  // descendants, so left in place this modal was fixed to that section's
-  // box instead of the viewport — full-screen and centered on some scroll
-  // positions, clipped/offset on others. Rendering at the document root
-  // sidesteps that entirely.
   return createPortal(
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-black/85 transition-all duration-300 ease-out ${
@@ -49,11 +41,6 @@ function CaseStudyModal({ project, onClose }) {
         if (e.target === e.currentTarget) handleClose();
       }}
     >
-      {/* Close button lives outside the scrolling card, `fixed` to the
-          viewport rather than `absolute` inside it — a case study is long
-          enough on mobile that an absolutely-positioned button anchored to
-          modalRef's top scrolled out of reach as soon as the user scrolled
-          the content, leaving no visible way to close the modal. */}
       <button
         onClick={handleClose}
         className="fixed top-4 right-4 z-[60] flex h-10 w-10 items-center justify-center rounded-full border border-black/15 dark:border-white/15 bg-card/90 text-foreground/70 backdrop-blur-md shadow-lg transition-all duration-300 hover:bg-black/20 hover:dark:bg-white/20 hover:text-foreground hover:scale-110 cursor-pointer active:scale-95 sm:top-6 sm:right-6 sm:h-11 sm:w-11 lg:top-8 lg:right-8"
@@ -219,10 +206,6 @@ function CaseStudyModal({ project, onClose }) {
   );
 }
 
-/**
- * "New Work Incoming" Banner — deliberately the loudest thing in the
- * section so it's the first place the eye lands, ahead of shipped work.
- */
 function ComingSoonBanner() {
   return (
     <div className="relative overflow-hidden rounded-2xl border border-black/10 dark:border-white/10 bg-card/85 px-5 py-4 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] sm:px-6">
@@ -252,9 +235,6 @@ function ComingSoonBanner() {
   );
 }
 
-/**
- * Shimmer Skeleton Loader for Project Cards
- */
 function ProjectCardSkeleton() {
   return (
     <div className="rounded-3xl border border-black/10 dark:border-white/10 bg-card/90 p-6 sm:p-8 lg:p-10 backdrop-blur-xl shadow-2xl relative overflow-hidden shimmer-card">
@@ -279,13 +259,6 @@ function ProjectCardSkeleton() {
   );
 }
 
-/**
- * ScrollingScreenshot
- * Frames a tall, full-page site screenshot in a fixed 16/8 window showing
- * just the top on load. On hover it auto-scrolls the image down to reveal
- * the rest of the page, then eases back to the top on mouse-leave — the
- * classic "site preview" scroll effect used across 21st.dev landing pages.
- */
 function ScrollingScreenshot({ src, alt }) {
   const frameRef = useRef(null);
   const imgRef = useRef(null);
@@ -301,9 +274,6 @@ function ScrollingScreenshot({ src, alt }) {
     const renderedHeight = (frame.clientWidth / img.naturalWidth) * img.naturalHeight;
     const distance = Math.max(0, renderedHeight - frame.clientHeight);
     setScrollDistance(distance);
-    // ~900px/sec, but always capped so a full-page screenshot (however
-    // tall) finishes within a natural hover window instead of only
-    // getting partway through before the mouse leaves.
     setDuration(Math.min(6, Math.max(2.2, distance / 900)));
   };
 
@@ -340,9 +310,6 @@ function ScrollingScreenshot({ src, alt }) {
   );
 }
 
-/**
- * Clean Project Card Component with Metallic Shimmer Effect
- */
 function ProjectCard({ project, onOpenCaseStudy }) {
   return (
     <article className="group relative rounded-3xl border border-black/10 dark:border-white/10 bg-card/95 p-5 sm:p-6 lg:p-8 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] transition-all duration-300 hover:-translate-y-1 hover:border-black/25 hover:dark:border-white/25 hover:shadow-[0_25px_65px_color-mix(in_srgb,var(--color-primary)_15%,transparent)]">
@@ -395,8 +362,6 @@ function ProjectCard({ project, onOpenCaseStudy }) {
                 rel="noopener noreferrer"
                 className="btn-sheen group/btn inline-flex items-center justify-center gap-2 rounded-2xl border border-primary/40 bg-primary/10 px-5 py-2.5 text-xs sm:text-sm font-medium tracking-wide text-primary backdrop-blur-md shadow-lg transition-all duration-300 hover:bg-primary/25 hover:border-primary/70 hover:text-foreground hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-primary)_35%,transparent)] hover:-translate-y-0.5 hover:scale-[1.03] active:scale-95"
               >
-                {/* liveButtonText already carries its own trailing "↗", so
-                    the whole label nudges together rather than double-icon. */}
                 <span className="relative z-[1] inline-block transition-transform duration-300 ease-out group-hover/btn:translate-x-1 group-hover/btn:-translate-y-0.5">
                   {project.liveButtonText}
                 </span>
@@ -459,7 +424,6 @@ function Projects() {
       id="projects"
       className="relative bg-background py-20 px-4 sm:px-6 font-sans overflow-hidden min-h-screen"
     >
-      {/* Top Separator — matches the hairline every other section opens with */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent" />
 
       <div
@@ -467,8 +431,6 @@ function Projects() {
         className="pointer-events-none absolute left-1/2 top-0 h-[450px] w-[min(90vw,700px)] -translate-x-1/2 rounded-full bg-primary/[0.08] blur-[140px]"
       />
 
-      {/* Faint dot grid across the card grid area — this section's own
-          signature texture, distinct from the line-grid/hatch used above */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.1]"
@@ -498,7 +460,6 @@ function Projects() {
           </p>
         </div>
 
-        {/* Stats Grid — 2x2 on mobile, flex row on sm+ */}
         <div className="mt-8 sm:mt-10 grid grid-cols-2 sm:flex flex-wrap items-center justify-center gap-3 sm:gap-10 text-xs sm:text-sm font-mono tracking-wider uppercase text-foreground/70 px-2">
           <div className="flex items-center justify-center sm:justify-start gap-2 bg-black/[0.03] dark:bg-white/[0.03] sm:bg-transparent p-2 sm:p-0 rounded-xl">
             <span className="font-bold text-foreground text-base sm:text-lg">{String(totalCount).padStart(2, "0")}</span>
@@ -521,7 +482,6 @@ function Projects() {
           </div>
         </div>
 
-        {/* Mobile Dropdown Category Menu (< sm screens) */}
         <div className="mt-6 sm:hidden relative flex justify-center px-2 z-30">
           <div className="w-full max-w-xs relative">
             <button
@@ -544,7 +504,6 @@ function Projects() {
               </div>
             </button>
 
-            {/* Dropdown Menu Items */}
             {isMobileCategoryOpen && (
               <>
                 <div
@@ -594,7 +553,6 @@ function Projects() {
           </div>
         </div>
 
-        {/* Desktop Category Tabs (>= sm screens) */}
         <div className="mt-8 hidden sm:flex justify-center px-2">
           <div className="flex items-center justify-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-card/90 p-1.5 backdrop-blur-xl shadow-xl">
             {categories.map((cat) => {
@@ -624,7 +582,6 @@ function Projects() {
           </div>
         </div>
 
-        {/* Projects Cards List with Shimmer Skeleton Loading State */}
         <div className="mt-12 space-y-10 sm:space-y-12">
           <ComingSoonBanner />
           {isTabChanging ? (

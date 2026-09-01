@@ -1,63 +1,11 @@
 @import "tailwindcss";
 
-/* Class-based dark mode: `dark:` utilities apply whenever an ancestor
-   carries `.dark` (toggled by ThemeToggle), instead of Tailwind's default
-   `prefers-color-scheme` media query. */
 @custom-variant dark (&:is(.dark *));
 
-/* ============================================================
-   Legacy theme — superseded by the "Northern Lights" system
-   below. Left in place (not deleted) as a rollback reference;
-   every class it powered (bg-night, bg-elevated, text-ink-soft,
-   accent/accent-deep/accent-soft, border-line, neonPink, …) has
-   been repointed to the new tokens across the app.
-   ============================================================
-@theme {
-  --font-sans: "Outfit", sans-serif;
-  --breakpoint-xxl: 1440px;
-
-  // Surfaces — midnight black, darkest to most elevated
-  --color-night: #08090c;
-  --color-surface: #0c0e12;
-  --color-elevated: #111318;
-  --color-card: #15171c;
-
-  // Text — off-white down to muted
-  --color-ink: #f2f3f5;
-  --color-ink-soft: #a7abb3;
-  --color-ink-muted: #737984;
-
-  // Hairlines
-  --color-line: rgba(255, 255, 255, 0.07);
-  --color-line-strong: rgba(255, 255, 255, 0.14);
-
-  // Cool accent — used sparingly
-  --color-accent: #8b93ff;
-  --color-accent-deep: #6f78ff;
-  --color-accent-soft: #a7adff;
-  --color-accent-violet: #8b7cff;
-
-  // Legacy token names retuned to the new system so existing
-  // section markup inherits the theme without being rewritten.
-  --color-neonPink: #8b93ff;
-  --color-deepBlue: #6f78ff;
-}
-   ============================================================ */
-
-/* Breakpoint kept from the legacy theme — not part of the new
-   token system, unrelated to the color rewrite below. */
 @theme {
   --breakpoint-xxl: 1440px;
 }
 
-/* ============================================================
-   "Northern Lights" theme — pulled from 21st.dev, applied
-   site-wide. `:root` holds the light half of "NestJS Dark" (same
-   red accent, flipped onto white/near-black surfaces); `.dark`
-   (toggled by ThemeToggle, see src/Components/ThemeToggle.jsx)
-   holds the dark half. Dark is the default on first visit (see
-   the inline script in index.html), light is opt-in.
-   ============================================================ */
 :root {
   --card: #ffffff;
   --ring: #ea2845;
@@ -105,11 +53,6 @@
   --sidebar-primary-foreground: #ffffff;
 }
 
-/* ---- "NestJS Dark" — the dark half of the palette ----
-   Stark high-contrast surfaces (near-black), pure-white foreground, a slate
-   border for structure instead of shadows, and a single red accent used
-   sparingly for calls to action and emphasis. Flat by design: no glow, no
-   gradients — see the ambient-glow and glow-shadow overrides below. */
 .dark {
   --card: #050303;
   --ring: #ea2845;
@@ -195,7 +138,6 @@
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
 }
 
-/* Smooth scrolling for the entire page */
 html {
   scroll-behavior: smooth;
   background-color: var(--color-background);
@@ -209,16 +151,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* The "NestJS Dark" system (now the palette for both light and dark
-   surfaces) is intentionally flat — no ambient glow, hierarchy comes from
-   contrast and borders instead. Rule kept (rather than deleted outright) so
-   Herosec's own ambient wash — a separate, section-scoped effect — is the
-   only radial glow left on the page. */
 body::before {
   display: none;
 }
 
-/* Fine luminance grain so large dark areas do not band. */
 body::after {
   content: "";
   position: fixed;
@@ -239,7 +175,6 @@ body::after {
   color: var(--color-foreground);
 }
 
-/* ---- Global Shimmer Effect & Smooth Micro-Interactions ---- */
 @keyframes shimmerSweep {
   0% {
     transform: translateX(-150%) rotate(25deg);
@@ -272,11 +207,6 @@ body::after {
   pointer-events: none;
 }
 
-/* ---- Advanced button hover: light sweep on demand ----
-   Unlike .shimmer-card (always animating), this sweep only plays when the
-   button is actually hovered/focused — a single pass of light across the
-   label, on top of whatever background/border/translate hover state the
-   button already declares. */
 .btn-sheen {
   position: relative;
   overflow: hidden;
@@ -310,7 +240,6 @@ body::after {
   }
 }
 
-/* Smooth Button & Tab Active Touch Feedback */
 button, a {
   transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
@@ -363,7 +292,6 @@ button:active, a:active {
   animation: slideInRight 0.8s ease-out forwards;
 }
 
-/* Image Hover Effects */
 .image-hover-container {
   transition: transform 0.3s ease;
 }
@@ -444,7 +372,6 @@ button:active, a:active {
   animation: spin 8s linear infinite;
 }
 
-/* ---- Brand Marquee Infinite Scroll ---- */
 @keyframes marqueeTrackScroll {
   0% {
     transform: translate3d(0, 0, 0);
@@ -477,8 +404,6 @@ button:active, a:active {
   }
 }
 
-
-/* Thin scrollbar inside project card overlays (Firefox + Chromium) */
 .project-overlay-scroll {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
@@ -492,8 +417,6 @@ button:active, a:active {
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 9999px;
 }
-
-/* ---- Hero entrance sequence ---- */
 
 @keyframes heroRise {
   from {
@@ -515,7 +438,6 @@ button:active, a:active {
   }
 }
 
-/* Staged reveal: each step is offset by its inline animation-delay. */
 .hero-rise {
   opacity: 0;
   animation: heroRise 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -553,8 +475,6 @@ button:active, a:active {
   animation: heroScrollLine 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
-/* ---- About section ---- */
-
 @keyframes aboutFloat {
   0%,
   100% {
@@ -569,7 +489,6 @@ button:active, a:active {
   animation: aboutFloat 7s ease-in-out infinite;
 }
 
-/* Scroll reveal: crisp rise (no blur), staggered per block via --d. */
 @keyframes aboutReveal {
   from {
     opacity: 0;
@@ -598,11 +517,6 @@ button:active, a:active {
   }
 }
 
-/* Section scroll choreography now lives in src/Components/Motion/Reveal.jsx
-   via framer-motion (opacity + transform, no blur/filter — a long page of
-   sections settling in from a haze read as foggy rather than crisp). */
-
-/* Honour the OS reduced-motion setting across the whole site. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

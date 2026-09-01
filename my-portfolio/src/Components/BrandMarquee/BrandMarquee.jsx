@@ -1,4 +1,3 @@
-import React from "react";
 import { BRANDS_DATA } from "./brandsData";
 
 const BrandLogoItem = ({ brand }) => {
@@ -33,24 +32,15 @@ function BrandMarquee() {
   return (
     <section
       aria-label="Companies and products I've worked with"
-      // Fixed dark surface regardless of site theme — most partner marks
-      // here are light/white logo files, so a light-mode background would
-      // wash them out. #2f3436 is the dark theme's own card/surface tone
-      // (--card in .dark, src/index.css), reused here so the strip matches
-      // dark mode's palette instead of introducing a one-off color.
       className="relative w-full bg-[#2f3436] border-y border-white/[0.06] py-7 md:py-9 overflow-hidden font-sans select-none z-10"
     >
-      {/* Background Subtle Room Light Glow */}
       <div className="absolute inset-0 pointer-events-none bg-radial from-white/[0.02] to-transparent opacity-60" />
 
-      {/* Edge Gradient Dissolve Masks (Left & Right) */}
       <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-24 md:w-36 bg-gradient-to-r from-[#2f3436] to-transparent z-20" />
       <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-24 md:w-36 bg-gradient-to-l from-[#2f3436] to-transparent z-20" />
 
-      {/* Marquee Track Container */}
       <div className="group relative w-full overflow-hidden flex items-center">
         <div className="animate-marquee-track flex items-center gap-6 sm:gap-8 md:gap-12 shrink-0">
-          {/* Main accessible list */}
           <div className="flex items-center gap-6 sm:gap-8 md:gap-12 shrink-0">
             {set1.map((brand, idx) => (
               <BrandLogoItem key={`set1-${brand.id}-${idx}`} brand={brand} />

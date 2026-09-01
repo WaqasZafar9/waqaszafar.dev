@@ -7,9 +7,7 @@ function Herosec() {
       id="home"
       className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 pb-24 pt-32 font-sans sm:px-6 md:pt-36 bg-background"
     >
-      {/* Layer 1 — Full-Section Environment & Ambient Lighting */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* Base Mesh Wash — asymmetric radial tint for depth before anything else */}
         <div
           className="absolute inset-0"
           style={{
@@ -18,7 +16,6 @@ function Herosec() {
           }}
         />
 
-        {/* Dot Grid, masked so it blooms near the ghost/headline and dissolves at the edges */}
         <div
           className="absolute inset-0 opacity-[0.4]"
           style={{
@@ -32,7 +29,6 @@ function Herosec() {
           }}
         />
 
-        {/* Faint structural grid lines for a premium, engineered feel */}
         <div
           className="absolute inset-0 opacity-[0.12]"
           style={{
@@ -46,16 +42,12 @@ function Herosec() {
           }}
         />
 
-        {/* Ambient Glow 1: Top Ghost Area Lighting — offset for a natural, non-centered light source */}
         <div className="absolute top-[-4%] left-[42%] h-[460px] w-[min(90vw,760px)] -translate-x-1/2 rounded-full bg-gradient-to-b from-primary/30 via-primary/14 to-transparent blur-[130px] opacity-90 mix-blend-screen" />
 
-        {/* Ambient Glow 2: Center Headline Lighting */}
         <div className="absolute top-[33%] left-[56%] h-[480px] w-[min(95vw,880px)] -translate-x-1/2 rounded-full bg-gradient-to-tr from-primary/18 via-primary/8 to-transparent blur-[150px] opacity-80 mix-blend-screen" />
 
-        {/* Ambient Glow 3: Bottom CTA & Social Links Lighting */}
         <div className="absolute bottom-[6%] left-1/2 h-[360px] w-[min(90vw,780px)] -translate-x-1/2 rounded-full bg-primary/[0.14] blur-[140px] opacity-70" />
 
-        {/* Subtle Grain — breaks up the glow banding for a less "CSS gradient" look */}
         <div
           className="absolute inset-0 opacity-[0.05] mix-blend-overlay"
           style={{
@@ -64,27 +56,19 @@ function Herosec() {
           }}
         />
 
-        {/* Soft Top Vignette so the section reads as its own space, not a flat rectangle */}
         <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/70 to-transparent" />
 
-        {/* Soft Bottom Transition to Next Section */}
         <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent to-background" />
       </div>
 
-      {/* Layer 2 — Interactive Floating Mascot Focal Object.
-          z-20 keeps the ghost above Layer 3, whose pt-[36vh] box covers this
-          area and would otherwise swallow every click aimed at the mascot.
-          Everything inside is click-through except the ghost itself. */}
       <div className="absolute inset-x-0 top-[12%] z-20 mx-auto h-[44vh] max-h-[440px] w-full max-w-[620px] md:top-[9%] md:h-[50vh]">
         <HeroVisual />
       </div>
 
-      {/* Layer 3 — Content (Headline, Subtitle, CTA Buttons, Social Icons) */}
       <div className="relative z-10 w-full max-w-3xl pt-[36vh] sm:pt-[38vh] md:pt-[42vh]">
         <HeroContent />
       </div>
 
-      {/* Scroll cue */}
       <a
         href="#about"
         className="hero-fade group absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2.5 rounded-full px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"

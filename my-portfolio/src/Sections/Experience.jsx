@@ -1,12 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaDownload } from "react-icons/fa";
 import resume from "../assets/Resume.pdf";
 import ShinyButton from "../Components/ShinyButton/ShinyButton";
 
-// Cumulative offsetTop up to (but not including) `stop`. Unlike
-// getBoundingClientRect, offsetTop is a pure layout value — it ignores any
-// CSS transform an ancestor applies (e.g. the section's scroll-reveal
-// animation), so it stays correct even while that transform is mid-transition.
 function offsetTopUntil(el, stop) {
   let top = 0;
   let node = el;
@@ -123,7 +119,6 @@ function Experience() {
     return () => observer.disconnect();
   }, []);
 
-
   useEffect(() => {
     const container = timelineRef.current;
     if (!container) return undefined;
@@ -156,7 +151,6 @@ function Experience() {
     };
   }, []);
 
-  // Check reduced motion preference
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(mediaQuery.matches);
@@ -165,7 +159,6 @@ function Experience() {
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-  // Track scroll position to update active card index and vertical timeline line progress
   useEffect(() => {
     if (reducedMotion) return undefined;
 
@@ -176,7 +169,6 @@ function Experience() {
         const rect = sectionRef.current.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         
-        // Progress of section scrolling through viewport (0 to 1)
         const totalScrollDistance = rect.height - windowHeight;
         if (totalScrollDistance <= 0) return;
         
@@ -184,7 +176,6 @@ function Experience() {
         const progress = Math.min(1, Math.max(0, scrolled / totalScrollDistance));
         setTimelineProgress(progress);
 
-        // Determine active card based on card bounding rects
         let currentActive = 0;
         cardRefs.current.forEach((cardEl, idx) => {
           if (cardEl) {
@@ -213,11 +204,8 @@ function Experience() {
       id="experience"
       className="relative bg-background py-20 px-4 sm:px-6 font-sans overflow-hidden min-h-screen"
     >
-      {/* Top Separator — matches the hairline every other section opens with */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent" />
 
-      {/* Left-edge glow tracing the timeline rail, instead of mirrored
-          corner blobs — ties the light to the content it sits behind */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute left-0 top-0 h-full w-[340px] bg-gradient-to-r from-primary/[0.09] via-primary/[0.03] to-transparent"
@@ -228,7 +216,6 @@ function Experience() {
       />
 
       <div className="mx-auto max-w-7xl relative z-10">
-        {/* Header Section */}
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between border-b border-black/10 dark:border-white/10 pb-8">
           <div>
             <span className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
@@ -243,7 +230,6 @@ function Experience() {
             </p>
           </div>
 
-          {/* Download CV CTA */}
           <ShinyButton
             href={resume}
             download="Waqas_Zafar_CV.pdf"
@@ -254,19 +240,9 @@ function Experience() {
           </ShinyButton>
         </div>
 
-        {/* Interactive Experience Timeline Container */}
         <div ref={timelineRef} className="relative mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Vertical Timeline Track (Left Column on Desktop) */}
           <div className="hidden lg:block lg:col-span-3">
             <div className="relative pl-6" style={{ height: trackEnd || undefined }}>
-              {/* Background track — starts level with the first card's top edge,
-                  ends level with the last card's bottom edge (the same points
-                  the dots below sit on). z-0 + the dots' z-10 below guarantees
-                  the line always paints behind the dots, never over them. */}
-              {/* left-[32px] = 8px design offset + the 24px (pl-6) the dots'
-                  own positioned wrapper picks up from this container's
-                  padding — keeps the track centred under the dots, which
-                  sit inside that separate positioning context. */}
               <div
                 className="absolute left-[32px] z-0 w-1 rounded-full bg-black/20 dark:bg-white/20 border border-black/10 dark:border-white/10"
                 style={{
@@ -275,7 +251,6 @@ function Experience() {
                 }}
               />
 
-              {/* Animated glowing progress line, filling the same span */}
               <div
                 className="absolute left-[32px] z-0 w-1 rounded-full bg-gradient-to-b from-foreground to-primary transition-all duration-200 ease-out shadow-[0_0_16px_color-mix(in_srgb,var(--color-primary)_95%,transparent),0_0_30px_rgba(255,255,255,0.7)]"
                 style={{
@@ -286,7 +261,6 @@ function Experience() {
                 }}
               />
 
-              {/* Timeline nodes — each pinned to its card's vertical position */}
               <div className="relative z-10">
                 {EXPERIENCE_DATA.map((exp, idx) => {
                   const isActive = activeIndex === idx;
@@ -297,16 +271,11 @@ function Experience() {
                       onClick={() => {
                         cardRefs.current[idx]?.scrollIntoView({ behavior: "smooth", block: "center" });
                       }}
-                      // -translate-y-1/2 centres the dot (and this row, since
-                      // items-center centres every child on the same axis) on
-                      // `top`, so the dot's centre lands exactly on the
-                      // card's top edge — matching height, whatever it is.
                       className="group absolute left-0 flex -translate-y-1/2 items-center gap-4 text-left transition-all duration-300 cursor-pointer"
                       style={{
                         top: nodeTops[idx] === undefined ? idx * 160 : nodeTops[idx],
                       }}
                     >
-                      {/* Node Dot - Larger & Glowing */}
                       <div
                         className={`flex h-5 w-5 items-center justify-center rounded-full transition-all duration-300 ${
                           isActive
@@ -319,7 +288,6 @@ function Experience() {
                         {isActive && <span className="h-2 w-2 rounded-full bg-background" />}
                       </div>
 
-                      {/* Timeline Node Text */}
                       <div className="transition-all duration-300">
                         <p
                           className={`text-xs sm:text-sm font-bold tracking-wide transition-colors ${
@@ -343,7 +311,6 @@ function Experience() {
             </div>
           </div>
 
-          {/* Stacking Experience Cards Container */}
           <div className="lg:col-span-9 space-y-10 sm:space-y-12 lg:space-y-16 pb-12">
             {EXPERIENCE_DATA.map((item, index) => {
               const isActive = activeIndex === index;
@@ -358,7 +325,6 @@ function Experience() {
                       : "opacity-0 translate-y-10 blur-[6px]"
                   }`}
                   style={{
-                    // Stacking depth effects on desktop
                     zIndex: index + 10,
                   }}
                 >
@@ -369,10 +335,8 @@ function Experience() {
                         : "border-black/10 dark:border-white/10 opacity-90 hover:border-black/20 hover:dark:border-white/20"
                     }`}
                   >
-                    {/* Top Row: Company Badge + Title + Period */}
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between border-b border-black/10 dark:border-white/10 pb-6">
                       <div className="flex items-center gap-4">
-                        {/* Company Logo Badge */}
                         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-black/15 dark:border-white/15 bg-black/[0.06] dark:bg-white/[0.06] p-2.5 shadow-inner">
                           {item.logoSrc ? (
                             <img src={item.logoSrc} alt={`${item.company} logo`} className="h-full w-full object-contain" />
@@ -394,10 +358,6 @@ function Experience() {
                         </div>
                       </div>
 
-                      {/* Date & Status.
-                          flex-wrap keeps the period pill and status tag from
-                          overflowing the card on the narrowest phones (they
-                          share one row until sm:, where they stack). */}
                       <div className="flex flex-wrap sm:flex-col sm:items-end justify-between gap-1 text-xs text-muted-foreground">
                         <span className="font-mono text-[0.6875rem] sm:text-xs font-medium text-foreground/80 bg-black/[0.05] dark:bg-white/[0.05] px-2.5 sm:px-3 py-1 rounded-full border border-black/10 dark:border-white/10 whitespace-nowrap">
                           {item.period}
@@ -411,7 +371,6 @@ function Experience() {
                       </div>
                     </div>
 
-                    {/* Highlights List */}
                     <ul className="mt-6 space-y-2.5 text-sm leading-relaxed text-muted-foreground">
                       {item.highlights.map((point) => (
                         <li key={point} className="flex items-start gap-3">
@@ -421,7 +380,6 @@ function Experience() {
                       ))}
                     </ul>
 
-                    {/* Tech Stack Pills */}
                     <div className="mt-7 flex flex-wrap items-center gap-2 pt-5 border-t border-black/[0.08] dark:border-white/[0.08]">
                       <span className="text-[0.7rem] uppercase tracking-wider font-semibold text-muted-foreground mr-1">
                         Stack:
@@ -442,51 +400,6 @@ function Experience() {
           </div>
         </div>
 
-        {/* Education Section Header (Commented out as requested) */}
-        {/*
-        <div className="mt-28 border-t border-black/10 dark:border-white/10 pt-16">
-          <span className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
-            <span className="h-px w-8 bg-primary/60" />
-            Education History
-          </span>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Academic Background
-          </h2>
-          <p className="mt-2 text-sm sm:text-base text-muted-foreground">
-            Degrees and institutional training in Computer Science.
-          </p>
-
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {EDUCATION_DATA.map((item) => (
-              <article
-                key={item.degree}
-                className="group rounded-2xl border border-black/10 dark:border-white/10 bg-card/90 p-6 sm:p-7 backdrop-blur-md shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-black/25 hover:dark:border-white/25 hover:shadow-[0_20px_40px_rgba(0,0,0,0.8)]"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-black/15 dark:border-white/15 bg-black/[0.05] dark:bg-white/[0.05] text-lg text-foreground">
-                    🎓
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground transition-colors duration-300 group-hover:text-primary">
-                      {item.degree}
-                    </h3>
-                    <p className="mt-1 text-sm font-semibold text-primary">
-                      {item.institution}
-                    </p>
-                    <div className="mt-3 flex items-center gap-3 text-xs text-muted-foreground">
-                      <span>{item.period}</span>
-                      <span>·</span>
-                      <span>{item.field}</span>
-                      <span>·</span>
-                      <span className="text-primary font-medium">{item.status}</span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-        */}
       </div>
     </section>
   );

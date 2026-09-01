@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function NotFound() {
@@ -6,7 +6,6 @@ function NotFound() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [countdown, setCountdown] = useState(10);
 
-  // Track mouse position for parallax effect
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({
@@ -19,7 +18,6 @@ function NotFound() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Auto-redirect countdown
   useEffect(() => {
     const timer = setInterval(() => {
       setCountdown((prev) => {
@@ -40,7 +38,6 @@ function NotFound() {
 
   return (
     <>
-      {/* React 19 Native Metadata Support */}
       <title>404 - Page Not Found | Waqas Zafar</title>
       <meta
         name="description"
@@ -49,9 +46,7 @@ function NotFound() {
       <meta name="robots" content="noindex, nofollow" />
 
       <div className="min-h-screen bg-gradient-to-br from-background via-card to-background flex items-center justify-center overflow-hidden relative">
-        {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Floating orbs */}
           <div
             className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse"
             style={{
@@ -78,18 +73,14 @@ function NotFound() {
             }}
           />
 
-          {/* Grid pattern */}
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
         </div>
 
-        {/* Main content */}
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          {/* Glitch effect 404 */}
           <div className="relative inline-block mb-8">
             <h1 className="text-[12rem] sm:text-[16rem] md:text-[20rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground to-primary leading-none animate-pulse select-none">
               404
             </h1>
-            {/* Glitch layers */}
             <h1
               className="absolute inset-0 text-[12rem] sm:text-[16rem] md:text-[20rem] font-black text-primary/30 leading-none select-none pointer-events-none"
               style={{
@@ -114,7 +105,6 @@ function NotFound() {
             </h1>
           </div>
 
-          {/* Error message */}
           <div className="space-y-4 mb-12">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground animate-fade-in-up">
               Page Not Found
@@ -128,7 +118,6 @@ function NotFound() {
             </p>
           </div>
 
-          {/* Action buttons */}
           <div
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-fade-in-up"
             style={{ animationDelay: "0.4s" }}
@@ -179,7 +168,6 @@ function NotFound() {
             </button>
           </div>
 
-          {/* Auto-redirect counter */}
           <div
             className="inline-flex items-center gap-3 px-6 py-3 bg-black/5 dark:bg-white/5 backdrop-blur-md rounded-full border border-black/10 dark:border-white/10 animate-fade-in-up"
             style={{ animationDelay: "0.6s" }}
@@ -220,7 +208,6 @@ function NotFound() {
             </span>
           </div>
 
-          {/* Decorative elements */}
           <div className="mt-16 flex justify-center gap-8 opacity-50">
             {[...Array(3)].map((_, i) => (
               <div
@@ -232,7 +219,6 @@ function NotFound() {
           </div>
         </div>
 
-        {/* Floating particles */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(20)].map((_, i) => (
             <div

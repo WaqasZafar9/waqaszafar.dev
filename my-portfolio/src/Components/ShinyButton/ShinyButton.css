@@ -1,8 +1,3 @@
-/* ---- Shiny CTA button ----
-   Animated conic-gradient border + inner shimmer. Colors/font are pulled
-   from the site's design tokens (see src/index.css @theme) so it matches
-   the rest of the UI instead of carrying its own palette. */
-
 @property --gradient-angle {
   syntax: "<angle>";
   initial-value: 0deg;
@@ -86,7 +81,6 @@
   translate: 0 1px;
 }
 
-/* Dots pattern */
 .shiny-cta::before {
   --size: calc(100% - var(--shadow-size) * 3);
   --position: 2px;
@@ -111,7 +105,6 @@
   z-index: -1;
 }
 
-/* Inner shimmer */
 .shiny-cta::after {
   --animation: shimmer linear infinite;
   width: 100%;
@@ -137,7 +130,6 @@
   animation: calc(var(--duration) * 1.5) breathe linear infinite;
 }
 
-/* Animate */
 .shiny-cta,
 .shiny-cta::before,
 .shiny-cta::after {

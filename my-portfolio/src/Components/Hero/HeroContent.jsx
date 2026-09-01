@@ -19,7 +19,6 @@ const SOCIALS = [
 const FOCUS_RING =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
-// Entrance timings, in ms — the sequence resolves well under 1.5s.
 const STEP = {
   badge: 120,
   intro: 320,
@@ -32,19 +31,7 @@ const STEP = {
 function HeroContent() {
   return (
     <div className="relative z-10 flex flex-col items-center text-center">
-      {/* Status badge — first thing the eye should land on */}
-      {/* <div
-        className="hero-rise mb-5 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/[0.08] px-4 py-1.5 text-[0.6875rem] font-semibold uppercase tracking-wider text-amber-300 backdrop-blur-sm shadow-[0_0_20px_rgba(251,191,36,0.18)] sm:text-xs"
-        style={{ animationDelay: `${STEP.badge}ms` }}
-      >
-        <span className="relative flex h-2 w-2 shrink-0">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
-        </span>
-        Portfolio under active construction — new work landing soon
-      </div> */}
 
-      {/* Introduction + Name with Glowing Hover Lightup Effect */}
       <p
         className="hero-rise group/name inline-block text-sm font-medium tracking-tight text-muted-foreground sm:text-lg transition-all duration-300 cursor-pointer hover:scale-110 hover:-translate-y-1"
         style={{ animationDelay: `${STEP.intro}ms` }}
@@ -61,7 +48,6 @@ function HeroContent() {
         Software Engineer · Web &amp; Mobile
       </p>
 
-      {/* Headline */}
       <h1
         className="hero-rise mt-6 max-w-[15ch] text-balance text-4xl font-semibold leading-[1.06] tracking-tight text-foreground sm:max-w-[18ch] sm:text-5xl md:text-6xl lg:text-[4.25rem]"
         style={{ animationDelay: `${STEP.headline}ms` }}
@@ -70,7 +56,6 @@ function HeroContent() {
         <span className="text-primary">Solution for Startups</span>
       </h1>
 
-      {/* Supporting line */}
       <p
         className="hero-rise mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
         style={{ animationDelay: `${STEP.support}ms` }}
@@ -78,12 +63,10 @@ function HeroContent() {
         Building high-performance applications for your services
       </p>
 
-      {/* Calls to action with transparent background on hover + white text */}
       <div
         className="hero-rise mt-9 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row"
         style={{ animationDelay: `${STEP.cta}ms` }}
       >
-        {/* Primary CTA — Solid white default -> Transparent BG + White text on hover */}
         <a
           href="#projects"
           className={`group inline-flex w-full items-center justify-center gap-2 rounded-full border border-foreground bg-foreground px-7 py-3.5 text-sm font-semibold tracking-tight text-background transition-all duration-300 hover:-translate-y-0.5 hover:bg-transparent hover:text-foreground hover:shadow-[0_0_30px_rgba(255,255,255,0.35)] motion-reduce:transform-none sm:w-auto ${FOCUS_RING}`}
@@ -92,16 +75,14 @@ function HeroContent() {
           <FaArrowRight className="text-xs transition-transform duration-300 group-hover:translate-x-1 group-hover:text-foreground motion-reduce:transform-none" />
         </a>
 
-        {/* Secondary CTA — Transparent default -> Solid white BG + Dark text on hover */}
         <a
           href="#contact"
-          className={`inline-flex w-full items-center justify-center rounded-full border border-border bg-black/[0.03] dark:bg-white/[0.03] px-7 py-3.5 text-sm font-semibold tracking-tight text-foreground backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground hover:bg-foreground hover:text-background hover:shadow-[0_0_30px_rgba(255,255,255,0.35)] sm:w-auto ${FOCUS_RING}`}
+          className={`inline-flex w-full items-center justify-center rounded-full border border-border bg-black/[0.03] dark:bg-white/[0.03] px-7 py-3.5 text-sm font-semibold tracking-tight text-foreground backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground hover:bg-foreground dark:hover:bg-white hover:text-background dark:hover:text-black hover:shadow-[0_0_30px_rgba(255,255,255,0.35)] sm:w-auto ${FOCUS_RING}`}
         >
           Let&apos;s Talk
         </a>
       </div>
 
-      {/* Social links */}
       <div
         className="hero-rise mt-9 mb-6 flex items-center gap-3"
         style={{ animationDelay: `${STEP.socials}ms` }}

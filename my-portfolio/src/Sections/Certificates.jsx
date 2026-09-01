@@ -1,9 +1,8 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import { FaExternalLinkAlt, FaAward, FaCertificate } from "react-icons/fa";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -166,17 +165,13 @@ const Certificates = () => {
       id="certificates"
       className="bg-background py-16 relative overflow-hidden"
     >
-      {/* Top Separator Glow */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent"></div>
       
-      {/* Single glow tucked behind the slider's leading edge, framed with a
-          soft edge vignette instead of mirrored corner blobs */}
       <div className="absolute top-[10%] left-[8%] w-[420px] h-[420px] bg-primary/[0.16] rounded-full blur-[130px] pointer-events-none mix-blend-screen"></div>
       <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent"></div>
       <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent"></div>
 
       <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8 relative z-10">
-        {/* Header */}
         <div
           className={`text-center mb-12 transition-all duration-1000 ${
             isVisible
@@ -196,7 +191,6 @@ const Certificates = () => {
           <p className="text-muted-foreground max-w-2xl mx-auto">Swipe to see more</p>
         </div>
 
-        {/* Slider */}
         <div
           className={`transition-all duration-1000 delay-300 relative ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
@@ -232,10 +226,8 @@ const Certificates = () => {
             {certificatesData.map((cert) => (
               <SwiperSlide key={cert.id} className="h-auto">
                 <div className="bg-card rounded-xl overflow-hidden shadow-lg hover:shadow-primary/20 transition-all duration-300 border border-black/10 dark:border-white/10 group h-full flex flex-col max-w-full mx-auto relative">
-                   {/* Card Glow Helper */}
                    <div className="absolute inset-0 bg-linear-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
 
-                  {/* Image Container */}
                   <div className="relative h-40 shrink-0 overflow-hidden">
                     <img
                       src={`https://placehold.co/600x400/2F3436/34A85A?text=${encodeURIComponent(
@@ -256,7 +248,6 @@ const Certificates = () => {
                     </div>
                   </div>
 
-                  {/* Content */}
                   <div className="p-5 flex flex-col flex-grow relative z-10">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-primary text-[10px] font-semibold px-2 py-0.5 rounded bg-primary/10 border border-primary/20">

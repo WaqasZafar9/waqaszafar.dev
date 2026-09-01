@@ -7,8 +7,6 @@ import ShinyButton from "./ShinyButton/ShinyButton";
 
 const BOOKING_URL = "https://cal.com/m-waqas-zafar/30min";
 
-// Height of the floating pill plus its top gap, so anchored scrolling
-// lands the section heading below the navbar rather than behind it.
 const SCROLL_OFFSET = 104;
 
 const NAV_LINKS = [
@@ -29,11 +27,6 @@ function Navbar() {
   const location = useLocation();
   const isHome = location.pathname === "/";
 
-  // Pill that glides beneath the hovered desktop nav link, tracking its
-  // position/width via transform so the motion stays GPU-smooth. While it's
-  // showing, it's the only highlight on screen — the active link's own
-  // static background steps aside (see hoveredId below) so two links never
-  // read as highlighted at once.
   const desktopNavRef = useRef(null);
   const linkRefs = useRef({});
   const [hoverPill, setHoverPill] = useState({ left: 0, width: 0, opacity: 0 });
@@ -61,7 +54,6 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Highlight the section currently in view.
   useEffect(() => {
     if (!isHome) return undefined;
 
@@ -91,7 +83,6 @@ function Navbar() {
 
     observeSections();
 
-    // Sections below the fold are lazy loaded, so pick them up as they mount.
     const domWatcher = new MutationObserver(observeSections);
     domWatcher.observe(document.body, { childList: true, subtree: true });
 
@@ -101,7 +92,6 @@ function Navbar() {
     };
   }, [isHome]);
 
-  // Lock background scrolling and allow Escape to dismiss the mobile menu.
   useEffect(() => {
     if (!isMobileMenuOpen) return undefined;
 
@@ -122,7 +112,6 @@ function Navbar() {
   const handleNavClick = (event, sectionId) => {
     closeMobileMenu();
 
-    // Let the browser handle modified clicks so links stay openable in new tabs.
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) {
       return;
     }
@@ -143,9 +132,6 @@ function Navbar() {
   const renderNavLink = (link, variant) => {
     const isActive = isHome && activeSection === link.id;
     const isDesktop = variant === "desktop";
-    // The active link only wears its own static pill while nothing else is
-    // hovered/focused — once the sliding hover pill is showing somewhere,
-    // it's the sole highlight, so the two never overlap into a double one.
     const showActiveBg = isActive && (hoveredId === null || hoveredId === link.id);
 
     return (
@@ -200,7 +186,6 @@ function Navbar() {
               : "border-black/[0.08] dark:border-white/[0.08] bg-black/[0.03] dark:bg-white/[0.03] py-2.5 pl-4 pr-2.5 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.7)] sm:pl-6 sm:pr-3"
           }`}
         >
-          {/* Brand */}
           <a
             href={isHome ? "#home" : "/#home"}
             onClick={(event) => handleNavClick(event, "home")}
@@ -222,23 +207,17 @@ function Navbar() {
             </span>
           </a>
 
-          {/* Desktop navigation */}
           <nav
             ref={desktopNavRef}
             aria-label="Primary"
             onMouseLeave={hideHoverPill}
             onBlur={(event) => {
-              // Only clear once focus actually leaves the nav — moving
-              // between links inside it re-fires onFocus before this,
-              // so it never flickers off between tabs.
               if (!event.currentTarget.contains(event.relatedTarget)) {
                 hideHoverPill();
               }
             }}
             className="relative hidden items-center gap-0.5 md:flex lg:gap-1"
           >
-            {/* Glides beneath the hovered/focused link — position driven by
-                transform so it stays off the layout-thrashing path. */}
             <span
               aria-hidden="true"
               className="pointer-events-none absolute inset-y-0.5 left-0 z-0 rounded-full bg-black/[0.06] dark:bg-white/[0.06] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] transition-[transform,width,opacity] duration-300 ease-out"
@@ -251,13 +230,12 @@ function Navbar() {
             {NAV_LINKS.map((link) => renderNavLink(link, "desktop"))}
           </nav>
 
-          {/* Desktop actions — secondary (Resume) + primary (Hire Me) */}
           <div className="hidden shrink-0 items-center gap-2 md:flex">
             <a
               href={resume}
               target="_blank"
               rel="noopener noreferrer"
-              className={`rounded-full border border-black/15 dark:border-white/15 bg-black/[0.03] dark:bg-white/[0.03] px-4 py-2.5 text-sm font-semibold tracking-tight text-foreground/80 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground hover:bg-foreground hover:text-background hover:shadow-[0_0_24px_-4px_rgba(255,255,255,0.4)] motion-reduce:transform-none ${FOCUS_RING}`}
+              className={`rounded-full border border-black/15 dark:border-white/15 bg-black/[0.03] dark:bg-white/[0.03] px-4 py-2.5 text-sm font-semibold tracking-tight text-foreground/80 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground hover:bg-foreground dark:hover:bg-white hover:text-background dark:hover:text-black hover:shadow-[0_0_24px_-4px_rgba(255,255,255,0.4)] motion-reduce:transform-none ${FOCUS_RING}`}
             >
               Resume
             </a>
@@ -271,7 +249,6 @@ function Navbar() {
             </ShinyButton>
           </div>
 
-          {/* Mobile toggle */}
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
@@ -284,7 +261,6 @@ function Navbar() {
           </button>
         </div>
 
-        {/* Mobile navigation panel */}
         <div
           id="mobile-navigation"
           hidden={!isMobileMenuOpen}
@@ -298,14 +274,13 @@ function Navbar() {
             {NAV_LINKS.map((link) => renderNavLink(link, "mobile"))}
           </nav>
 
-          {/* Actions — secondary (Resume) + primary (Hire Me) */}
           <div className="mt-2 flex flex-col gap-2">
             <a
               href={resume}
               target="_blank"
               rel="noopener noreferrer"
               onClick={closeMobileMenu}
-              className={`block rounded-full border border-black/15 dark:border-white/15 bg-black/[0.03] dark:bg-white/[0.03] px-5 py-3 text-center text-sm font-semibold tracking-tight text-foreground/80 backdrop-blur-sm transition-all duration-300 hover:border-foreground hover:bg-foreground hover:text-background active:scale-[0.98] ${FOCUS_RING}`}
+              className={`block rounded-full border border-black/15 dark:border-white/15 bg-black/[0.03] dark:bg-white/[0.03] px-5 py-3 text-center text-sm font-semibold tracking-tight text-foreground/80 backdrop-blur-sm transition-all duration-300 hover:border-foreground hover:bg-foreground dark:hover:bg-white hover:text-background dark:hover:text-black active:scale-[0.98] ${FOCUS_RING}`}
             >
               Resume
             </a>

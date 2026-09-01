@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from "react";
 import { FaMedium, FaArrowRight } from "react-icons/fa6";
 import BlogCard from "../Components/ui/BlogCard";
 
-// Articles I've written — add new posts here as they go up on Medium.
 const articles = [
   {
     title: "How to Transition from Frontend to Backend Development",

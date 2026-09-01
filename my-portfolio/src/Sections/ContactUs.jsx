@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { FaPaperPlane, FaUser, FaEnvelope } from "react-icons/fa"; // Importing basic icons
-import { FaPhone, FaLocationDot, FaLinkedin, FaGithub, FaXTwitter, FaCircleCheck, FaCircleExclamation } from "react-icons/fa6"; // Importing other icons
+import { FaPaperPlane, FaUser, FaEnvelope } from "react-icons/fa";
+import { FaPhone, FaLocationDot, FaLinkedin, FaGithub, FaXTwitter, FaCircleCheck, FaCircleExclamation } from "react-icons/fa6";
 import ShinyButton from "../Components/ShinyButton/ShinyButton";
 
 function ContactUs() {
@@ -121,11 +121,8 @@ function ContactUs() {
       id="contact"
       className="bg-background min-h-screen py-16 sm:py-20 px-4 relative overflow-hidden flex items-center"
     >
-      {/* Top Separator Glow */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent"></div>
       
-      {/* Closing-section glow — anchored bottom-center like a stage light
-          rising under the CTA, distinct from the corner blobs used above */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute left-1/2 bottom-[-15%] h-[520px] w-[min(85vw,900px)] -translate-x-1/2 rounded-full bg-primary/[0.12] blur-[150px]"
@@ -134,7 +131,6 @@ function ContactUs() {
       <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
           
-          {/* Left Column: Content & Info */}
           <div className="space-y-8 sm:space-y-10">
             <div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
@@ -163,21 +159,19 @@ function ContactUs() {
             </div>
 
             <div className="flex items-center gap-3 sm:gap-4 pt-2 sm:pt-4">
-              <a href="https://www.linkedin.com/in/m-waqas-zafar" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-all duration-300">
+              <a href="https://www.linkedin.com/in/m-waqas-zafar" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-foreground hover:bg-foreground dark:hover:bg-white hover:text-background dark:hover:text-black transition-all duration-300">
                 <FaLinkedin className="text-lg sm:text-xl" />
               </a>
-              <a href="https://github.com/WaqasZafar9" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-all duration-300">
+              <a href="https://github.com/WaqasZafar9" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-foreground hover:bg-foreground dark:hover:bg-white hover:text-background dark:hover:text-black transition-all duration-300">
                 <FaGithub className="text-lg sm:text-xl" />
               </a>
-              <a href="https://x.com/m_waqaszafar" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-all duration-300">
+              <a href="https://x.com/m_waqaszafar" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center text-foreground hover:bg-foreground dark:hover:bg-white hover:text-background dark:hover:text-black transition-all duration-300">
                 <FaXTwitter className="text-lg sm:text-xl" />
               </a>
             </div>
           </div>
 
-          {/* Right Column: Form */}
           <div className="bg-card/90 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 border border-black/10 dark:border-white/10 shadow-2xl relative overflow-hidden group">
-            {/* Form Glow Helper Removed */}
 
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div className="space-y-2">
@@ -240,9 +234,6 @@ function ContactUs() {
         </div>
       </div>
 
-      {/* Portaled to <body>: the section animates on scroll, and a transformed
-          ancestor would otherwise become the containing block for this
-          position:fixed overlay. */}
       {isStatusModalOpen &&
         status.message &&
         createPortal(

@@ -1,20 +1,16 @@
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 
-// Priority imports (above-the-fold content)
 import Navbar from "../Components/navbar";
 import Herosec from "../Sections/Herosec";
 import BrandMarquee from "../Components/BrandMarquee/BrandMarquee";
 import Reveal from "../Components/Motion/Reveal";
 
-// Lazy load below-the-fold sections for better performance
 const Aboutme = lazy(() => import("../Sections/Aboutme"));
 const Services = lazy(() => import("../Sections/Services"));
 const Experience = lazy(() => import("../Sections/Experience"));
 const Skills = lazy(() => import("../Sections/Skills"));
 const Projects = lazy(() => import("../Sections/Projects"));
 const HowIWork = lazy(() => import("../Sections/HowIWork"));
-// const Education = lazy(() => import("../Sections/education"));
-// const Certificates = lazy(() => import("../Sections/Certificates"));
 const ContactUs = lazy(() => import("../Sections/ContactUs"));
 const Reading = lazy(() => import("../Sections/Reading"));
 const Footer = lazy(() => import("../Components/Footer"));
@@ -25,7 +21,6 @@ function Home() {
   return (
     <>
    
-      {/* Primary Meta Tags */}
       <title>Waqas Zafar - Software Developer Portfolio</title>
       <meta
         name="title"
@@ -40,7 +35,6 @@ function Home() {
         content="Waqas Zafar Portfolio, Software Developer, Full Stack Developer, Web Developer, React Developer, Next.js Developer, Node.js, JavaScript, Frontend Developer, Backend Developer, Mobile App Developer, AI Automation, Gen AI, UI/UX Design, Responsive Web Design, waqaszafar, M Waqas Zafar, Muhammad Waqas Zafar, Lahore Pakistan Developer"
       />
 
-      {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://waqaszafar.tech/" />
       <meta
@@ -56,7 +50,6 @@ function Home() {
         content="https://waqaszafar.tech/og-image.png"
       />
 
-      {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content="https://waqaszafar.tech/" />
       <meta
@@ -72,17 +65,13 @@ function Home() {
         content="https://waqaszafar.tech/twitter-image.png"
       />
 
-      {/* Canonical URL */}
       <link rel="canonical" href="https://waqaszafar.tech/" />
 
       <div className="overflow-hidden">
-        {/* Critical above-the-fold content - loaded immediately */}
         <Navbar />
         <Herosec />
         <BrandMarquee />
 
-        {/* Below-the-fold sections - lazy loaded with Suspense.
-            Each gets its own entrance choreography via Reveal's variant. */}
         <Suspense fallback={<SectionShimmerSkeleton />}>
           <Reveal id="about" aria-label="About Me Section" variant="unfold">
             <Aboutme />
@@ -128,22 +117,6 @@ function Home() {
             <Reading />
           </Reveal>
         </Suspense>
-
-        {/* <Suspense fallback={<SectionShimmerSkeleton />}>
-          <section id="education" aria-label="Education Section">
-            <Education />
-          </section>
-        </Suspense> */}
-
-        {/* <Suspense fallback={<SectionShimmerSkeleton />}>
-          <Reveal
-            id="certificates"
-            aria-label="Certificates Section"
-            variant="flip-up"
-          >
-            <Certificates />
-          </Reveal>
-        </Suspense> */}
 
         <Suspense fallback={<SectionShimmerSkeleton />}>
           <Reveal id="contact" aria-label="Contact Section" variant="spiral">

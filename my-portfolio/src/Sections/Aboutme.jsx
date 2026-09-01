@@ -19,7 +19,6 @@ const WORKED_ON = [
   "Guest Pass",
 ];
 
-// Decorative depth motes — position, size and drift speed.
 const MOTES = [
   { top: "18%", left: "12%", size: 3, duration: 9, delay: 0 },
   { top: "32%", left: "82%", size: 2, duration: 11, delay: 1.4 },
@@ -36,7 +35,6 @@ function Aboutme() {
   const sceneRef = useRef(null);
   const [revealed, setRevealed] = useState(false);
 
-  // Fire the staggered reveal once, when the section first scrolls into view.
   useEffect(() => {
     const scene = sceneRef.current;
     if (!scene) return undefined;
@@ -55,7 +53,6 @@ function Aboutme() {
     return () => observer.disconnect();
   }, []);
 
-  // Cursor parallax written straight to CSS variables through rAF
   useEffect(() => {
     const scene = sceneRef.current;
     if (!scene) return undefined;
@@ -106,12 +103,8 @@ function Aboutme() {
       }`}
       style={{ "--mx": "0", "--my": "0" }}
     >
-      {/* Flat, solid dark backdrop — no grid/haze layers. Content sits on a
-          clean surface so text and cards carry all the contrast. */}
       <div className="pointer-events-none absolute inset-0 dark:bg-[#0b0e14]" />
 
-      {/* One soft glow directly behind the portrait — just enough lift to
-          keep the black from feeling like a void, without fogging the page. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute left-1/2 top-1/2 h-[min(55vw,460px)] w-[min(55vw,460px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.1] blur-[120px]"
@@ -121,13 +114,11 @@ function Aboutme() {
         }}
       />
 
-      {/* Top hairline — matches the primary separator every other section opens with */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-0 left-0 h-px w-full bg-linear-to-r from-transparent via-primary/50 to-transparent"
       />
 
-      {/* Depth motes */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         {MOTES.map((mote) => (
           <span
@@ -146,12 +137,10 @@ function Aboutme() {
       </div>
 
       <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 gap-y-10 lg:grid-cols-12 lg:grid-rows-[1fr_auto] lg:gap-x-8 lg:gap-y-0">
-        {/* Portrait — pure black centerpiece (UNTOUCHED) */}
         <div
           className="reveal relative lg:col-span-6 lg:col-start-4 lg:row-start-1 lg:z-10 lg:flex lg:flex-col lg:items-center lg:justify-end"
           style={{ "--d": "120ms" }}
         >
-          {/* Portrait stage — parallax + perspective wrapper */}
           <div
             className="relative mx-auto w-full max-w-[420px] sm:max-w-[520px] lg:max-w-[620px] xl:max-w-[680px] [perspective:1000px] transition-transform duration-200 ease-out"
             style={{
@@ -160,7 +149,6 @@ function Aboutme() {
             }}
           >
             <div className="relative z-10">
-              {/* Image container */}
               <div className="relative flex h-[420px] items-end overflow-hidden sm:h-[520px] lg:h-[620px] xl:h-[680px]">
                 <img
                   src={portrait}
@@ -182,12 +170,7 @@ function Aboutme() {
             </div>
           </div>
 
-          {/* Actions — in normal flow beneath portrait */}
           <div className="reveal relative z-30 -mt-14 flex w-full flex-col items-center gap-4 text-center sm:-mt-20 lg:-mt-24" style={{ "--d": "560ms" }}>
-            {/* "Previously designed for" Header with Brand Badges.
-                flex-wrap + shrunk mobile sizing keeps this pill from
-                overflowing (and getting clipped by the section's
-                overflow-hidden) on narrow phones. */}
             <div className="flex max-w-full flex-wrap items-center justify-center gap-2 bg-background/80 px-3 py-1.5 rounded-full backdrop-blur-md border border-black/15 dark:border-white/15 shadow-xl sm:gap-3 sm:px-4">
               <span className="text-[0.6875rem] font-normal text-muted-foreground/90 tracking-wide sm:text-xs md:text-sm">
                 Previously designed for
@@ -214,7 +197,6 @@ function Aboutme() {
               </div>
             </div>
 
-            {/* 2 Sleek CTA Buttons matching Reference Screenshot */}
             <div className="flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:justify-center">
               <ShinyButton
                 href="#projects"
@@ -234,12 +216,10 @@ function Aboutme() {
           </div>
         </div>
 
-        {/* Introduction (Left Column moved down with top padding) */}
         <div
           className="reveal relative z-20 group/intro lg:col-span-3 lg:col-start-1 lg:row-start-1 lg:flex lg:flex-col lg:justify-start pt-8 sm:pt-12 lg:pt-24"
           style={{ "--d": "0ms" }}
         >
-          {/* Aligned Editorial Label */}
           <p className="mb-6 flex items-center gap-3 text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-muted-foreground">
             <span
               aria-hidden="true"
@@ -273,12 +253,10 @@ function Aboutme() {
           </p>
         </div>
 
-        {/* What I build (Right Column moved down with top padding) */}
         <div
           className="reveal relative z-20 lg:col-span-3 lg:col-start-10 lg:row-start-1 lg:flex lg:flex-col lg:justify-start pt-8 sm:pt-12 lg:pt-24"
           style={{ "--d": "420ms" }}
         >
-          {/* Header: WHAT I BUILD */}
           <p className="flex items-center gap-3 text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-muted-foreground lg:justify-end">
             <span
               aria-hidden="true"
@@ -287,7 +265,6 @@ function Aboutme() {
             What I Build
           </p>
 
-          {/* Stat cards — icon, headline number, label */}
           <div className="mt-6 grid grid-cols-2 gap-3">
             {STATS.map((stat) => (
               <div
@@ -305,7 +282,6 @@ function Aboutme() {
             ))}
           </div>
 
-          {/* Selected Products & Teams Footer Block */}
           <div className="mt-8 pt-5 border-t border-black/[0.08] dark:border-white/[0.08]">
             <p className="flex items-center gap-3 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-muted-foreground lg:justify-end">
               <span

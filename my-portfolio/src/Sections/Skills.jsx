@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   SiJavascript,
   SiReact,
@@ -60,7 +60,6 @@ function Skills() {
     };
   }, []);
 
-  // Flat pool of every skill/tool — no category labels, just a general skills cloud.
   const ALL_SKILLS = [
     { name: "Javascript", icon: SiJavascript, color: "#F7DF1E" },
     { name: "WEBFLOW", icon: SiWebflow, color: "#4353FF" },
@@ -72,9 +71,6 @@ function Skills() {
     { name: "React Native", icon: SiReact, color: "#61DAFB" },
     { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
     { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
-    // No fixed color — the GitHub mark is monochrome, so it inherits
-    // text-foreground and stays visible in both themes (a light PNG here
-    // used to vanish against a light card).
     { name: "Git & GitHub", icon: SiGithub, color: null },
     { name: "VS Code", icon: vscodeImg, color: "#000000" },
     { name: "IntelliJ", icon: intelliJImg, color: "#000000" },
@@ -86,8 +82,6 @@ function Skills() {
     { name: "Postman", icon: SiPostman, color: "#FF6C37" },
   ];
 
-  // Interleave into two evenly-mixed rows so each row has a varied spread
-  // of stacks/tools rather than one row per old category.
   const skillRows = [
     ALL_SKILLS.filter((_, i) => i % 2 === 0),
     ALL_SKILLS.filter((_, i) => i % 2 === 1),
@@ -125,12 +119,10 @@ function Skills() {
   };
 
   const SkillSlider = ({ items, direction = "left" }) => {
-    // Duplicate items multiple times for seamless infinite scroll
     const duplicatedItems = [...items, ...items, ...items];
 
     return (
       <div className="relative w-full overflow-hidden">
-        {/* Gradient overlays matching container bg */}
         <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
@@ -186,16 +178,12 @@ function Skills() {
       id="skills"
       className="bg-background flex items-center justify-center py-20 overflow-hidden relative"
     >
-      {/* Top Separator Glow */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent"></div>
       
-      {/* Wide, flat center glow — reads like a stage light under the
-          scrolling skill rows, rather than corner blobs */}
       <div className="absolute left-1/2 top-1/2 h-[280px] w-[min(90vw,1100px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.09] blur-[140px] pointer-events-none"></div>
 
       <div className="container max-w-[1600px] relative z-10">
         
-        {/* Beating Title Section */}
         <div
           className={`flex flex-col items-center mb-16 gap-6 transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
@@ -209,7 +197,6 @@ function Skills() {
           </p>
         </div>
 
-        {/* Main Content - Container Removed for Clean Look */}
         <div
           className={`transition-all duration-1000 delay-200 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"

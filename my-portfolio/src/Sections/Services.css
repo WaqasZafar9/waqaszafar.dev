@@ -1,7 +1,3 @@
-/* Spotlight card — a soft radial highlight that follows the cursor,
-   driven by --mx/--my custom properties written directly to the DOM node
-   on mousemove (no React state, so no re-render cost — same technique as
-   the cursor parallax in Aboutme.jsx). */
 .service-card {
   --mx: 50%;
   --my: 50%;

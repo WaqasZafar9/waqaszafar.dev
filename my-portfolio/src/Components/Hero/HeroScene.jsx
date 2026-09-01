@@ -9,18 +9,12 @@ import {
   Vector2,
 } from "three";
 
-// Radius within which cursor triggers proximity reaction
 const NOTICE_RADIUS = 0.85;
 
-/**
- * Builds the mascot body geometry matching the reference design:
- * Smooth rounded dome silhouette fading into a flared skirt hem.
- */
 function useGhostGeometry() {
   const geometry = useMemo(() => {
     const profile = [];
 
-    // Smooth semi-spherical head dome
     const DOME = 28;
     for (let i = 0; i <= DOME; i++) {
       const angle = (i / DOME) * (Math.PI / 2);
@@ -29,7 +23,6 @@ function useGhostGeometry() {
       );
     }
 
-    // Body with subtle curve towards hem
     const BODY = 22;
     for (let i = 1; i <= BODY; i++) {
       const t = i / BODY;
@@ -55,7 +48,6 @@ function useGhostGeometry() {
       const y = position.getY(i);
       const z = position.getZ(i);
 
-      // Soft hem wave
       if (y < HEM_START) {
         const depth = MathUtils.clamp((HEM_START - y) / HEM_DEPTH, 0, 1);
         const theta = Math.atan2(z, x);
@@ -63,7 +55,6 @@ function useGhostGeometry() {
         position.setY(i, y + Math.sin(theta * 5) * 0.12 * ease);
       }
 
-      // Smooth vertical 3-stop gradient
       const t = MathUtils.clamp((y + 0.96) / 1.94, 0, 1);
       if (t > 0.5) {
         shade.copy(middle).lerp(top, (t - 0.5) * 2);
@@ -105,23 +96,18 @@ function Ghost({ pointer, compact, scrollProgress, onHoverChange, onPoke, onFloa
     const distance = Math.hypot(x, y);
     const attention = MathUtils.clamp(1 - distance / NOTICE_RADIUS, 0, 1);
 
-    // 1. Idle Floating (smooth vertical bobbing)
     const floatY = Math.sin(time * 0.72) * 0.14;
     const swayX = Math.sin(time * 0.38) * 0.08;
 
-    // 2. Continuous 3-axis micro rotation
     const idleRotX = Math.sin(time * 0.48) * 0.04;
     const idleRotY = Math.sin(time * 0.34) * 0.08;
     const idleRotZ = Math.cos(time * 0.42) * 0.04;
 
-    // 3. Subtle breathing scale
     const breath = 1 + Math.sin(time * 1.4) * 0.015;
 
-    // 4. Scroll interaction
     const scrollOffsetY = scrollProgress * 1.5;
     const scrollScaleMult = Math.max(0.55, 1 - scrollProgress * 0.45);
 
-    // Damped position tracking
     root.position.x = MathUtils.damp(
       root.position.x,
       swayX + x * 0.36 * attention,
@@ -135,7 +121,6 @@ function Ghost({ pointer, compact, scrollProgress, onHoverChange, onPoke, onFloa
       step
     );
 
-    // Damped rotation tracking (leaning toward mouse)
     root.rotation.y = MathUtils.damp(
       root.rotation.y,
       idleRotY + x * 0.52 * attention,
@@ -155,7 +140,6 @@ function Ghost({ pointer, compact, scrollProgress, onHoverChange, onPoke, onFloa
       step
     );
 
-    // Damped eye tracking (eyes shift on face to look directly at cursor)
     const targetEyeX = x * 0.12 * attention;
     const targetEyeY = -y * 0.08 * attention;
 
@@ -189,12 +173,10 @@ function Ghost({ pointer, compact, scrollProgress, onHoverChange, onPoke, onFloa
       );
     }
 
-    // Scale calculation
     const targetScale = (compact ? 0.78 : 1.0) * (hovered ? 1.06 : 1) * breath * scrollScaleMult;
     const scale = MathUtils.damp(root.scale.x, targetScale, 4, step);
     root.scale.setScalar(scale);
 
-    // Pass float Y up to update ground shadow
     if (onFloatUpdate) {
       onFloatUpdate(floatY);
     }
@@ -235,7 +217,6 @@ function Ghost({ pointer, compact, scrollProgress, onHoverChange, onPoke, onFloa
         />
       </mesh>
 
-      {/* Left Eye (Capsule shape tracking mouse) */}
       <mesh
         ref={leftEyeRef}
         position={[-0.26, 0.3, 0.82]}
@@ -245,7 +226,6 @@ function Ghost({ pointer, compact, scrollProgress, onHoverChange, onPoke, onFloa
         <meshBasicMaterial color="#08090f" />
       </mesh>
 
-      {/* Right Eye (Capsule shape tracking mouse) */}
       <mesh
         ref={rightEyeRef}
         position={[0.26, 0.3, 0.82]}
@@ -267,7 +247,6 @@ function HeroScene({
   onFloatUpdate = () => {},
 }) {
   const pointer = useRef({ x: 0, y: 0 });
-  // Rim lights use the theme's red accent in both light and dark mode.
   const rimColor = "#ea2845";
   const rimColorSoft = "#f16e82";
 
@@ -296,9 +275,7 @@ function HeroScene({
         frameloop={active ? "always" : "never"}
       >
         <ambientLight intensity={0.85} />
-        {/* Soft key light */}
         <directionalLight position={[2.5, 4, 5]} intensity={2.2} color="#ffffff" />
-        {/* Rim lights, retuned to the active theme's primary accent */}
         <pointLight position={[-4, -1, 2.5]} intensity={24} color={rimColor} />
         <pointLight position={[4, -2.5, -2]} intensity={16} color={rimColorSoft} />
 

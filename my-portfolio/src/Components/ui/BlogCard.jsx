@@ -1,15 +1,3 @@
-// Adapted from the shadcn-style "blog-cards" community component.
-// This project is a Vite + JS React app (no Next.js router, no TS), so the
-// original `next/link` usage is swapped for a plain anchor and prop-types
-// are dropped to match the rest of the codebase's conventions.
-//
-// The original design puts title — dashed line — date on one `nowrap` row,
-// which only holds up for short titles. A real post title ("How to
-// Transition from Frontend to Backend Development") ran off the edge of
-// the screen on mobile since it never wraps. Below `sm:` the row now
-// stacks (title wraps freely, date drops underneath); the single dashed
-// row comes back at `sm:` and up where there's enough width for it, with
-// a truncating ellipsis as a safety net instead of overflowing.
 const BlogCard = ({ title, date, description, href = "#" }) => {
   return (
     <a

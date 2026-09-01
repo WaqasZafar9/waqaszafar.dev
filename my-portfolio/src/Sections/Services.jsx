@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import {
   FaCode,
   FaMobileScreenButton,
@@ -56,11 +56,6 @@ const SERVICES = [
   },
 ];
 
-/**
- * A card whose hover spotlight tracks the cursor. Position is written
- * straight to CSS custom properties on the node (no React state), so
- * moving the mouse never triggers a re-render.
- */
 function ServiceCard({ service }) {
   const handleMouseMove = useCallback((e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -107,19 +102,13 @@ function Services() {
       id="services"
       className="relative bg-background py-20 px-4 sm:px-6 font-sans overflow-hidden"
     >
-      {/* Top Separator — matches the hairline every other section opens with */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent" />
 
-      {/* Flat dark surface — one tight glow anchored top-right (build-menu
-          corner), no mirrored second blob, so the section reads distinct
-          from Experience/HowIWork below it. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute right-[-8%] top-[-10%] h-[460px] w-[460px] rounded-full bg-primary/[0.14] blur-[120px]"
       />
 
-      {/* Faint grid confined to the header corner — a signature texture
-          unique to this section rather than a full-bleed pattern */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.1]"
@@ -135,7 +124,6 @@ function Services() {
       />
 
       <div className="mx-auto max-w-7xl relative z-10">
-        {/* Header */}
         <div className="max-w-2xl">
           <span className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
             <span className="h-px w-8 bg-primary/60" />
@@ -150,7 +138,6 @@ function Services() {
           </p>
         </div>
 
-        {/* Services grid */}
         <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((service) => (
             <ServiceCard key={service.title} service={service} />

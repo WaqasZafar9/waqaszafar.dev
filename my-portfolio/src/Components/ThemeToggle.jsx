@@ -8,12 +8,6 @@ function getInitialTheme() {
   return document.documentElement.classList.contains("dark") ? "dark" : "light";
 }
 
-/**
- * Fixed bottom-left button that flips the site between the dark and light
- * palettes defined in index.css (`:root` = light, `.dark` = dark). The
- * choice is persisted so it survives reloads and future visits; the inline
- * script in index.html applies it before first paint to avoid a flash.
- */
 function ThemeToggle() {
   const [theme, setTheme] = useState(getInitialTheme);
 
@@ -22,8 +16,7 @@ function ThemeToggle() {
     try {
       localStorage.setItem(STORAGE_KEY, theme);
     } catch {
-      // Storage may be unavailable (private mode, disabled cookies, etc.) —
-      // the toggle still works for the current session.
+      return;
     }
   }, [theme]);
 

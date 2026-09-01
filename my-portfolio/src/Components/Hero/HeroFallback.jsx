@@ -1,12 +1,5 @@
-import React from "react";
 
-/**
- * HeroFallback
- * 2.5D Mascot Fallback representation shown during loading, fallback,
- * or when the visitor prefers reduced motion.
- */
 function HeroFallback({ mousePos = { x: 0, y: 0 }, hovered = false }) {
-  // 2.5D perspective tilt calculations
   const rotateX = -mousePos.y * 14;
   const rotateY = mousePos.x * 18;
   const translateX = mousePos.x * 12;
@@ -20,7 +13,6 @@ function HeroFallback({ mousePos = { x: 0, y: 0 }, hovered = false }) {
           transform: `translate3d(${translateX}px, ${translateY}px, 0px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         }}
       >
-        {/* Dynamic drop shadow */}
         <div
           className="absolute inset-0 rounded-full bg-primary/30 blur-[40px] transition-opacity duration-300"
           style={{
@@ -44,13 +36,11 @@ function HeroFallback({ mousePos = { x: 0, y: 0 }, hovered = false }) {
             </linearGradient>
           </defs>
 
-          {/* Dome and wavy hem */}
           <path
             fill="url(#ghostBody)"
             d="M100 12c-38 0-69 31-69 69v108c0 7 8 11 13 6l14-13c4-4 10-4 14 0l13 13c4 4 10 4 14 0l13-13c4-4 10-4 14 0l14 13c5 5 13 1 13-6V81c0-38-31-69-69-69z"
           />
 
-          {/* Eyes */}
           <ellipse cx="78" cy="88" rx="9" ry="13" fill="#0a0b12" />
           <ellipse cx="122" cy="88" rx="9" ry="13" fill="#0a0b12" />
         </svg>
