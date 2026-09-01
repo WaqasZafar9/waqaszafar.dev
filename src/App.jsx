@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import Home from "./Pages/Home";
 import NotFound from "./Pages/NotFound";
 import ThemeToggle from "./Components/ThemeToggle";
@@ -13,6 +14,7 @@ function App() {
         </Routes>
       </Router>
       <ThemeToggle />
+      <SpeedInsights />
     </>
   );
 }
