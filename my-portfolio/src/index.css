@@ -52,55 +52,56 @@
 
 /* ============================================================
    "Northern Lights" theme — pulled from 21st.dev, applied
-   site-wide. `:root` holds the light palette; `.dark` (toggled
-   by ThemeToggle, see src/Components/ThemeToggle.jsx) overrides
-   it with the dark palette. Dark is the default on first visit
-   (see the inline script in index.html), light is opt-in.
+   site-wide. `:root` holds the light half of "NestJS Dark" (same
+   red accent, flipped onto white/near-black surfaces); `.dark`
+   (toggled by ThemeToggle, see src/Components/ThemeToggle.jsx)
+   holds the dark half. Dark is the default on first visit (see
+   the inline script in index.html), light is opt-in.
    ============================================================ */
 :root {
   --card: #ffffff;
-  --ring: #34a85a;
-  --input: #d4d4d4;
-  --muted: #ddd9c4;
-  --accent: #66d9ef;
-  --border: #d4d4d4;
+  --ring: #ea2845;
+  --input: #e5e7eb;
+  --muted: #e5e7eb;
+  --accent: #ea2845;
+  --border: #e5e7eb;
   --radius: 0.5rem;
-  --chart-1: #34a85a;
-  --chart-2: #6495ed;
-  --chart-3: #66d9ef;
-  --chart-4: #4682b4;
-  --chart-5: #1a9641;
+  --chart-1: #ea2845;
+  --chart-2: #111111;
+  --chart-3: #6b7280;
+  --chart-4: #9ca3af;
+  --chart-5: #d1d5db;
   --popover: #ffffff;
-  --primary: #34a85a;
-  --sidebar: #f9f9fa;
+  --primary: #ea2845;
+  --sidebar: #ffffff;
   --spacing: 0.25rem;
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
   --font-sans: "Manrope", sans-serif;
-  --secondary: #6495ed;
-  --background: #f9f9fa;
+  --secondary: #111111;
+  --background: #ffffff;
   --font-serif: ui-serif, Georgia, serif;
-  --foreground: #333333;
-  --destructive: #ef4444;
-  --shadow-blur: 8px;
+  --foreground: #111111;
+  --destructive: #ea2845;
+  --shadow-blur: 0px;
   --shadow-color: hsl(0 0% 0%);
-  --sidebar-ring: #34a85a;
-  --shadow-spread: -1px;
+  --sidebar-ring: #ea2845;
+  --shadow-spread: 0px;
   --letter-spacing: 0em;
-  --shadow-opacity: 0.1;
-  --sidebar-accent: #66d9ef;
-  --sidebar-border: #d4d4d4;
-  --card-foreground: #333333;
+  --shadow-opacity: 0;
+  --sidebar-accent: #ea2845;
+  --sidebar-border: #e5e7eb;
+  --card-foreground: #111111;
   --shadow-offset-x: 0px;
-  --shadow-offset-y: 4px;
-  --sidebar-primary: #34a85a;
-  --muted-foreground: #6e6e6e;
-  --accent-foreground: #333333;
-  --popover-foreground: #333333;
+  --shadow-offset-y: 0px;
+  --sidebar-primary: #ea2845;
+  --muted-foreground: #6b7280;
+  --accent-foreground: #ffffff;
+  --popover-foreground: #111111;
   --primary-foreground: #ffffff;
-  --sidebar-foreground: #333333;
+  --sidebar-foreground: #111111;
   --secondary-foreground: #ffffff;
   --destructive-foreground: #ffffff;
-  --sidebar-accent-foreground: #333333;
+  --sidebar-accent-foreground: #ffffff;
   --sidebar-primary-foreground: #ffffff;
 }
 
@@ -208,36 +209,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ambient room light — a barely-there wash behind the whole page, tinted
-   with the active theme's primary accent (green in light, red in dark) so
-   the whole site reads as one accent color. */
+/* The "NestJS Dark" system (now the palette for both light and dark
+   surfaces) is intentionally flat — no ambient glow, hierarchy comes from
+   contrast and borders instead. Rule kept (rather than deleted outright) so
+   Herosec's own ambient wash — a separate, section-scoped effect — is the
+   only radial glow left on the page. */
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      60% 45% at 50% 0%,
-      color-mix(in srgb, var(--color-primary) 9%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      45% 40% at 12% 22%,
-      color-mix(in srgb, var(--color-primary) 5%, transparent),
-      transparent 72%
-    ),
-    radial-gradient(
-      50% 45% at 88% 78%,
-      color-mix(in srgb, var(--color-primary) 4%, transparent),
-      transparent 72%
-    );
-}
-
-/* The NestJS Dark system is intentionally flat — no ambient glow, hierarchy
-   comes from contrast and borders instead. */
-.dark body::before {
   display: none;
 }
 

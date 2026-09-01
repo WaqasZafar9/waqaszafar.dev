@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import useIsDarkMode from "./useIsDarkMode";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   BufferAttribute,
@@ -268,11 +267,9 @@ function HeroScene({
   onFloatUpdate = () => {},
 }) {
   const pointer = useRef({ x: 0, y: 0 });
-  const isDark = useIsDarkMode();
-  // Rim light tint follows the active theme's primary accent — green in
-  // light mode, red ("NestJS Dark") in dark mode.
-  const rimColor = isDark ? "#ea2845" : "#34a85a";
-  const rimColorSoft = isDark ? "#f16e82" : "#7ed9a0";
+  // Rim lights use the theme's red accent in both light and dark mode.
+  const rimColor = "#ea2845";
+  const rimColorSoft = "#f16e82";
 
   const handlePointerMove = (event) => {
     const bounds = event.currentTarget.getBoundingClientRect();

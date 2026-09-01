@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 /**
  * ParticleField
  * Sparse floating background particles creating depth behind the 2.5D/3D mascot.
- * Uses the theme's green/blue tones, slow drift, and subtle mouse parallax offset.
+ * Uses the theme's red accent, slow drift, and subtle mouse parallax offset.
  */
 function ParticleField({ mousePos = { x: 0, y: 0 }, compact = false, active = true }) {
   const canvasRef = useRef(null);
@@ -28,21 +28,15 @@ function ParticleField({ mousePos = { x: 0, y: 0 }, compact = false, active = tr
     window.addEventListener("resize", handleResize);
 
     const count = compact ? 12 : 28;
-    // Theme-aware: green primary in light mode, red primary ("NestJS Dark") in dark mode.
+    // Same red accent in both themes; only the contrast highlight flips —
+    // white reads against the dark surface, near-black against the light one.
     const isDark = document.documentElement.classList.contains("dark");
-    const colors = isDark
-      ? [
-          "rgba(234, 40, 69, ", // #ea2845 primary
-          "rgba(241, 110, 130, ", // #ea2845 primary, lighter tint
-          "rgba(156, 163, 175, ", // #9ca3af muted-foreground
-          "rgba(255, 255, 255, ", // white
-        ]
-      : [
-          "rgba(52, 168, 90, ", // #34a85a primary
-          "rgba(126, 217, 160, ", // #7ed9a0 primary, lighter tint
-          "rgba(163, 163, 163, ", // #a3a3a3 muted-foreground
-          "rgba(255, 255, 255, ", // white
-        ];
+    const colors = [
+      "rgba(234, 40, 69, ", // #ea2845 primary
+      "rgba(241, 110, 130, ", // #ea2845 primary, lighter tint
+      isDark ? "rgba(156, 163, 175, " : "rgba(107, 114, 128, ", // muted-foreground
+      isDark ? "rgba(255, 255, 255, " : "rgba(17, 17, 17, ", // contrast highlight
+    ];
 
     const particles = Array.from({ length: count }, () => ({
       x: Math.random() * width,
