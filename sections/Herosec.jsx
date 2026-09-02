@@ -1,6 +1,4 @@
-// TEMP: disabled to test whether the animated hero visual is causing the
-// Zanderio/Firecrawler sync to fail. Re-enable once confirmed either way.
-// import HeroVisual from "@/components/Hero/HeroVisual";
+import HeroVisual from "@/components/Hero/HeroVisual";
 import HeroContent from "@/components/Hero/HeroContent";
 
 function Herosec() {
@@ -63,10 +61,9 @@ function Herosec() {
         <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent to-background" />
       </div>
 
-      {/* TEMP: disabled for Zanderio/Firecrawler sync test — see import above */}
-      {/* <div className="absolute inset-x-0 top-[12%] z-20 mx-auto h-[44vh] max-h-[440px] w-full max-w-[620px] md:top-[9%] md:h-[50vh]">
+      <div className="absolute inset-x-0 top-[12%] z-20 mx-auto h-[44vh] max-h-[440px] w-full max-w-[620px] md:top-[9%] md:h-[50vh]">
         <HeroVisual />
-      </div> */}
+      </div>
 
       <div className="relative z-10 w-full max-w-3xl pt-[36vh] sm:pt-[38vh] md:pt-[42vh]">
         <HeroContent />
