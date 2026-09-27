@@ -2,14 +2,27 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { FaFilter, FaChevronDown, FaCheck } from "react-icons/fa6";
+import {
+  FaFilter,
+  FaChevronDown,
+  FaCheck,
+  FaArrowLeft,
+  FaArrowRight,
+  FaChevronLeft,
+  FaChevronRight,
+  FaGithub,
+  FaArrowUpRightFromSquare,
+  FaRegCalendarCheck,
+  FaRegPaperPlane,
+} from "react-icons/fa6";
 import PROJECTS_DATA from "./projectsData";
 
 const ITEMS_PER_PAGE = 4;
 
-function CaseStudyModal({ project, onClose }) {
-  const modalRef = useRef(null);
+function CaseStudyModal({ project, allProjects = [], onNavigate, onClose }) {
+  const scrollRef = useRef(null);
   const [isClosing, setIsClosing] = useState(false);
+  const [activeImg, setActiveImg] = useState(0);
 
   const handleClose = useCallback(() => {
     setIsClosing(true);
@@ -31,177 +44,464 @@ function CaseStudyModal({ project, onClose }) {
     };
   }, [handleClose]);
 
+  // Reset gallery + scroll position whenever the case study changes
+  useEffect(() => {
+    setActiveImg(0);
+    scrollRef.current?.scrollTo({ top: 0, behavior: "auto" });
+  }, [project?.id]);
+
   if (!project || !project.caseStudy) return null;
   const cs = project.caseStudy;
 
+  // Normalize data so both new (rich) and older projects render cleanly
+  const gallery =
+    project.gallery && project.gallery.length
+      ? project.gallery
+      : [{ src: project.image, caption: cs.tagline }];
+  const safeIdx = Math.min(activeImg, gallery.length - 1);
+  const current = gallery[safeIdx];
+
+  const role = cs.role || project.meta;
+  const type = cs.type || project.category;
+  const stackChips = cs.stack && cs.stack.length ? cs.stack : cs.technologies || [];
+  const liveLabel =
+    cs.liveLabel ||
+    (project.liveUrl ? project.liveUrl.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "") : "");
+
+  const brief = cs.brief || cs.problem;
+  const approach =
+    cs.approach && cs.approach.length
+      ? cs.approach
+      : (cs.highlights || []).map((h) => ({ title: h.name, desc: h.desc }));
+  const glance = cs.glance || cs.overview;
+  const shipped = cs.shipped && cs.shipped.length ? cs.shipped : cs.workedOn || [];
+  const hardParts = cs.hardParts || [];
+  const outcome =
+    cs.outcome && cs.outcome.length ? cs.outcome : [cs.impact].filter(Boolean);
+
+  const idx = allProjects.findIndex((p) => p.id === project.id);
+  const prevProject = idx > 0 ? allProjects[idx - 1] : null;
+  const nextProject =
+    idx >= 0 && idx < allProjects.length - 1 ? allProjects[idx + 1] : null;
+
+  const goToImg = (i) => setActiveImg((i + gallery.length) % gallery.length);
+  const goToContact = () => {
+    handleClose();
+    setTimeout(() => {
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    }, 260);
+  };
+
   return createPortal(
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-black/85 transition-all duration-300 ease-out ${
-        isClosing ? "opacity-0 backdrop-blur-none" : "opacity-100 backdrop-blur-2xl animate-in fade-in"
+      ref={scrollRef}
+      className={`fixed inset-0 z-50 overflow-y-auto bg-background text-foreground transition-opacity duration-300 ease-out [scrollbar-width:thin] ${
+        isClosing ? "opacity-0" : "opacity-100 animate-in fade-in"
       }`}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) handleClose();
-      }}
     >
-      <button
-        onClick={handleClose}
-        className="fixed top-4 right-4 z-[60] flex h-10 w-10 items-center justify-center rounded-full border border-black/15 dark:border-white/15 bg-card/90 text-foreground/70 backdrop-blur-md shadow-lg transition-all duration-300 hover:bg-black/20 hover:dark:bg-white/20 hover:text-foreground hover:scale-110 cursor-pointer active:scale-95 sm:top-6 sm:right-6 sm:h-11 sm:w-11 lg:top-8 lg:right-8"
-        title="Close Modal (Esc)"
-      >
-        ✕
-      </button>
-
+      {/* Ambient background glow */}
       <div
-        ref={modalRef}
-        className={`relative w-full max-w-6xl max-h-[92vh] overflow-y-auto rounded-3xl border border-black/10 dark:border-white/10 bg-card p-6 sm:p-10 lg:p-12 text-foreground shadow-[0_30px_90px_rgba(0,0,0,0.95)] transition-all duration-300 transform ease-out ${
-          isClosing
-            ? "opacity-0 scale-95 translate-y-4"
-            : "opacity-100 scale-100 translate-y-0 animate-in zoom-in-95"
-        } [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden`}
-      >
+        aria-hidden="true"
+        className="pointer-events-none fixed left-1/2 top-0 h-[420px] w-[min(95vw,900px)] -translate-x-1/2 rounded-full bg-primary/[0.10] blur-[150px]"
+      />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start border-b border-black/10 dark:border-white/10 pb-10">
-          <div className="lg:col-span-5 relative overflow-hidden rounded-2xl border border-black/15 dark:border-white/15 bg-black/50 shadow-2xl">
-            <img
-              src={project.image}
-              alt={cs.title}
-              className="w-full aspect-[16/10] object-cover object-top"
-            />
+      {/* Top bar */}
+      <header className="sticky top-0 z-40 border-b border-black/10 dark:border-white/10 bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
+          <div className="flex min-w-0 items-center gap-3 text-sm">
+            <button
+              onClick={handleClose}
+              className="inline-flex items-center gap-2 rounded-full px-2.5 py-1.5 font-medium text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
+            >
+              <FaArrowLeft className="text-xs" />
+              <span>All work</span>
+            </button>
+            <span className="h-4 w-px bg-black/15 dark:bg-white/15" />
+            <span className="truncate font-semibold text-foreground">{cs.title}</span>
           </div>
-
-          <div className="lg:col-span-7 flex flex-col justify-between h-full">
-            <div>
-              <div className="flex items-center gap-3">
-                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-                  {cs.title}
-                </h2>
-              </div>
-              <p className="mt-3 text-base sm:text-lg leading-relaxed text-primary/90 font-medium">
-                {cs.tagline}
-              </p>
-              <p className="mt-3.5 text-sm leading-relaxed text-muted-foreground/90">
-                {cs.overview}
-              </p>
-            </div>
-
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-black/10 dark:border-white/10 pt-6">
-              <div>
-                <span className="text-[0.7rem] uppercase font-mono font-bold tracking-widest text-muted-foreground block">
-                  Product / Category
-                </span>
-                <span className="mt-1.5 text-xs font-semibold text-foreground block">
-                  {cs.category}
-                </span>
-              </div>
-              <div>
-                <span className="text-[0.7rem] uppercase font-mono font-bold tracking-widest text-muted-foreground block">
-                  Role
-                </span>
-                <span className="mt-1.5 text-xs font-semibold text-foreground block">
-                  {cs.role}
-                </span>
-              </div>
-              <div>
-                <span className="text-[0.7rem] uppercase font-mono font-bold tracking-widest text-muted-foreground block">
-                  Focus
-                </span>
-                <span className="mt-1.5 text-xs font-semibold text-foreground block">
-                  {cs.focus}
-                </span>
-              </div>
-            </div>
+          <div className="flex shrink-0 items-center gap-2">
+            {project.liveUrl && project.liveUrl !== "#" && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-md transition-all duration-300 hover:scale-105 active:scale-95"
+              >
+                <FaArrowUpRightFromSquare className="text-[0.7rem]" />
+                <span className="hidden sm:inline">Live site</span>
+              </a>
+            )}
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View source on GitHub"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-black/15 dark:border-white/15 text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <FaGithub />
+              </a>
+            )}
+            <button
+              onClick={handleClose}
+              aria-label="Close case study"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-black/15 dark:border-white/15 text-muted-foreground transition-all hover:text-foreground hover:scale-110 cursor-pointer active:scale-95"
+            >
+              ✕
+            </button>
           </div>
         </div>
+      </header>
 
-        <div className="mt-10 space-y-10">
-          <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-card p-6 sm:p-8 shadow-xl">
-            <h3 className="text-lg font-bold text-foreground tracking-wide">
-              The Impact I Created
-            </h3>
-            <p className="mt-3.5 text-sm leading-relaxed text-muted-foreground">
-              {cs.impact}
-            </p>
+      <div className="mx-auto max-w-6xl px-4 pb-24 sm:px-6">
+        {/* Hero */}
+        <section className="pt-12 sm:pt-16">
+          <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            <span>{String(idx + 1).padStart(2, "0")}</span>
+            <span className="inline-flex items-center gap-1.5 text-primary">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              {type}
+            </span>
+          </div>
+          <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+            {cs.title}
+          </h1>
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            {cs.tagline}
+          </p>
 
-            <div className="mt-6 pt-4 border-t border-black/10 dark:border-white/10 flex items-center justify-between">
-              <span className="text-primary font-mono font-semibold text-xs uppercase tracking-wider">
-                ▲ Product Experience Optimization
+          {/* Meta row */}
+          <div className="mt-10 grid grid-cols-2 gap-6 border-t border-black/10 dark:border-white/10 pt-6 sm:grid-cols-4">
+            {[
+              { label: "Role", value: role },
+              { label: "Type", value: type },
+              { label: "Stack", value: `${stackChips.length} technologies` },
+              { label: "Live", value: liveLabel, href: project.liveUrl },
+            ].map((m) => (
+              <div key={m.label}>
+                <span className="block font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">
+                  {m.label}
+                </span>
+                {m.href && m.href !== "#" ? (
+                  <a
+                    href={m.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1.5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+                  >
+                    {m.value}
+                    <FaArrowUpRightFromSquare className="text-[0.6rem]" />
+                  </a>
+                ) : (
+                  <span className="mt-1.5 block text-sm font-semibold text-foreground">
+                    {m.value}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Gallery */}
+        <section className="mt-12">
+          <div className="relative overflow-hidden rounded-2xl border border-black/10 dark:border-white/10 bg-[#0c0c0e] shadow-2xl">
+            {/* Browser chrome */}
+            <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-white/[0.04] px-4 py-2.5">
+              <div className="flex items-center gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+              </div>
+              {liveLabel && (
+                <span className="max-w-[60%] truncate rounded-md bg-white/[0.06] px-3 py-1 font-mono text-[0.7rem] text-white/60">
+                  {liveLabel}
+                </span>
+              )}
+              <span className="font-mono text-[0.7rem] font-semibold text-white/70">
+                {safeIdx + 1}/{gallery.length}
               </span>
             </div>
-          </div>
 
-          <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-card p-6 sm:p-8">
-            <h3 className="text-lg font-bold text-foreground mb-4 tracking-wide">
-              What I Worked On
-            </h3>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-sm text-muted-foreground">
-              {cs.workedOn.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-3">
-                  <span className="h-2 w-2 rounded-full bg-primary mt-2 shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {cs.highlights && cs.highlights.length > 0 && (
-            <div>
-              <h3 className="text-lg font-bold text-foreground mb-5 tracking-wide">
-                Product Highlights
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {cs.highlights.map((hl, idx) => (
-                  <div
-                    key={idx}
-                    className="rounded-2xl border border-black/10 dark:border-white/10 bg-card p-5 transition-all duration-300 hover:border-black/20 hover:dark:border-white/20"
-                  >
-                    <h4 className="text-base font-semibold text-foreground">{hl.name}</h4>
-                    <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">{hl.desc}</p>
-                  </div>
-                ))}
+            {/* Scrollable, full-width screenshot */}
+            <div className="relative">
+              <div className="max-h-[72vh] overflow-y-auto bg-black/60 [scrollbar-width:thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/20">
+                <img
+                  key={current.src}
+                  src={current.src}
+                  alt={current.caption || cs.title}
+                  className="block w-full h-auto object-top animate-in fade-in duration-500"
+                />
               </div>
+              {gallery.length > 1 && (
+                <>
+                  <button
+                    onClick={() => goToImg(safeIdx - 1)}
+                    aria-label="Previous image"
+                    className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur transition-all hover:bg-black/70 hover:scale-110 cursor-pointer active:scale-95"
+                  >
+                    <FaChevronLeft className="text-sm" />
+                  </button>
+                  <button
+                    onClick={() => goToImg(safeIdx + 1)}
+                    aria-label="Next image"
+                    className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur transition-all hover:bg-black/70 hover:scale-110 cursor-pointer active:scale-95"
+                  >
+                    <FaChevronRight className="text-sm" />
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+          {current.caption && (
+            <p className="mt-3 text-center text-xs text-muted-foreground">{current.caption}</p>
+          )}
+          {gallery.length > 1 && (
+            <div className="mt-4 flex flex-wrap justify-center gap-3">
+              {gallery.map((g, i) => (
+                <button
+                  key={g.src}
+                  onClick={() => setActiveImg(i)}
+                  aria-label={`View image ${i + 1}`}
+                  className={`h-14 w-24 overflow-hidden rounded-lg border transition-all duration-300 cursor-pointer ${
+                    i === safeIdx
+                      ? "border-primary ring-2 ring-primary/40 scale-105"
+                      : "border-black/15 dark:border-white/15 opacity-60 hover:opacity-100"
+                  }`}
+                >
+                  <img src={g.src} alt="" className="h-full w-full object-cover" />
+                </button>
+              ))}
             </div>
           )}
+        </section>
 
-          <div className="pt-6 border-t border-black/10 dark:border-white/10">
-            <span className="text-xs uppercase font-mono font-bold tracking-widest text-muted-foreground block mb-4">
-              Technologies Used
-            </span>
-            <div className="flex flex-wrap gap-2.5">
-              {cs.technologies.map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded-full border border-black/15 dark:border-white/15 bg-black/[0.05] dark:bg-white/[0.05] px-4 py-1.5 text-xs font-medium text-foreground"
-                >
-                  {tech}
+        {/* Content + sidebar */}
+        <section className="mt-16 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="lg:col-span-8">
+            {/* The brief */}
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">The brief</span>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">What needed solving</h2>
+            <p className="mt-4 text-[0.95rem] leading-relaxed text-muted-foreground">{brief}</p>
+
+            {/* Approach */}
+            {approach.length > 0 && (
+              <>
+                <span className="mt-14 block font-mono text-xs uppercase tracking-[0.2em] text-primary">
+                  Approach
                 </span>
+                <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">How it was built</h2>
+                <div className="mt-6 space-y-8">
+                  {approach.map((a, i) => (
+                    <div key={i} className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-primary" />
+                        {i < approach.length - 1 && (
+                          <span className="mt-2 w-px flex-1 bg-black/10 dark:bg-white/10" />
+                        )}
+                      </div>
+                      <div className="pb-2">
+                        <h3 className="flex items-baseline gap-2 text-base font-semibold text-foreground">
+                          <span className="font-mono text-xs text-muted-foreground">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          {a.title}
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{a.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* At a glance sidebar */}
+          <aside className="lg:col-span-4">
+            <div className="lg:sticky lg:top-24 rounded-2xl border border-black/10 dark:border-white/10 bg-card/70 p-6 backdrop-blur-xl shadow-xl">
+              <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">
+                At a glance
+              </span>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{glance}</p>
+
+              {stackChips.length > 0 && (
+                <>
+                  <span className="mt-6 block font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">
+                    Stack
+                  </span>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {stackChips.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-md border border-primary/25 bg-primary/10 px-2.5 py-1 text-[0.7rem] font-medium text-primary"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              <div className="mt-6 space-y-2.5">
+                {project.liveUrl && project.liveUrl !== "#" && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground shadow-md transition-all hover:scale-[1.02] active:scale-95"
+                  >
+                    <FaArrowUpRightFromSquare className="text-xs" />
+                    Visit live site
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex w-full items-center justify-center gap-2 rounded-lg border border-black/15 dark:border-white/15 bg-black/[0.04] dark:bg-white/[0.04] px-4 py-2.5 text-sm font-semibold text-foreground transition-all hover:bg-black/10 hover:dark:bg-white/10"
+                  >
+                    <FaGithub />
+                    View GitHub
+                  </a>
+                )}
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        {/* What shipped */}
+        {shipped.length > 0 && (
+          <section className="mt-16">
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">Scope</span>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">What shipped</h2>
+            <div className="mt-6 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+              {shipped.map((item, i) => (
+                <div
+                  key={i}
+                  className="flex items-start gap-3 rounded-xl border border-black/10 dark:border-white/10 bg-card/50 p-4"
+                >
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                  <span className="text-sm text-muted-foreground">{item}</span>
+                </div>
               ))}
             </div>
-          </div>
+          </section>
+        )}
 
-          <div className="mt-10 rounded-2xl border border-black/15 dark:border-white/15 bg-card p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5">
-            <p className="text-sm italic text-muted-foreground max-w-2xl">
-              &quot;{cs.closing}&quot;
-            </p>
-            <div className="flex items-center gap-3 shrink-0">
-              {project.liveUrl && project.liveUrl !== "#" && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full border border-black/20 dark:border-white/20 bg-white px-6 py-2.5 text-xs sm:text-sm font-bold text-black transition-all duration-300 hover:bg-foreground hover:scale-105 active:scale-95 shadow-md"
+        {/* The hard parts */}
+        {hardParts.length > 0 && (
+          <section className="mt-16">
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
+              Engineering notes
+            </span>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">The hard parts</h2>
+            <div className="mt-6 space-y-5">
+              {hardParts.map((hp, i) => (
+                <div
+                  key={i}
+                  className="overflow-hidden rounded-2xl border border-black/10 dark:border-white/10 bg-card/50"
                 >
-                  {project.liveButtonText}
-                </a>
-              )}
-              <button
-                onClick={handleClose}
-                className="rounded-full border border-black/20 dark:border-white/20 bg-black/[0.08] dark:bg-white/[0.08] px-6 py-2.5 text-xs sm:text-sm font-semibold text-foreground transition-all duration-300 hover:bg-black/20 hover:dark:bg-white/20 cursor-pointer active:scale-95"
-              >
-                Close
-              </button>
+                  <div className="p-5 sm:p-6">
+                    <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">
+                      Challenge
+                    </span>
+                    <p className="mt-2 text-sm leading-relaxed text-foreground">{hp.challenge}</p>
+                  </div>
+                  <div className="border-t border-black/10 dark:border-white/10 bg-primary/[0.04] p-5 sm:p-6">
+                    <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-primary">
+                      Solution
+                    </span>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{hp.solution}</p>
+                  </div>
+                </div>
+              ))}
             </div>
+          </section>
+        )}
+
+        {/* Outcome */}
+        {outcome.length > 0 && (
+          <section className="mt-16">
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">Outcome</span>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">Where it landed</h2>
+            <ol className="mt-6 space-y-4">
+              {outcome.map((o, i) => (
+                <li key={i} className="flex items-start gap-4">
+                  <span className="font-mono text-xs text-muted-foreground">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-sm leading-relaxed text-muted-foreground">{o}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {/* Prev / Next case study */}
+        {(prevProject || nextProject) && (
+          <section className="mt-20 grid grid-cols-1 gap-4 border-t border-black/10 dark:border-white/10 pt-10 sm:grid-cols-2">
+            {prevProject ? (
+              <button
+                onClick={() => onNavigate?.(prevProject)}
+                className="group rounded-2xl border border-black/10 dark:border-white/10 bg-card/50 p-6 text-left transition-all hover:border-primary/40 hover:bg-card cursor-pointer"
+              >
+                <span className="inline-flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">
+                  <FaArrowLeft className="text-[0.6rem]" /> Previous case study
+                </span>
+                <h3 className="mt-3 text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                  {prevProject.caseStudy?.title || prevProject.title}
+                </h3>
+                <p className="mt-1.5 text-xs text-muted-foreground line-clamp-2">
+                  {prevProject.caseStudy?.tagline || prevProject.description}
+                </p>
+              </button>
+            ) : (
+              <span className="hidden sm:block" />
+            )}
+            {nextProject && (
+              <button
+                onClick={() => onNavigate?.(nextProject)}
+                className="group rounded-2xl border border-black/10 dark:border-white/10 bg-card/50 p-6 text-right transition-all hover:border-primary/40 hover:bg-card cursor-pointer"
+              >
+                <span className="inline-flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">
+                  Next case study <FaArrowRight className="text-[0.6rem]" />
+                </span>
+                <h3 className="mt-3 text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                  {nextProject.caseStudy?.title || nextProject.title}
+                </h3>
+                <p className="mt-1.5 text-xs text-muted-foreground line-clamp-2">
+                  {nextProject.caseStudy?.tagline || nextProject.description}
+                </p>
+              </button>
+            )}
+          </section>
+        )}
+
+        {/* CTA */}
+        <section className="mt-16 rounded-3xl border border-black/10 dark:border-white/10 bg-card/60 px-6 py-12 text-center backdrop-blur-xl">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            Have something like this to build?
+          </h2>
+          <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
+            This project went from design through deployment. Yours could be next.
+          </p>
+          <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <button
+              onClick={goToContact}
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            >
+              <FaRegCalendarCheck className="text-xs" />
+              Book a Meeting
+            </button>
+            <button
+              onClick={goToContact}
+              className="inline-flex items-center gap-2 rounded-full border border-black/15 dark:border-white/15 bg-black/[0.04] dark:bg-white/[0.04] px-6 py-3 text-sm font-semibold text-foreground transition-all hover:bg-black/10 hover:dark:bg-white/10 cursor-pointer active:scale-95"
+            >
+              Send a message
+              <FaRegPaperPlane className="text-xs" />
+            </button>
           </div>
-        </div>
+        </section>
       </div>
     </div>,
     document.body
@@ -288,7 +588,7 @@ function ScrollingScreenshot({ src, alt }) {
   return (
     <div
       ref={frameRef}
-      className="aspect-[16/8] overflow-hidden relative"
+      className="aspect-[16/11] overflow-hidden relative"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -650,6 +950,8 @@ function Projects() {
       {selectedCaseStudy && (
         <CaseStudyModal
           project={selectedCaseStudy}
+          allProjects={PROJECTS_DATA}
+          onNavigate={setSelectedCaseStudy}
           onClose={() => setSelectedCaseStudy(null)}
         />
       )}

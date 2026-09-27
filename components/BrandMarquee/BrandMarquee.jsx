@@ -32,12 +32,12 @@ function BrandMarquee() {
   return (
     <section
       aria-label="Companies and products I've worked with"
-      className="relative w-full bg-[#2f3436] border-y border-white/[0.06] py-7 md:py-9 overflow-hidden font-sans select-none z-10"
+      className="relative w-full bg-foreground/[0.03] backdrop-blur-xl border-y border-black/10 dark:border-white/10 py-7 md:py-9 overflow-hidden font-sans select-none z-10"
     >
-      <div className="absolute inset-0 pointer-events-none bg-radial from-white/[0.02] to-transparent opacity-60" />
+      <div className="absolute inset-0 pointer-events-none bg-radial from-foreground/[0.02] to-transparent opacity-60" />
 
-      <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-24 md:w-36 bg-gradient-to-r from-[#2f3436] to-transparent z-20" />
-      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-24 md:w-36 bg-gradient-to-l from-[#2f3436] to-transparent z-20" />
+      <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-24 md:w-36 bg-gradient-to-r from-background to-transparent z-20" />
+      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-24 md:w-36 bg-gradient-to-l from-background to-transparent z-20" />
 
       <div className="group relative w-full overflow-hidden flex items-center">
         <div className="animate-marquee-track flex items-center gap-6 sm:gap-8 md:gap-12 shrink-0">
